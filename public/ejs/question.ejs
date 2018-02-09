@@ -1,0 +1,27 @@
+<div class="container" ng-init="getQuestion()">
+    <div class="row">
+        <div class="col-lg-8" style="padding: 10%;">
+            <span>{{data.queData.qno}}</span>.<span>{{data.queData.que}}</span><br>
+            <img src="{{data.queData.imageUrl[0]}}" alt="image" height="100" width="100" ng-hide="data.queData.imageUrl[0]===''">
+            <img src="{{data.queData.imageUrl[1]}}" alt="image" height="100" width="100" ng-hide="data.imageUrl[1]===''">
+            <br>
+            <label for="ans">Your Answer</label><br><input type="text" id="ans" ng-model="player.answer"><button ng-click="sendResponse()">Submit</button>
+        </div>
+        <div class="col-lg-8">
+            <button class="btn btn-primary" onclick="$('#mlb').toggle('2000');" ng-click="getMiniLeaderboard()">Mini leaderboard</button>
+            <a href="#!leaderboard">
+                <button class="btn btn-danger"> LeaderBoard</button>
+            </a><br>
+            <div id="mlb" class="mlb text-primary" style="display: none;" >
+                <li ng-hide="userRank==1 || userRank==2">{{dataset.topper.username}} : {{dataset.topper.rank}}</li>
+                <div ng-hide="userRank==1 || userRank==2 || userRank ==3">
+                    <br><b class="text-warning">...</b>
+                    <br><b class="text-warning">...</b>
+                </div>
+                <br><li ng-hide="userRank==1">{{dataset.userTop.username}} : {{dataset.userTop.rank}}</li>
+                <br><li>{{dataset.user.username}} : {{dataset.user.rank}}</li>
+                <br><li ng-if="dataset.userBottom.username">{{dataset.userBottom.username}} : {{dataset.userBottom.rank}}</li>
+            </div>
+        </div>
+    </div>
+</div>

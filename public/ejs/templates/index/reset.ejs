@@ -1,0 +1,27 @@
+<div>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container" style="top:20%">
+                <h3 style="font-size:4em" id='lead'>Reset Password</h3>
+                <br>
+                <form>
+                    <h4 id='passerr'></h4>
+                    <input type='password' name='password' value='' id='password' placeholder='New password' ng-model="player.password"></input>
+                    <br>
+                    <input type='password' name='confirm' id='confirm_password' value='' placeholder='Confirm password' ng-model="player.confirm"></input>
+                    <br>
+                    <button type='submit' id='regbtn' ng-mobile-click="resetPassword()" style="background-color:transparent;color:white;border:1px solid white;border-radius:2px">Update Password</button>
+                </form>
+                <div class="msg-container">
+                    <p class="text-warning" ng-model="msg">{{msg}}</p>
+                </div>
+                <img id='nipun' src="../images/img/logoplus.png" width="20%" height="auto" style="margin-top:4em">
+            </div>
+        </div>
+    </header>
+
+<script src="../javascripts/js/reset1.js"></script>
+
+</div>

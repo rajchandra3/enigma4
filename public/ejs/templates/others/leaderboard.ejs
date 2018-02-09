@@ -1,0 +1,73 @@
+<style>
+  table {
+    font-family: arial, sans-serif;
+    font-size:0.8em;
+    border:0;
+    border-collapse: collapse;
+    width: 100%;
+
+  }
+
+  td, th {
+    text-align: center;
+    padding: 8px;
+    border: 0;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(200,200,200);
+    color: white;
+    border: 0;
+  }
+
+  tr:nth-child(odd) {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: 0;
+  }
+  h3{
+    margin-right: 50%;
+    text-align: center;
+    transform: translate(50%,0);
+  }
+  .tableHolder{
+    width:100%;
+    position:fixed;
+    z-index:500;
+    height:80vh;
+    text-align:center;
+    text-decoration:none;
+    overflow-y:scroll;
+  }
+</style>
+
+<div class="containter" style="background-color: #000000dd;" ng-init="getLeaderboard()">
+  <div class="navbar navbar-light">
+    <button class="btn btn-dark float-left" ng-click="sendBack()" ng-mobile-click="sendBack()" >Go back</button>
+    <!--<i class="fa fa-angle-left" ng-mobile-click="sendBack()" style="float:left;margin-left:2%;font-size:3em;vertical-align:center;cursor:pointer;" aria-hidden="true"></i>-->
+    <h3> LEADERBOARD </h3>
+  </div>
+  <div class="tableHolder">
+    <table id='table'>
+      <tr>
+        <th>RANK</th>
+        <th>NAME</th>
+        <th>ATTEMPTS</th>
+        <th>SCORE</th>
+        <th>QUESTION</th>
+      </tr>
+      <tr ng-repeat="data in leaderboard">
+        <td>{{$index+1}}</td>
+        <td>{{data.name | uppercase}}</td>
+        <td>
+          <button class="btn btn-dark" ng-click="getAttempts(data.name)"><span ng-if="result.name != data.name" style="font-weight:small;">view</span><span ng-if="result.name == data.name">{{result.attempts}}</span></button>{{attempts}}</td>
+        <td>{{data.score}}</td>
+        <td>{{data.currqno}}</td>
+      </tr>
+    </table>
+  </div>
+
+    <script src="../javascripts/js/leaderboard.js"></script>
+
+
+</div>

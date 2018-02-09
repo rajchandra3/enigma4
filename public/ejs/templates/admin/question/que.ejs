@@ -1,0 +1,23 @@
+<div>
+    <a href="#!Qadd">
+        <button class="btn btn-danger">Add Question</button>
+    </a>
+    <div class="card-columns" ng-init="getQuestion()"  style="margin: 10px;">
+            <div class="card" ng-repeat="data in question | filter: searchBox | orderBy : 'qno'"  style="margin-bottom:1% ;" >
+                <img src="{{data.imageUrl[0]}}" alt="post image" class="card-img-top" width="100%" height="100%" ng-hide="data.imageUrl[0]===''">
+                <div class="card-block">
+                    <!--<h4 class="card-title">{{data.title}}</h4>-->
+                    <p class="text">{{data.qno}} . {{data.que}}</p><br>
+                    <p class="text">Correct Ans: {{data.cans}}</p><br>
+                    <p class="text">Close Ans: {{data.ans}}</p>
+                    <p class="text">Hint: {{data.hint}}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#!Qedit/{{data._id}}"><strong class="text-success" style="float: left; margin-left: 17%;">Edit</strong></a>
+                   <strong class="text-primary" style="margin: 0 5% 0 19%;">|</strong>
+                    <a href="#!q" ng-click="deleteQuestion(data._id)"><strong class="text-danger" style="float: right; margin-right: 20%;">Delete</strong></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

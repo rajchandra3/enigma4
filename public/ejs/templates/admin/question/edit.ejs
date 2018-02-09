@@ -1,0 +1,13 @@
+<div ng-init="findQuestion()" style="padding: 0 15% 15% 15%;">
+    <form ng-submit="updateQuestion()" class="form">
+        que : <input class="form-control" type="text" ng-model="question.que"><br>
+        qno : <input class="form-control" type="text" ng-model="question.qno"><br>
+        close ans : <input class="form-control" type="text" ng-model="question.ans"><br>
+        correct ans : <input class="form-control" type="text" ng-model="question.cans"><br>
+        hint : <input class="form-control" type="text" ng-model="question.hint"><br>
+        imageUrl : <input class="form-control" type="text" ng-model="question.imageUrl"><br>
+        audioUrl : <input class="form-control" type="text" ng-model="question.audioUrl"><br>
+        special : <input class="form-control" type="text" ng-model="question.special" placeholder="t or f"><br>
+        <button type="submit" class="btn btn-danger">Submit Changes</button>
+    </form>
+</div>

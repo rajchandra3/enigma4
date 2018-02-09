@@ -1,0 +1,23 @@
+
+<div>
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container" style="top:20%">
+                <h3 style="font-size:5em" id='lead'>Forgot Password</h3>
+                <br>
+                <form>
+                    <input id='eml' type='text' name='email' ng-model="player.email" placeholder="Email ID" style="width:25%;font-family:Alternate_Gothic;font-weight:strong;letter-spacing:2px"></input>
+                    <br>
+                    <p id='sent'></p>
+                    <button ng-mobile-click="forgotEmailGen()" id='subdub' type='submit' style="font-weight:lighter;letter-spacing:2px;font-size:1em;color:white; background-color:rgba(0,0,0,0.5); border:0px; width:15%;padding-top:5px;padding-bottom:5px">RESET</button>
+                </form>
+                <div class="msg-container">
+                    <p class="text-warning" ng-model="msg">{{msg}}</p>
+                </div>
+                <img id='nipun' src="./images/img/logoplus.png" width="20%" height="auto" style="margin-top:5em">
+            </div>
+        </div>
+    </header>
+<script src="./javascripts/js/forgot.js"></script>
+</div>
