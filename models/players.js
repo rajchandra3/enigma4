@@ -12,7 +12,6 @@ var playerSchema = new Schema({
     reg_no:{type : String},
     organisation: {type : String,default: "VIT University"},
     email:{type : String,unique : true,required: true},
-    mode:{required : true,type : Number,default : 0},
     phone:{type : String, required : true},
     date:{type:Date, default: Date.now},//to track the time of registration
     authcomp:{type: Boolean, default: false},
@@ -40,7 +39,7 @@ playerSchema.methods.verifyPassword = function (password, callback) {
     });
 };
 
-var player =module.exports = mongoose.model('jaadu', playerSchema);
+var player =module.exports = mongoose.model('enigma4', playerSchema);
 
 //Finding the Player by Id
 module.exports.findCurrentPlayerId =function (id, callback) {

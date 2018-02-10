@@ -1,0 +1,74 @@
+.btn-white{
+  background-color: white;
+  color: black;
+}
+
+.text-center{
+  text-align: center;
+}
+
+/*fonts*/
+@font-face {
+    font-family: Elianto;
+    src: url(../fonts/Elianto-Regular.ttf);
+}
+
+body{
+  font-family: Elianto;
+  color: black;
+}
+
+nav{
+  vertical-align: middle;
+}
+
+.helvetica{
+  font-family: helvetica;
+}
+
+.vertical-center{
+  margin-top: 50vh;
+  transform: translate(0%,-50%);
+}
+
+.horizontal-center{
+  margin-left: 50% !important;
+  transform: translate(-50%,0%);
+}
+
+.prompt{
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.btn{
+  font-family: Elianto;
+  font-weight: lighter;
+  margin:10px;
+  cursor: pointer;
+}
+
+img{
+  width: 60%;
+  height: auto;
+}
+
+.answer-field{
+  margin-top: 20px;
+  width: 50% !important;
+}
+
+.navicon{
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.spacing-top{
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.bg-off-black{
+  background-color: rgb(41,43,44);
+}

@@ -1,0 +1,57 @@
+/*fonts*/
+@font-face {
+    font-family: Elianto;
+    src: url(../fonts/Elianto-Regular.ttf);
+}
+
+body{
+  font-family: Elianto;
+}
+
+.helvetica{
+  font-family: helvetica;
+}
+
+.vertical-placing{
+  padding-top: 50vh;
+}
+
+.vertical-center{
+  transform: translate(0,-50%);
+}
+
+.horizontal-center{
+  margin-left: 50% !important;
+  transform: translate(-50%,0%);
+}
+
+.prompt{
+  font-size: 0.8em;
+  text-align: center;
+  font-family: helvetica;
+}
+
+.btn{
+  font-family: Elianto;
+  font-weight: lighter;
+  margin:10px;
+  background-color: white;
+  border-color: rgb(41,43,44);
+  color: rgb(41,43,44);
+  cursor: pointer;
+}
+
+.padding-top-10{
+  padding-top: 10vh;
+}
+
+.transition-delay{
+    -webkit-transition-duration: 5s; /* Safari */
+    -webkit-transition-delay: 2s; /* Safari */
+    transition-duration: 5s;
+    transition-delay: 2s;
+}
+
+.text-bold{
+  font-weight: bolder;
+}

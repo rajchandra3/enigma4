@@ -1,0 +1,60 @@
+h1{
+  letter-spacing: 0.2em;
+}
+
+.alert{
+  font-size: 0.5em;
+  background-color: transparent;
+}
+
+.modal-header{
+  background-color: rgb(41,43,44);;
+  color:white;
+}
+
+.close{
+  color:white;
+}
+
+.close :hover{
+  color: white;
+}
+
+img{
+  width:40%;
+  height: auto;
+}
+
+@media (min-width: 1024px){
+  h1{
+    font-size: 8em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px){
+  h1{
+    font-size: 5em;
+  }
+}
+
+.parallax {
+    height: 100vh;
+}
+
+a{
+  text-decoration: none!important;
+  color: inherit!important;
+}
+
+#signUpForm{
+  display: none;
+}
+
+#loginForm{
+  display: block;
+}
+
+.modal{
+  margin-top: 50vh;
+  transform: translate(0,-50%);
+}

@@ -1,4 +1,3 @@
-
 var express     = require('express');
 require('dotenv').config();
 var path        = require('path');
@@ -37,7 +36,7 @@ app.use('/cookiemonster',cookiemonster);
 
 //for user Logout
 app.get('/logout',function (req,res) {
-    res.clearCookie("enigmaPlayer-access-token");
+    res.clearCookie(process.env.TOKEN_NAME);
     res.redirect('/');
 });
 
@@ -46,9 +45,7 @@ process.on('uncaughtException', function(err) {
 });
 
 //CONNECTING TO MONGODB ON START
-mongoose.connect("mongodb://raj:raj@ds125183.mlab.com:25183/enigma2k17b", function(err) {
-    //mongodb://raj:raj@ds125183.mlab.com:25183/enigma2k17b
-    //mongodb://localhost:27017/enigma2k17b
+mongoose.connect(process.env.MONGODB, function(err) {
     if (err) {
         console.log(err);
         //process.exit(1);

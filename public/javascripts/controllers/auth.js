@@ -32,6 +32,7 @@ app.config(function($routeProvider){
 app.controller('authController',['$scope','$http','$location','$rootScope',function ($scope,$http,$location,$rootScope) {
 
     $scope.getRegistered = function () {
+        $scope.msg = "Saving your credentials...";
         if($scope.player.name == '' || $scope.player.name===undefined){
             $scope.msg = "Name can't be empty ! ";
         }
@@ -40,7 +41,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response
-                switch (parseInt($scope.resData.code)) {
+                switch ($scope.resData.code) {
                     case 1:
                         $scope.msg = "Please verify your email to compelete the registration. Check spam if not found.";
                         break;
@@ -77,26 +78,14 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         }
 
         function checkCookie() {
-            var user=getCookie("enigmaPlayer-access-token");
+            var user=getCookie("enigma4-access-token");
             if (user) {
-                $http.get('/dashboard/currentUser').then(success, error);
-                function success(response) {
-                    $scope.mode = response.data.mode;
-                    switch($scope.mode){
-                        case 0:
-                            // window.location.href = '/timer';
-                            window.location.href = '/dashboard/selectMode';
-                            break;
-                        default:
-                            window.location.href = '/dashboard';
-                    }
+                window.location.href = '/dashboard';
                 }
-
                 function error(error) {
                     console.log("Mode could not be Obtained !" + error);
                 }
             }
-        }
         checkCookie();
     }
 
@@ -110,18 +99,14 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
 
             function successCallback(response) {
                 $scope.resData = response.data;
-                switch (parseInt($scope.resData.code)) {
+                console.log($scope.resData);
+                switch ($scope.resData.code) {
                     case 0:
                         $scope.msg = $scope.resData.message;
                         break;
                     case 1:
                         $scope.msg = "Success ! We are redirecting you to Enigma.";
-                        if($scope.resData.user.mode==0)
-                            // window.location.href = '/timer';
-                            window.location.href = '/dashboard/selectMode';
-                        else if($scope.resData.user.mode==1 || $scope.resData.user.mode==2 )
-                            // window.location.href = '/timer';
-                            window.location.href = '/dashboard';
+                        window.location.href = '/timer';
                         break;
                 }
             }

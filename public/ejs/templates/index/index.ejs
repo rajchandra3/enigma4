@@ -1,116 +1,81 @@
-<!-- Intro Header -->
-<header class="intro">
-    <div class="intro-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-8 mx-auto">
-                    <h1 class="brand-heading" onmouseover="trip(this)" onmouseout="untrip(this)"><u>E</u> N I G M A</h1>
-                    <p class="intro-text">AN ONLINE CRYPTIC HUNT</p>
-                    <button id="myBtn1" class="btn btn-indexed" onmousemove="trip1(this)" onmouseout="untrip1(this)">
-                        LOGIN
-                    </button>
-                    <br>
-                    <br>
-                    <button id="myBtn2" class="btn btn-indexed" onmousemove="trip1(this)" onmouseout="untrip1(this)">
-                        REGISTER
-                    </button>
-                    <br>
-                    <img class="ieee-logo" src="./images/img/logoplus.png">
-                </div>
+
+<!--Template CSS-->
+<link rel="stylesheet" href="assets/css/indexTemplate.css">
+
+<div class="container parallax vertical-placing">
+
+    <div class="vertical-center text-center">
+        <h1>ENIGMA</h1>
+        <button type="button" class="btn"><a href="#getStarted">GET STARTED</a></button>
+    </div>
+
+</div>
+
+<div class="container parallax transition-delay" id="getStarted">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="padding-top-10">
+                <h2 class="text-center"> LOGIN </h2>
+                <form class="form" ng-submit="getLogin()">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
+                    </div>
+                    <div class="message-container">
+                        <div class="alert alert-success" role="alert" ng-if="resData.code == 1">
+                            <strong ng-model="msg">{{msg}}</strong>
+                        </div>
+                        <div class="alert alert-danger" role="alert" ng-if="resData.code == 0">
+                            <strong ng-model="msg">{{msg}}</strong>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn horizontal-center" type="submit">SIGN IN</button>
+                    </div>
+                </form>
             </div>
-            <!-- The Modals -->
-
-            <!--Login Modal, id is myModal1-->
-            <div id="myModal1" class="modal col-md-8 mx-auto">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title centred">LOGIN</h2>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" id="close1">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="user.email" id="USRNM" placeholder=" Email" ng-model="player.email" required="true"></input>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" name="user.password" id="PSSWRD" placeholder=" Password" ng-model="player.password" required="true"></input>
-                            </div>
-                            <br>
-                            <span ng-mobile-click="forgotPassword(2)" style="cursor: pointer">Forgot Password?</span>
-                            <p style='font-size:16px;margin-bottom:0px'> By logging in you agree to the <a id='docc' href="./docs/EnigmaTandC.pdf" data-ajax="false" rel="external"><b> Terms and Conditions </b></a> </p>
-                            <br>
-                            <div class="alert alert-success" role="alert" ng-if="resData.code==1 && resData">
-                                <strong ng-model="msg">{{msg}}</strong>
-                            </div>
-                            <div class="alert alert-danger" role="alert" ng-if="resData.code!=1 && resData">
-                                <strong ng-model="msg">{{msg}}</strong>
-                            </div>
-                            <br>
-                            <button class="btnLR" type="submit" ng-mobile-click="getLogin()" onmouseover="trip(this)" onmouseout="untrip(this)" id="btnL">LOGIN</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!--Registration Modal, id is myModal2-->
-            <div id="myModal2" class="modal col-md-8 mx-auto">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title centred">REGISTER</h2>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" id="close2">&times;</span>
-                        </button>
-                    </div>
-                    <br>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="username" id="NM" placeholder=" Name" ng-model="player.name" required></input>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="email" id="EML" placeholder=" Email" ng-model="player.email" required></input>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="organisation" id="UNINM" placeholder=" University Name" ng-model="player.organisation"></input>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="reg_no" id="REGNO" placeholder=" Register Number" ng-model="player.reg_no"></input>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="number" name="phone" id="PHNO" placeholder=" Phone Number" ng-model="player.phone" required></input>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="password" name="password" id="ENTRPSSWD" placeholder=" Enter Password" ng-model="player.password" required></input>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="password" id="CNFRMPSSWD" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
-                            </div>
-                            <br>
-                            <div class="alert alert-success" role="alert" ng-if="resData.code==1 && resData">
-                                <strong ng-model="msg">{{msg}}</strong>
-                            </div>
-                            <div class="alert alert-danger" role="alert" ng-if="resData.code!=1 && resData">
-                                <strong ng-model="msg">{{msg}}</strong>
-                            </div>
-                            <br>
-                            <button class="btnLR" type="submit" value="REGISTER" id="RGSTR"  ng-mobile-click="getRegistered()" onmouseover="trip(this)" onmouseout="untrip(this)">Register</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
         </div>
-
+        <div class="col-lg-6 col-sm-12">
+            <div class="padding-top-10">
+                <h2 class="text-center"> REGISTER </h2>
+                <form ng-submit="getRegistered()">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="email" placeholder=" Email" ng-model="player.email" required></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="organisation" placeholder=" University Name" ng-model="player.organisation"></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="reg_no" placeholder=" Register Number" ng-model="player.reg_no"></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="number" name="phone"  placeholder=" Phone Number" ng-model="player.phone" required></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" placeholder=" Enter Password" ng-model="player.password" required></input>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
+                    </div>
+                    <div class="form-group">
+                        <p class="prompt horizontal-center" ng-mobile-click="">By registering you agree to the <strong>Terms and Conditions</strong></p>
+                    </div>
+                    <div class="message-container">
+                        <div class="alert alert-success" role="alert" ng-if="resData.code == 1">
+                            <strong ng-model="msg">{{msg}}</strong>
+                        </div>
+                        <div class="alert alert-danger" role="alert" ng-if="resData.code == 0">
+                            <strong ng-model="msg">{{msg}}</strong>
+                        </div>
+                    </div>
+                    <button class="btn horizontal-center" type="submit">SIGN UP</button>
+                </form>
+            </div>
+        </div>
     </div>
-    </div>
-</header>
-
-<!-- Theme JavaScript -->
-<script src="./javascripts/js/grayscale.min.js"></script>
-<script src="./javascripts/js/enigma.js"></script>
+</div>

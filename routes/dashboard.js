@@ -25,27 +25,6 @@ router.use(function (req, res, next) {
     }
 });
 
-//Middle ware for checking  the player's mode
-var requireAuthentication = function(req, res, next){
-    var playerId = req.decoded._doc._id;
-    player.findCurrentPlayerId(playerId,function (err, playerData) {
-        if (err) {
-            throw err;
-        }
-        else if(playerData.developer){
-            next();
-        }
-        // else
-        //     res.send('Access denied till Enigma Begins !!');
-        else {
-            if (playerData.mode === 0)
-                next();
-            else
-                res.send('You are not allowed to change side !!');
-        }
-    });
-}
-
 /* middle ware to check the end time
 * This will restrict the request from
 * 1. get -> /dashboard/question  | This sends the question to the frontend
@@ -63,14 +42,13 @@ var authenticateTime = function(req, res, next){
         else if (playerData.developer) {
             next();
         }
-        else if (current_TIME > 1516048200000) {
-            res.render('enigmaEnded',{
-                mainMessage : "Enigma has ended !",
+        else if (current_TIME > 1518236400000) {
+            res.render('update',{
+                mainMessage : "Enigma is coming soon !",
                 trailingMessage : "Coming Soon -> Enigma 4.0"
             });
-            //res.send("Enigma has ended !! Coming Soon -> Enigma 4.0")
         }
-        else if (current_TIME <= 1516048200000) {
+        else if (current_TIME <= 1518236400000) {
             next();
         }
     });
@@ -87,34 +65,9 @@ router.get('/',authenticateTime, function(req, res, next) {
         // else if(current_TIME <= Start_time) //start time is not defined
         //     res.send('Access denied till Enigma Begins !!');
         else {
-            if (playerData.mode === 1)
-                res.render('questionwhite');
-            else if(playerData.mode === 2)
-                res.render('questionblack');
-            else
-                res.redirect('/dashboard/selectMode');
+            res.render('question');
         }
     });
-});
-
-//to select a mode for the players
-router.get('/selectMode',requireAuthentication, function (req, res) {
-    res.render('select');
-});
-
-router.post('/modeSelected',requireAuthentication,function(req,res){
-    var user = req.decoded._doc;
-    var mode = req.body.value;
-    player.update(
-        { "_id": user._id},
-        { $set : {mode : mode}},
-        function (err, data) {
-            if (err) throw(err);
-            else{
-                res.json({mode : mode});
-            }
-        }
-    );
 });
 
 router.get('/currentUser', function(req, res) {

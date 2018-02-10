@@ -47,28 +47,28 @@ router.post('/save', function (req, res, next) {
         phone: req.body.phone,
         authcomp : false
     });
-    if (!check.username.test(req.body.name)) {
-        res.json({code: '0', message: 'Invalid Name'});
+    if (!req.body.name) {
+        res.json({code: 0, message: 'Invalid Name'});
         success=false;
     }
     if (!check.email.test(req.body.email)) {
-        res.json({code: '0', message: 'Invalid E-MAIL'});
+        res.json({code: 0, message: 'Invalid E-MAIL'});
         success=false;
     }
     if (!check.reg_no.test(req.body.reg_no)) {
-        res.json({code: '0', message: 'Invalid Register Number'});
+        res.json({code: 0, message: 'Invalid Register Number'});
         success=false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
-        res.json({code: '0', message: 'Invalid Organisation'});
+        res.json({code: 0, message: 'Invalid Organisation'});
         success=false;
     }
     if (!check.phone.test(req.body.phone)) {
-        res.json({code: '0', message: 'Invalid PHONE NUMBER'});
+        res.json({code: 0, message: 'Invalid PHONE NUMBER'});
         success=false;
     }
     if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
-        res.json({code: '0', message: 'Invalid Password'});
+        res.json({code: 0, message: 'Invalid Password'});
         success=false;
     }
     if(req.body.password!==req.body.cpassword){
@@ -77,16 +77,15 @@ router.post('/save', function (req, res, next) {
     if(success) {
         data.save(function (err, doc) {
             if (err && err.code == 11000) {
-                res.json({code: '0', message: 'This Email is Already registered!'})
+                res.json({code: 0, message: 'This Email is Already registered!'})
             }
             else if (err && err.code != 66) {
-                res.json({code: '0', message: err})
+                res.json({code: 0, message: err})
             }
             else if (err) {
-                res.json({code: '0', message: err})
+                res.json({code: 0, message: err})
             }
             else {
-                res.json({code: '1', message: "Verify your email address using the link sent to you."});
                 var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
                 var htmlPath = __dirname + '/index1.html';
                 var linkToSend = "https://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email;
@@ -103,7 +102,7 @@ router.post('/save', function (req, res, next) {
                 //The button in the ind
                 var inputs = $('#herehere');
                 inputs.attr('href', function (i, id) {
-                    return id.replace('http://jaadu.ieeevit.com',linkToSend);
+                    return id.replace('http://enigma.ieeevit.com',linkToSend);
                 });
 
                 var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
@@ -133,8 +132,10 @@ router.post('/save', function (req, res, next) {
                 smtpTransport.sendMail(mailOptions, function (err) {
                     if (err)
                         throw err;
-                    else
-                        console.log("Email Sent successfully !");
+                    else{
+                        res.json({code: 1, message: "Verify your email address using the link sent to you.Check spam if not found."});
+                        //console.log("Email Sent successfully !");
+                    }
                 });
                 // Invoke the next step here however you like
                 // Put all of the code here (not the best solution)
@@ -145,7 +146,7 @@ router.post('/save', function (req, res, next) {
 
 router.get('/verifyMail', function(req, res, next) {
     if (!check.email.test(req.query.email)) {
-        res.render('verified',{
+        res.render('update',{
             mainMessage : "Incorrect Link !!",
             trailingMessage : "Ask to resend the mail."
         });
@@ -155,14 +156,14 @@ router.get('/verifyMail', function(req, res, next) {
         player.findOne({email: req.query.email}, function (err, result) {
             if (err) throw err;
             if (!result) {
-                res.render('verified',{
+                res.render('update',{
                     mainMessage : "You have not yet registered",
                     trailingMessage : "Click here to Register"
                 });
                 // res.json({code: '0', message: 'You have not yet registered!'});
             }
             else if(result.authcomp){
-                res.render('verified',{
+                res.render('update',{
                     mainMessage : "Already authorized",
                     trailingMessage : "Click here to Log In"
                 });
@@ -171,7 +172,7 @@ router.get('/verifyMail', function(req, res, next) {
             else {
                 if (check.code.test(req.query.code)) {
                     if (req.query.code !== result.hashcode){
-                        res.render('verified',{
+                        res.render('update',{
                             mainMessage : "Incorrect Hash Code/Hash Code expired",
                             trailingMessage : "Ask to resend the mail."
                         });
@@ -185,7 +186,7 @@ router.get('/verifyMail', function(req, res, next) {
                         player.updateOne({_id:result._id}, newValues, function (err, res1) {
                             if (err) throw err;
                             else{
-                                res.render('verified',{
+                                res.render('update',{
                                     mainMessage : "Email Verified",
                                     trailingMessage : "Click here to login"
                                 });
@@ -195,7 +196,7 @@ router.get('/verifyMail', function(req, res, next) {
                     }
                 }
                 else{
-                    res.render('verified',{
+                    res.render('update',{
                         mainMessage : "Incorrect Hash Code/Hash Code expired",
                         trailingMessage : "Ask to resend the mail."
                     });

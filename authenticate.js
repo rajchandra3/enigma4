@@ -12,7 +12,7 @@ function authenticate(req, res) {
                 res.send({code: 0,message: "Something went wrong! Please try again."});
             }
             else if(user === 1){
-                res.send({code: 0,message : 'You have not registered for this competition. Please register and try logging in.'});
+                res.send({code: 0,message : 'You have not registered for Enigma. Please register and try logging in.'});
             }
             else if(user === 2){
                 res.send({code: 0,message : 'Incorrect Password !'});
@@ -21,8 +21,8 @@ function authenticate(req, res) {
                 res.send({code: 0,message : "You haven't verified your email ! Make sure You have verified your email."});
             }
             else {
-                var token = jwt.sign(user, process.env.SECRET);
                 user.password = '';
+                var token = jwt.sign(user, process.env.SECRET);
                 //don't set cookies till the game begins
 
                 res.cookie(process.env.TOKEN_NAME,token);

@@ -1,27 +1,23 @@
-<div>
 
-    <!-- Intro Header -->
-    <header class="intro">
-        <div class="intro-body">
-            <div class="container" style="top:20%">
-                <h3 style="font-size:4em" id='lead'>Reset Password</h3>
-                <br>
-                <form>
-                    <h4 id='passerr'></h4>
-                    <input type='password' name='password' value='' id='password' placeholder='New password' ng-model="player.password"></input>
-                    <br>
-                    <input type='password' name='confirm' id='confirm_password' value='' placeholder='Confirm password' ng-model="player.confirm"></input>
-                    <br>
-                    <button type='submit' id='regbtn' ng-mobile-click="resetPassword()" style="background-color:transparent;color:white;border:1px solid white;border-radius:2px">Update Password</button>
-                </form>
-                <div class="msg-container">
-                    <p class="text-warning" ng-model="msg">{{msg}}</p>
+<!--Template CSS-->
+<link rel="stylesheet" href="assets/css/forgotTemplate.css">
+
+<div class="container">
+
+    <div class="row">
+        <div class="vertical-center text-center col-lg-8 mx-auto">
+            <h1>RESET PASSWORD</h1>
+            <form action="">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder=" Enter New Password" required="true"></input>
                 </div>
-                <img id='nipun' src="../images/img/logoplus.png" width="20%" height="auto" style="margin-top:4em">
-            </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder=" Confirm New Password" required="true"></input>
+                </div>
+                <button type="submit" ng-mobile-click="" class="btn">CHANGE PASSWORD</button>
+            </form>
+            <button type="submit" ng-mobile-click="" class="btn">RESEND CONFIRMATION</button>
         </div>
-    </header>
-
-<script src="../javascripts/js/reset1.js"></script>
+    </div>
 
 </div>
