@@ -54,4 +54,9 @@ body{
 
 .text-bold{
   font-weight: bolder;
+  cursor: pointer;
+}
+
+.text-bold :hover{
+  text-decoration: underline;
 }
