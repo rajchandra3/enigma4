@@ -23,25 +23,25 @@
 		      </div>
 		      <div class="modal-body">
 						<div id="logInForm">
-						<form>
-								<div class="form-group">
-										<input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
-								</div>
-								<div class="form-group">
-										<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
-								</div>
-								<!--<div class="alert form-group" role="alert" ng-if="">
-										<strong ng-model="msg">{{msg}}</strong>
-								</div>-->
-								<div class="form-group">
-										<button class="btn horizontal-center" type="submit" ng-mobile-click="">LOGIN</button>
-								</div>
-								<div class="form-group">
-										<p class="prompt horizontal-center" ng-mobile-click="">OR SIGN UP <a class="text-bold" id="signUpHere">HERE</a></p>
-								</div>
+						<form ng-submit="getLogin()">
+                            <div class="form-group">
+                                    <input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
+                            </div>
+                            <div class="form-group">
+                                    <input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
+                            </div>
+                            <!--<div class="alert form-group" role="alert" ng-if="">
+                                    <strong ng-model="msg">{{msg}}</strong>
+                            </div>-->
+                            <div class="form-group">
+                                    <button class="btn horizontal-center" type="submit">LOGIN</button>
+                            </div>
+                            <div class="form-group">
+                                    <p class="prompt horizontal-center">OR SIGN UP <a class="text-bold" id="signUpHere">HERE</a></p>
+                            </div>
 						</form>
 					</div>
-						<form id="signUpForm">
+						<form id="signUpForm" ng-submit="getRegistered()">
 								<div class="form-group">
 										<input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
 								</div>
@@ -64,15 +64,15 @@
 										<input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
 								</div>
 								<div class="form-group">
-    							<p class="prompt horizontal-center" ng-mobile-click="">By registering you agree to the <strong>Terms and Conditions</strong></p>
+    							<p class="prompt horizontal-center">By registering you agree to the <strong>Terms and Conditions</strong></p>
   							</div>
-								<!--<div class="alert alert-success" role="alert" ng-if="resData.code==1 && resData">
-										<strong ng-model="msg">{{msg}}</strong>
-								</div>-->
-								<button class="btn horizontal-center" type="submit" ng-mobile-click="">REGISTER</button>
-								<div class="form-group">
-										<p class="prompt horizontal-center" ng-mobile-click="">OR SIGN IN <a id="logInHere" class="text-bold">HERE</a></p>
-								</div>
+                            <!--<div class="alert alert-success" role="alert" ng-if="resData.code==1 && resData">
+                                    <strong ng-model="msg">{{msg}}</strong>
+                            </div>-->
+                            <button class="btn horizontal-center" type="submit">REGISTER</button>
+                            <div class="form-group">
+                                    <p class="prompt horizontal-center" ng-mobile-click="">OR SIGN IN <a id="logInHere" class="text-bold">HERE</a></p>
+                            </div>
 						</form>
 		      </div>
 		    </div>

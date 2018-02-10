@@ -87,44 +87,15 @@ router.post('/save', function (req, res, next) {
             }
             else {
                 var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
-                var htmlPath = __dirname + '/index1.html';
-                var linkToSend = "https://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email;
-                // load in the json file with the replace values
-                var data = fs.readFileSync(htmlPath);
-
-                var $ = cheerio.load(data);
-                // load in the HTML into cheerio
-                // the keys are class names, use them to pick out what element
-                // we are going to modify & then replace the innerHTML content
-                // of that element
-
-
-                //The button in the ind
-                var inputs = $('#herehere');
-                inputs.attr('href', function (i, id) {
-                    return id.replace('http://enigma.ieeevit.com',linkToSend);
-                });
-
                 var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
-
-                //If the html is loaded correctly and the link at the button location is successfully changed
-                if ($.html() !== null) {
                     var mailOptions = {
                         to: req.body.email,
-                        from: 'enigma.ieeevit@gmail.com',
-                        subject: 'Enigma - Email Authentication',
-                        html: $.html()
-                    };
-                }
-                //If for any reason the html doesn't load, then text is sent instead
-                else if ($.html() == null) {
-                    var mailOptions = {
-                        to: req.body.email,
-                        from: 'enigma.ieeevit@gmail.com',
-                        subject: 'Enigma - Email Authentication',
-                        text: "You are receiving this because you have signed Up for Enigma 3.0." + "\n\n" +
-                        "Please click on the following link, or paste this into your browser to complete the process:\n\n" + s + "\n\n" +
-                        "If you did not request this, please ignore this email."
+                        from: '"IEEE VIT" enigma.ieeevit@gmail.com',
+                        subject: 'Enigma Authentication',
+                        text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
+                        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+                        "https://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email+ "\n\n" +
+                        "If you did not intend to register for Enigma 4.0 kindly ignore this message."
                     };
                 }
 
@@ -137,9 +108,8 @@ router.post('/save', function (req, res, next) {
                         //console.log("Email Sent successfully !");
                     }
                 });
-                // Invoke the next step here however you like
-                // Put all of the code here (not the best solution)
-            }
+                //Invoke the next step here however you like
+                //Put all of the code here (not the best solution)
         });
     }
 });
