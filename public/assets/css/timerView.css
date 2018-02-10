@@ -1,0 +1,70 @@
+.number{
+  margin:0;
+}
+
+.time{
+  margin:5px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+@font-face {
+    font-family: Elianto;
+    src: url(../fonts/Elianto-Regular.ttf);
+}
+
+body{
+  font-family: Elianto;
+}
+
+.helvetica{
+  font-family: helvetica;
+}
+
+.vertical-placing{
+  padding-top: 50vh;
+}
+
+.vertical-center{
+  transform: translate(0,-50%);
+}
+
+#days, #hours, #minutes, #seconds{
+  font-size: 3em;
+}
+
+@media (min-width: 1024px){
+  #days, #hours, #minutes, #seconds{
+    font-size: 8em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px){
+  #days, #hours, #minutes, #seconds{
+    font-size: 5em;
+  }
+}
+
+.horizontal-center{
+  margin-left: 50% !important;
+  transform: translate(-50%,0%);
+}
+
+.btn{
+  font-family: Elianto;
+  font-weight: lighter;
+  margin:10px;
+  background-color: white;
+  border-color: rgb(41,43,44);
+  color: rgb(41,43,44);
+  cursor: pointer;
+}
+
+.btn:hover{
+  background-color: rgb(41,43,44);
+  color: white;
+}
+
+.vert-space{
+  height: 5vh;
+}
