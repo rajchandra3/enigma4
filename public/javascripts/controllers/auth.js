@@ -106,7 +106,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                         break;
                     case 1:
                         $scope.msg = "Success ! We are redirecting you to Enigma.";
-                        window.location.href = '/timer';
+                        window.location.href = '/dashboard';
                         break;
                 }
             }

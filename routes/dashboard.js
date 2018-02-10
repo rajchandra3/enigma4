@@ -42,13 +42,10 @@ var authenticateTime = function(req, res, next){
         else if (playerData.developer) {
             next();
         }
-        else if (current_TIME > 1518236400000) {
-            res.render('update',{
-                mainMessage : "Enigma is coming soon !",
-                trailingMessage : "Coming Soon -> Enigma 4.0"
-            });
+        else if (current_TIME < 1519383000000) {
+            res.render('timer');
         }
-        else if (current_TIME <= 1518236400000) {
+        else if (current_TIME >= 1519383000000) {
             next();
         }
     });
