@@ -86,7 +86,7 @@ router.post('/reset/:token', function(req, res) {
                     res.json({code: 0, message: 'Password reset token is invalid or has expired.'});
                 }
                 else if (req.body.password !== req.body.confirm) {
-                    res.json({code: 0, message: 'Confirm Password not same as Password'});
+                    res.json({code: 0, message: 'Passwords do not match.'});
                 }
                 else {
                     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));

@@ -185,6 +185,8 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         }
     };
     $scope.resetPassword = function () {
+        $scope.code = 2;
+        $scope.msg = "Setting things up...";
         if($scope.player.password === $scope.player.confirm){
             var par = $location.path().split("/");
             var token = par[2];
@@ -192,10 +194,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $http.post('/reset/'+token,$scope.player).then(successCallback,errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response
-                switch (parseInt($scope.resData.code)) {
+                $scope.code = $scope.resData.code;
+                switch (parseInt($scope.code)) {
                     case 1:
                         $scope.msg = $scope.resData.message;
-                        window.location.href = '/';
                         break;
                     case 0:
                         $scope.msg = $scope.resData.message;
@@ -208,6 +210,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             }
         }
         else{
+            $scope.code = 0;
             $scope.msg = "Passwords do not match !";
         }
     };
