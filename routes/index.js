@@ -138,14 +138,13 @@ router.post('/resend', function(req, res) {
             }
             else {
                 if (!user.authcomp) {
-                    res.json({code: 1, message: "Verify your email address using the link sent to you."});
                     var s = req.headers.host + '/auth/' + "verifyMail?code=" + user.hashcode + "&email=" + user.email;
 // load in the json file with the replace values
 
                     var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
                     var mailOptions = {
                         to: req.body.email,
-                        from: 'enigma.ieeevit@gmail.com',
+                        from: '"IEEE VIT" enigma.ieeevit@gmail.com',
                         subject: 'Enigma - Email Authentication',
                         text: "You are receiving this because you have requested us to resend the mail." + "\n\n" +
                         "Please click on the following link, or paste this into your browser to complete the process:\n\n" + s + "\n\n" +
@@ -155,6 +154,7 @@ router.post('/resend', function(req, res) {
                         if (err)
                             throw err;
                         else
+                            res.json({code: 1, message: "Verify your email address using the link sent to you."});
                             console.log("Email Sent");
                     });
                     // Invoke the next step here however you like
