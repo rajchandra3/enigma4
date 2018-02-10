@@ -88,28 +88,31 @@ router.post('/save', function (req, res, next) {
             else {
                 var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
                 var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
-                    var mailOptions = {
-                        to: req.body.email,
-                        from: '"IEEE VIT" enigma.ieeevit@gmail.com',
-                        subject: 'Enigma Authentication',
-                        text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
-                        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-                        "https://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email+ "\n\n" +
-                        "If you did not intend to register for Enigma 4.0 kindly ignore this message."
-                    };
-                }
+                var mailOptions = {
+                    to: req.body.email,
+                    from: '"IEEE VIT" enigma.ieeevit@gmail.com',
+                    subject: 'Enigma Authentication',
+                    text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
+                    "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+                    "https://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email + "\n\n" +
+                    "If you did not intend to register for Enigma 4.0 kindly ignore this message."
+                };
 
                 //Sending the mail
                 smtpTransport.sendMail(mailOptions, function (err) {
                     if (err)
                         throw err;
-                    else{
-                        res.json({code: 1, message: "Verify your email address using the link sent to you.Check spam if not found."});
+                    else {
+                        res.json({
+                            code: 1,
+                            message: "Verify your email address using the link sent to you.Check spam if not found."
+                        });
                         //console.log("Email Sent successfully !");
                     }
                 });
                 //Invoke the next step here however you like
                 //Put all of the code here (not the best solution)
+            }
         });
     }
 });

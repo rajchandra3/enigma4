@@ -1,20 +1,35 @@
 
 <!--Template CSS-->
 <link rel="stylesheet" href="assets/css/forgotTemplate.css">
-
 <div class="container">
-
     <div class="row">
-        <div class="vertical-center text-center col-lg-8 mx-auto">
+        <div class="text-center col-lg-12 mx-auto" style="padding:5%">
             <h1>FORGOT PASSWORD</h1>
-            <form action="">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder=" Enter your email ID" required="true"></input>
+            <form class="horizontal-center form-group col-lg-5 col-sm-12 col-md-auto" ng-submit="forgotEmailGen()" align="center">
+                <input type="text" class="form-control" placeholder="Enter your email ID" required="true" ng-model="player.email">
+                <br>
+                <!--Message Container for users confort-->
+                <div class="message-container">
+                    <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                        <div class="font-weight-strong centered" ng-model="msg">
+                            <font size="2" class="font-weight-bold">{{msg}}</font>
+                        </div>
+                    </div>
+                    <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                        <div class="font-weight-strong centered" ng-model="msg">
+                            <font size="2" class="font-weight-bold">{{msg}}</font>
+                        </div>
+                    </div>
+                    <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                        <div class="font-weight-strong centered" ng-model="msg">
+                            <font size="2" class="font-weight-bold">{{msg}}</font>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" ng-mobile-click="" class="btn">SEND CONFIRMATION</button>
+
+                <button type="submit" class="btn">SUBMIT</button>
             </form>
-            <button type="btn" ng-mobile-click="" class="btn">HOME</button>
+            <a href="/"><button type="btn" class="btn">Go Back</button></a>
         </div>
     </div>
-
 </div>

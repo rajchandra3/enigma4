@@ -32,16 +32,21 @@ app.config(function($routeProvider){
 app.controller('authController',['$scope','$http','$location','$rootScope',function ($scope,$http,$location,$rootScope) {
 
     $scope.getRegistered = function () {
+        // message to waiting users
+        $scope.code = 2;
         $scope.msg = "Saving your credentials...";
+        //checking for the empty name
         if($scope.player.name == '' || $scope.player.name===undefined){
             $scope.msg = "Name can't be empty ! ";
         }
+        //checking if passwords are same
         else if($scope.player.password == $scope.player.cpassword ) {
             $scope.player.email = ($scope.player.email).toLowerCase();
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response
-                switch ($scope.resData.code) {
+                $scope.code = $scope.resData.code;
+                switch ($scope.code) {
                     case 1:
                         $scope.msg = "Please verify your email to compelete the registration. Check spam if not found.";
                         break;
@@ -56,7 +61,9 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             }
         }
         else{
-            $scope.msg = "Passwords do not match ! "
+            $scope.code = 0;
+            $scope.msg = "Passwords do not match ! ";
+
         }
     };
 
@@ -90,6 +97,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
     }
 
     $scope.getLogin = function () {
+        //send some message
+        $scope.code = 0;
+        $scope.msg = "Verifying your credentials... ";
+        //checking for emal and password
         if($scope.player.email === '' || $scope.player.password === '') {
             $scope.msg = "Invalid credentials !!";
         }
@@ -99,8 +110,8 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
 
             function successCallback(response) {
                 $scope.resData = response.data;
-                console.log($scope.resData);
-                switch ($scope.resData.code) {
+                $scope.code = $scope.resData.code;
+                switch ($scope.code) {
                     case 0:
                         $scope.msg = $scope.resData.message;
                         break;
@@ -115,18 +126,6 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             }
         }
     };
-
-    $scope.forgotPassword = function(x){
-        switch(x){
-            case 1:
-                window.location.href='/resend';
-                break;
-            case 2:
-                window.location.href='#!/forgotPassword';
-                break;
-        }
-    };
-
     $scope.emailGen = function () {
 
         $http.post('/resend', $scope.player).then(successCallback, errorCallback);
@@ -144,27 +143,14 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         }
     };
 
-    $scope.modeSelected = function (x) {
-        mode = {
-            value : x
-        };
-        $http.post('/dashboard/modeSelected',mode).then(successCallback, errorCallback);
-        function successCallback(response) {
-            $scope.resData = response.data;
-            window.location.href = "/dashboard";
-        }
-
-        function errorCallback(error) {
-            console.log("Message could not be Obtained !" + error);
-        }
-    };
     $scope.forgotEmailGen = function () {
 
         $http.post('/player/forgot', $scope.player).then(successCallback, errorCallback);
 
         function successCallback(response) {
             $scope.resData = response.data;
-            switch (parseInt($scope.resData.code)) {
+            $scope.code = $scope.resData.code;
+            switch ($scope.code) {
                 case 1:
                     $scope.msg = $scope.resData.message;
                     break;

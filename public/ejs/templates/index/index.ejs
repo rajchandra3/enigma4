@@ -30,14 +30,37 @@
 						<div class="form-group">
 							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
 						</div>
-						<div class="alert form-group" role="alert" ng-if="resData">
-							<strong ng-model="msg">{{msg}}</strong>
-						</div>
+                        <div id="fpbtn" align="center">
+                            <a href="#!forgotPassword">Forgot Password?</a>
+                        </div>
+                        <br>
+                        <!--Message Container for users confort-->
+                        <div class="message-container">
+                            <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                                <div class="font-weight-strong centered" ng-model="msg">
+                                    <font size="2" class="font-weight-bold">{{msg}}</font>
+                                </div>
+                            </div>
+                            <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                                <div class="font-weight-strong centered" ng-model="msg">
+                                    <font size="2" class="font-weight-bold">{{msg}}</font>
+                                </div>
+                            </div>
+                            <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                                <div class="font-weight-strong centered" ng-model="msg">
+                                    <font size="2" class="font-weight-bold">{{msg}}</font>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Buttons-->
 						<div class="form-group">
 							<button class="btn horizontal-center" type="submit">LOGIN</button>
 						</div>
-						<div class="form-group">
-							<p class="prompt horizontal-center">OR SIGN UP <a class="text-bold" id="signUpHere">HERE</a></p>
+						<div class="form-group" align="center">
+							<div class="prompt horizontal-center" style="display:flex;">
+                                <hr align="left" color="#000" width="40%"> <span align="center" class="text-bold" style="margin:3.5% 0 0 0;">or</span> <hr align="right" color="#000" width="40%">
+                            </div>
+                            <a class="text-bold btn" id="signUpHere">SIGN UP </a>
 						</div>
 					</form>
 				</div>
@@ -66,12 +89,32 @@
 					<div class="form-group">
 						<p class="prompt horizontal-center">By registering you agree to the <strong>Terms and Conditions</strong></p>
 					</div>
-					<div class="alert form-group" role="alert" ng-if="resData">
-						<strong ng-model="msg">{{msg}}</strong>
-					</div>
-					<button class="btn horizontal-center" type="submit">REGISTER</button>
-					<div class="form-group">
-						<p class="prompt horizontal-center" ng-mobile-click="">OR SIGN IN <a id="logInHere" class="text-bold">HERE</a></p>
+                    <!--Message container for all types of messages-->
+                    <div class="message-container">
+                        <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                            <div class="font-weight-strong centered" ng-model="msg">
+                                <font size="2" class="font-weight-bold">{{msg}}</font>
+                            </div>
+                        </div>
+                        <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                            <div class="font-weight-strong centered" ng-model="msg">
+                                <font size="2" class="font-weight-bold">{{msg}}</font>
+                            </div>
+                        </div>
+                        <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                            <div class="font-weight-strong centered" ng-model="msg">
+                                <font size="2" class="font-weight-bold">{{msg}}</font>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn horizontal-center" type="submit">REGISTER</button>
+                    </div>
+					<div class="form-group" align="center">
+                        <div class="prompt horizontal-center" style="display:flex;">
+                            <hr align="left" color="#000" width="40%"> <span align="center" class="text-bold" style="margin:3.5% 0 0 0;">or</span> <hr align="right" color="#000" width="40%">
+                        </div>
+                        <a id="logInHere" class="text-bold btn">LOG IN</a></p>
 					</div>
 				</form>
 			</div>

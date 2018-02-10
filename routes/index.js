@@ -18,9 +18,6 @@ router.get('/', function(req, res, next) {
     res.render('index');
 });
 
-router.get('/timer', function(req, res) {
-    res.send('<a href="http://jaadu.ieeevit.com">Click here to go to Enigma</a>');
-});
 
 router.post('/player/forgot', function(req, res, next) {
     async.waterfall([
@@ -33,7 +30,7 @@ router.post('/player/forgot', function(req, res, next) {
         function(token, done) {
             player.findOne({ email: req.body.email }, function(err, user) {
                 if (!user) {
-                    res.json({code: '0',message:'No account with that email address exists.'});
+                    res.json({code: o,message:'No account with that email address exists.'});
                 }
                 else {
                     user.resetPasswordToken = token;
@@ -49,7 +46,7 @@ router.post('/player/forgot', function(req, res, next) {
             var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
             var mailOptions = {
                 to: user.email,
-                from: 'enigma.ieeevit@gmail.com',
+                from: '"IEEE VIT" enigma.ieeevit@gmail.com',
                 subject: 'Enigma - Reset Password',
                 text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                 'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -57,7 +54,7 @@ router.post('/player/forgot', function(req, res, next) {
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                res.json({code: '1', message:'An e-mail has been sent to mail with further instructions.'});
+                res.json({code: 1, message:'An e-mail has been sent with further instructions.'});
                 done(err, 'done');
             });
         }
@@ -70,8 +67,11 @@ router.post('/player/forgot', function(req, res, next) {
 router.get('/reset/:token', function(req, res) {
     player.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-             res.send('Password reset token is invalid or has expired.');
-            // res.json({code: '0', message:'Password reset token is invalid or has expired.'});
+             // res.send('Password reset token is invalid or has expired.');
+            res.json('update',{
+                mainMessage:'Password reset token is invalid or has expired.',
+                trailingMessage : 'Go back'
+            });
         }
         else
             res.redirect('/#!resetPassword/'+req.params.token);
@@ -83,10 +83,10 @@ router.post('/reset/:token', function(req, res) {
         function(done) {
             player.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
                 if (!user) {
-                    res.json({code: '0', message: 'Password reset token is invalid or has expired.'});
+                    res.json({code: 0, message: 'Password reset token is invalid or has expired.'});
                 }
                 else if (req.body.password !== req.body.confirm) {
-                    res.json({code: '0', message: 'Confirm Password not same as Password'});
+                    res.json({code: 0, message: 'Confirm Password not same as Password'});
                 }
                 else {
                     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
@@ -95,7 +95,7 @@ router.post('/reset/:token', function(req, res) {
                     user.resetPasswordExpires = undefined;
 
                     user.save(function (err) {
-                        res.json({code: '0', message: 'Your password has been successfully changed.'});
+                        res.json({code: 0, message: 'Your password has been successfully changed.'});
                     });
                 }
             });
@@ -104,13 +104,13 @@ router.post('/reset/:token', function(req, res) {
             var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
             var mailOptions = {
                 to: user.email,
-                from: 'enigma.ieeevit@gmail.com',
+                from: '"IEEE VIT" enigma.ieeevit@gmail.com',
                 subject: 'Enigma - Your password has been changed',
                 text: 'Hello,\n\n' +
                 'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                res.json({code: '0',message:'Success! Your password has been changed.'});
+                res.json({code: 1,message:'Success! Your password has been changed.'});
                 done(err);
             });
         }
@@ -128,17 +128,17 @@ router.post('/resend', function(req, res) {
     var success = true;
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!re.test(email)) {
-        res.json({code: '0', message: 'Invalid email!'});
+        res.json({code: 0, message: 'Invalid email!'});
         success = false;
     }
     if (success) {
         player.findOne({email: email}, function (err, user) {
             if (!user) {
-                res.json({code: '0', message: 'No account with this email address exists.'});
+                res.json({code: 0, message: 'No account with this email address exists.'});
             }
             else {
                 if (!user.authcomp) {
-                    res.json({code: '1', message: "Verify your email address using the link sent to you."});
+                    res.json({code: 1, message: "Verify your email address using the link sent to you."});
                     var s = req.headers.host + '/auth/' + "verifyMail?code=" + user.hashcode + "&email=" + user.email;
 // load in the json file with the replace values
 
@@ -161,7 +161,7 @@ router.post('/resend', function(req, res) {
                     // Put all of the code here (not the best solution)
                 }
                 else {
-                    res.json({code: '0', message: 'You have already verified this Email-ID'});
+                    res.json({code: 0, message: 'You have already verified this Email-ID'});
                 }
             }
         });
