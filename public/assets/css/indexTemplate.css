@@ -47,10 +47,11 @@ a{
 }
 
 
-#signUpForm{
+#logInForm{
   display: none;
 }
 
-#loginForm{
+#signUpForm{
   display: block;
 }
+

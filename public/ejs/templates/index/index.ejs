@@ -22,14 +22,72 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<div id="logInForm">
-					<form ng-submit="getLogin()">
-						<div class="form-group">
-							<input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
-						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
-						</div>
+				<!--Regsiter Modal-->
+                <div id="signUpForm">
+                    <form ng-submit="getRegistered()">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="email" placeholder=" Email" ng-model="player.email" required></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="organisation" placeholder=" University Name" ng-model="player.organisation"></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="reg_no" placeholder=" Register Number" ng-model="player.reg_no"></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="number" name="phone"  placeholder=" Phone Number" ng-model="player.phone" required></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" placeholder=" Enter Password" ng-model="player.password" required></input>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
+                        </div>
+                        <div class="form-group">
+                            <p class="prompt horizontal-center">By registering you agree to the <strong>Terms and Conditions</strong></p>
+                        </div>
+                        <!--Message container for all types of messages-->
+                        <div class="message-container">
+                            <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                                <div class="font-weight-strong centered" ng-model="msg">
+                                    <font size="2" class="font-weight-bold">{{msg}}</font>
+                                </div>
+                            </div>
+                            <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                                <div class="font-weight-strong centered" ng-model="msg">
+                                    <font size="2" class="font-weight-bold">{{msg}}</font>
+                                </div>
+                            </div>
+                            <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                                <div class="font-weight-strong centered" ng-model="msg">
+                                    <font size="2" class="font-weight-bold">{{msg}}</font>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn horizontal-center" type="submit">REGISTER</button>
+                        </div>
+                        <div class="form-group" align="center">
+                            <div class="prompt horizontal-center" style="display:flex;">
+                                <hr align="left" color="#000" width="40%"> <span align="center" class="text-bold" style="margin:3.5% 0 0 0;">or</span> <hr align="right" color="#000" width="40%">
+                            </div>
+                            <button class="btn" id="logInHere">LOG IN</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!--Login Modal-->
+                <div id="logInForm">
+                    <form ng-submit="getLogin()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
+                        </div>
                         <div id="fpbtn" align="center">
                             <a href="#!forgotPassword">Forgot Password?</a>
                         </div>
@@ -53,74 +111,17 @@
                             </div>
                         </div>
                         <!--Buttons-->
-						<div class="form-group">
-							<button class="btn horizontal-center" type="submit">LOGIN</button>
-						</div>
-						<div class="form-group" align="center">
-							<div class="prompt horizontal-center" style="display:flex;">
-                                <hr align="left" color="#000" width="40%"> <span align="center" class="text-bold" style="margin:3.5% 0 0 0;">or</span> <hr align="right" color="#000" width="40%">
-                            </div>
-                            <a class="text-bold" id="signUpHere">
-                                <button class="btn">SIGN UP</button>
-                            </a>
-						</div>
-					</form>
-				</div>
-				<form id="signUpForm" ng-submit="getRegistered()">
-					<div class="form-group">
-						<input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="text" name="email" placeholder=" Email" ng-model="player.email" required></input>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="text" name="organisation" placeholder=" University Name" ng-model="player.organisation"></input>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="text" name="reg_no" placeholder=" Register Number" ng-model="player.reg_no"></input>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="number" name="phone"  placeholder=" Phone Number" ng-model="player.phone" required></input>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="password" name="password" placeholder=" Enter Password" ng-model="player.password" required></input>
-					</div>
-					<div class="form-group">
-						<input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
-					</div>
-					<div class="form-group">
-						<p class="prompt horizontal-center">By registering you agree to the <strong>Terms and Conditions</strong></p>
-					</div>
-                    <!--Message container for all types of messages-->
-                    <div class="message-container">
-                        <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
-                            <div class="font-weight-strong centered" ng-model="msg">
-                                <font size="2" class="font-weight-bold">{{msg}}</font>
-                            </div>
+                        <div class="form-group">
+                            <button class="btn horizontal-center" type="submit">LOGIN</button>
                         </div>
-                        <div class="alert alert-success" role="alert" ng-if="resData.code==1">
-                            <div class="font-weight-strong centered" ng-model="msg">
-                                <font size="2" class="font-weight-bold">{{msg}}</font>
-                            </div>
-                        </div>
-                        <div class="alert alert-info" role="alert" ng-if="resData.code==2">
-                            <div class="font-weight-strong centered" ng-model="msg">
-                                <font size="2" class="font-weight-bold">{{msg}}</font>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="btn horizontal-center" type="submit">REGISTER</button>
-                    </div>
-					<div class="form-group" align="center">
+                    </form>
+                    <div class="form-group" align="center">
                         <div class="prompt horizontal-center" style="display:flex;">
                             <hr align="left" color="#000" width="40%"> <span align="center" class="text-bold" style="margin:3.5% 0 0 0;">or</span> <hr align="right" color="#000" width="40%">
                         </div>
-                        <a id="logInHere" class="text-bold">
-                            <button class="btn">LOG IN</button>
-                        </a>
-					</div>
-				</form>
+                        <button class="btn" id="signUpHere">SIGN UP</button>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
