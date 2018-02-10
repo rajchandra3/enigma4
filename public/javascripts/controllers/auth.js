@@ -32,15 +32,15 @@ app.config(function($routeProvider){
 app.controller('authController',['$scope','$http','$location','$rootScope',function ($scope,$http,$location,$rootScope) {
 
     $scope.getRegistered = function () {
-        // message to waiting users
-        $scope.code = 2;
-        $scope.msg = "Saving your credentials...";
         //checking for the empty name
         if($scope.player.name == '' || $scope.player.name===undefined){
             $scope.msg = "Name can't be empty ! ";
         }
         //checking if passwords are same
         else if($scope.player.password == $scope.player.cpassword ) {
+            // message to waiting users
+            $scope.code = 2;
+            $scope.msg = "Saving your credentials...";
             $scope.player.email = ($scope.player.email).toLowerCase();
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
@@ -63,7 +63,6 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         else{
             $scope.code = 0;
             $scope.msg = "Passwords do not match ! ";
-
         }
     };
 
@@ -98,10 +97,11 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
 
     $scope.getLogin = function () {
         //send some message
-        $scope.code = 0;
+        $scope.code = 2;
         $scope.msg = "Verifying your credentials... ";
         //checking for emal and password
         if($scope.player.email === '' || $scope.player.password === '') {
+            $scope.code = 0;
             $scope.msg = "Invalid credentials !!";
         }
         else{
@@ -144,7 +144,8 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
     };
 
     $scope.forgotEmailGen = function () {
-
+        $scope.code = 2;
+        $scope.msg = "Checking our database...";
         $http.post('/player/forgot', $scope.player).then(successCallback, errorCallback);
 
         function successCallback(response) {
@@ -266,8 +267,10 @@ function loader($http) {
                 return $http.pendingRequests.length;
             }, function(isLoading) {
                 if (isLoading) {
+                    document.getElementById('btn-text').style.display = "none";
                     $(element).show();
                 } else {
+                    document.getElementById('btn-text').style.display = "block";
                     $(element).hide();
                 }
             });

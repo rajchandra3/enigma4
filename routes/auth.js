@@ -51,19 +51,19 @@ router.post('/save', function (req, res, next) {
         res.json({code: 0, message: 'Invalid Name'});
         success=false;
     }
-    if (!check.email.test(req.body.email)) {
+    if (!check.email.test(req.body.email) || !req.body.email) {
         res.json({code: 0, message: 'Invalid E-MAIL'});
         success=false;
     }
     if (!check.reg_no.test(req.body.reg_no)) {
-        res.json({code: 0, message: 'Invalid Register Number'});
+        res.json({code: 0, message: 'Invalid Registration Number'});
         success=false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
         res.json({code: 0, message: 'Invalid Organisation'});
         success=false;
     }
-    if (!check.phone.test(req.body.phone)) {
+    if (!check.phone.test(req.body.phone) || !req.body.phone) {
         res.json({code: 0, message: 'Invalid PHONE NUMBER'});
         success=false;
     }

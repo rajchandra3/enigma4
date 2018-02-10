@@ -30,7 +30,7 @@ router.post('/player/forgot', function(req, res, next) {
         function(token, done) {
             player.findOne({ email: req.body.email }, function(err, user) {
                 if (!user) {
-                    res.json({code: o,message:'No account with that email address exists.'});
+                    res.json({code: 0,message:'No account with that email address exists.'});
                 }
                 else {
                     user.resetPasswordToken = token;

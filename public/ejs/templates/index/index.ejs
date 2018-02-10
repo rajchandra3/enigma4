@@ -11,7 +11,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="login-signupModal" aria-hidden="true">
 	<div class="modal-dialog" role="document" id="modalDialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -51,24 +51,29 @@
                         </div>
                         <!--Message container for all types of messages-->
                         <div class="message-container">
-                            <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                            <div class="alert alert-danger" role="alert" ng-if="code==0">
                                 <div class="font-weight-strong centered" ng-model="msg">
                                     <font size="2" class="font-weight-bold">{{msg}}</font>
                                 </div>
                             </div>
-                            <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                            <div class="alert alert-success" role="alert" ng-if="code==1">
                                 <div class="font-weight-strong centered" ng-model="msg">
                                     <font size="2" class="font-weight-bold">{{msg}}</font>
                                 </div>
                             </div>
-                            <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                            <div class="alert alert-info" role="alert" ng-if="code==2">
                                 <div class="font-weight-strong centered" ng-model="msg">
                                     <font size="2" class="font-weight-bold">{{msg}}</font>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <button class="btn horizontal-center" type="submit">REGISTER</button>
+                            <button class="btn horizontal-center" type="submit">
+                                <span id="btn-text">REGISTER</span>
+                                <span class="spinner" data-loader>
+                                    <i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" aria-hidden="true"></i>
+                                </span>
+                            </button>
                         </div>
                     </form>
                     <div class="form-group" align="center">
@@ -88,23 +93,23 @@
                         <div class="form-group">
                             <input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
                         </div>
-                        <div id="fpbtn" align="center">
+                        <div id="fpbtn" align="center" onclick="$('#modal').modal('hide')">
                             <a href="#!forgotPassword">Forgot Password?</a>
                         </div>
                         <br>
                         <!--Message Container for users confort-->
                         <div class="message-container">
-                            <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                            <div class="alert alert-danger" role="alert" ng-if="code==0">
                                 <div class="font-weight-strong centered" ng-model="msg">
                                     <font size="2" class="font-weight-bold">{{msg}}</font>
                                 </div>
                             </div>
-                            <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                            <div class="alert alert-success" role="alert" ng-if="code==1">
                                 <div class="font-weight-strong centered" ng-model="msg">
                                     <font size="2" class="font-weight-bold">{{msg}}</font>
                                 </div>
                             </div>
-                            <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                            <div class="alert alert-info" role="alert" ng-if="code==2">
                                 <div class="font-weight-strong centered" ng-model="msg">
                                     <font size="2" class="font-weight-bold">{{msg}}</font>
                                 </div>
@@ -112,7 +117,12 @@
                         </div>
                         <!--Buttons-->
                         <div class="form-group">
-                            <button class="btn horizontal-center" type="submit">LOGIN</button>
+                            <button class="btn horizontal-center" type="submit">
+                                <span id="btn-text">LOGIN</span>
+                                <span class="spinner" data-loader>
+                                    <i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" aria-hidden="true"></i>
+                                </span>
+                            </button>
                         </div>
                     </form>
                     <div class="form-group" align="center">

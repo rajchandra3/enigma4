@@ -11,7 +11,7 @@ var playerSchema = new Schema({
     password: { type : String,required: true},
     reg_no:{type : String},
     organisation: {type : String,default: "VIT University"},
-    email:{type : String,unique : true,required: true},
+    email:{type : String,unique : true,lowercase : true,required: true},
     phone:{type : String, required : true},
     date:{type:Date, default: Date.now},//to track the time of registration
     authcomp:{type: Boolean, default: false},

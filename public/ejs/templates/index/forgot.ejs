@@ -10,24 +10,29 @@
                 <br>
                 <!--Message Container for users confort-->
                 <div class="message-container">
-                    <div class="alert alert-danger" role="alert" ng-if="resData.code==0">
+                    <div class="alert alert-danger" role="alert" ng-if="code==0">
                         <div class="font-weight-strong centered" ng-model="msg">
                             <font size="2" class="font-weight-bold">{{msg}}</font>
                         </div>
                     </div>
-                    <div class="alert alert-success" role="alert" ng-if="resData.code==1">
+                    <div class="alert alert-success" role="alert" ng-if="code==1">
                         <div class="font-weight-strong centered" ng-model="msg">
                             <font size="2" class="font-weight-bold">{{msg}}</font>
                         </div>
                     </div>
-                    <div class="alert alert-info" role="alert" ng-if="resData.code==2">
+                    <div class="alert alert-info" role="alert" ng-if="code==2">
                         <div class="font-weight-strong centered" ng-model="msg">
                             <font size="2" class="font-weight-bold">{{msg}}</font>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn">SUBMIT</button>
+                <button type="submit" class="btn">
+                    <span id="btn-text">SUBMIT</span>
+                    <span class="spinner" data-loader>
+                        <i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" aria-hidden="true"></i>
+                    </span>
+                </button>
             </form>
             <a href="/"><button type="btn" class="btn">Go Back</button></a>
         </div>
