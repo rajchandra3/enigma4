@@ -53,8 +53,3 @@ a{
 #loginForm{
   display: block;
 }
-
-.modal{
-  margin-top: 50vh;
-  transform: translate(0,-50%);
-}

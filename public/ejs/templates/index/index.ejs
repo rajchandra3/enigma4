@@ -1,80 +1,80 @@
 <!--Template CSS-->
-		<link rel="stylesheet" href="assets/css/indexTemplate.css">
+<link rel="stylesheet" href="assets/css/indexTemplate.css">
 
-		<div class="container vertical-placing">
+<div class="container vertical-placing">
 
-			<div class="vertical-center text-center vertical-center">
-				<h1>ENIGMA</h1>
-				<button type="button" class="btn" data-toggle="modal" data-target="#modal">GET STARTED</button>
+	<div class="vertical-center text-center vertical-center">
+		<h1>ENIGMA</h1>
+		<button type="button" class="btn" data-toggle="modal" data-target="#modal">GET STARTED</button>
+	</div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document" id="modalDialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--<h5 class="modal-title horizontal-center" id="exampleModalLongTitle">START</h5>-->
+				<img class="modal-title horizontal-center" src="images/logoplus.png" alt="ieee-vit-logo">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
-
-		</div>
-
-		<!-- Modal -->
-		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-		  <div class="modal-dialog" role="document" id="modalDialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <!--<h5 class="modal-title horizontal-center" id="exampleModalLongTitle">START</h5>-->
-						<img class="modal-title horizontal-center" src="images/logoplus.png" alt="ieee-vit-logo">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-						<div id="logInForm">
-						<form ng-submit="getLogin()">
-                            <div class="form-group">
-                                    <input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
-                            </div>
-                            <div class="form-group">
-                                    <input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
-                            </div>
-                            <!--<div class="alert form-group" role="alert" ng-if="">
-                                    <strong ng-model="msg">{{msg}}</strong>
-                            </div>-->
-                            <div class="form-group">
-                                    <button class="btn horizontal-center" type="submit">LOGIN</button>
-                            </div>
-                            <div class="form-group">
-                                    <p class="prompt horizontal-center">OR SIGN UP <a class="text-bold" id="signUpHere">HERE</a></p>
-                            </div>
-						</form>
+			<div class="modal-body">
+				<div id="logInForm">
+					<form ng-submit="getLogin()">
+						<div class="form-group">
+							<input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
+						</div>
+						<div class="alert form-group" role="alert" ng-if="resData">
+							<strong ng-model="msg">{{msg}}</strong>
+						</div>
+						<div class="form-group">
+							<button class="btn horizontal-center" type="submit">LOGIN</button>
+						</div>
+						<div class="form-group">
+							<p class="prompt horizontal-center">OR SIGN UP <a class="text-bold" id="signUpHere">HERE</a></p>
+						</div>
+					</form>
+				</div>
+				<form id="signUpForm" ng-submit="getRegistered()">
+					<div class="form-group">
+						<input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
 					</div>
-						<form id="signUpForm" ng-submit="getRegistered()">
-								<div class="form-group">
-										<input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
-								</div>
-								<div class="form-group">
-										<input class="form-control" type="text" name="email" placeholder=" Email" ng-model="player.email" required></input>
-								</div>
-								<div class="form-group">
-										<input class="form-control" type="text" name="organisation" placeholder=" University Name" ng-model="player.organisation"></input>
-								</div>
-								<div class="form-group">
-										<input class="form-control" type="text" name="reg_no" placeholder=" Register Number" ng-model="player.reg_no"></input>
-								</div>
-								<div class="form-group">
-										<input class="form-control" type="number" name="phone"  placeholder=" Phone Number" ng-model="player.phone" required></input>
-								</div>
-								<div class="form-group">
-										<input class="form-control" type="password" name="password" placeholder=" Enter Password" ng-model="player.password" required></input>
-								</div>
-								<div class="form-group">
-										<input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
-								</div>
-								<div class="form-group">
-    							<p class="prompt horizontal-center">By registering you agree to the <strong>Terms and Conditions</strong></p>
-  							</div>
-                            <!--<div class="alert alert-success" role="alert" ng-if="resData.code==1 && resData">
-                                    <strong ng-model="msg">{{msg}}</strong>
-                            </div>-->
-                            <button class="btn horizontal-center" type="submit">REGISTER</button>
-                            <div class="form-group">
-                                    <p class="prompt horizontal-center" ng-mobile-click="">OR SIGN IN <a id="logInHere" class="text-bold">HERE</a></p>
-                            </div>
-						</form>
-		      </div>
-		    </div>
-		  </div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="email" placeholder=" Email" ng-model="player.email" required></input>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="organisation" placeholder=" University Name" ng-model="player.organisation"></input>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="text" name="reg_no" placeholder=" Register Number" ng-model="player.reg_no"></input>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="number" name="phone"  placeholder=" Phone Number" ng-model="player.phone" required></input>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="password" name="password" placeholder=" Enter Password" ng-model="player.password" required></input>
+					</div>
+					<div class="form-group">
+						<input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
+					</div>
+					<div class="form-group">
+						<p class="prompt horizontal-center">By registering you agree to the <strong>Terms and Conditions</strong></p>
+					</div>
+					<div class="alert form-group" role="alert" ng-if="resData">
+						<strong ng-model="msg">{{msg}}</strong>
+					</div>
+					<button class="btn horizontal-center" type="submit">REGISTER</button>
+					<div class="form-group">
+						<p class="prompt horizontal-center" ng-mobile-click="">OR SIGN IN <a id="logInHere" class="text-bold">HERE</a></p>
+					</div>
+				</form>
+			</div>
 		</div>
+	</div>
+</div>
