@@ -94,7 +94,7 @@ router.post('/save', function (req, res, next) {
                     subject: 'Enigma Authentication',
                     text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
                     "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-                    "https://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email + "\n\n" +
+                    "http://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email + "\n\n" +
                     "If you did not intend to register for Enigma 4.0 kindly ignore this message."
                 };
 
