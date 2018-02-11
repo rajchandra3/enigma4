@@ -4,7 +4,8 @@
 
 .time{
   margin:5px;
-  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   padding: 5px;
 }
 
@@ -15,11 +16,6 @@
 
 body{
   font-family: Elianto;
-  background-image: url("../../images/brickWalldark.jpg");
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .helvetica{

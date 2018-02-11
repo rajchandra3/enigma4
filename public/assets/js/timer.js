@@ -12,6 +12,8 @@ var currentSecond;
 var currentHour;
 var currentMinute;
 
+var counter=0;
+
 var x=setInterval(function() {
   time=new Date().getTime();
   time=1519383000000-time;
@@ -34,3 +36,11 @@ var x=setInterval(function() {
   minuteSlot.innerHTML = currentMinute;
   secondSlot.innerHTML = currentSecond;
 },1000);
+
+
+/*var y=setInterval(function(){
+  counter+=1;
+  if ((counter%4==0)||((counter+1)%4==0)){
+
+  }
+},200);*/
