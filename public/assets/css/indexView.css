@@ -31,6 +31,10 @@ body{
   font-family: helvetica;
 }
 
+.partition{
+  margin:3.5% 0 0 0;
+}
+
 .btn{
   font-family: Elianto;
   font-weight: lighter;

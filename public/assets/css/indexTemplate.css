@@ -45,13 +45,3 @@ a{
   text-decoration: none!important;
   color: inherit!important;
 }
-
-
-#logInForm{
-  display: none;
-}
-
-#signUpForm{
-  display: block;
-}
-
