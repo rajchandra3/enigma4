@@ -1,4 +1,3 @@
-$(document).ready(function(){
 
   $('#logInHere').on('click touchstart', function(){
       alert('something is clicked');
@@ -11,4 +10,4 @@ $(document).ready(function(){
     $('#logInForm').css({"display":"none"});
     $('#signUpForm').css({"display":"block"});
   });
-});
+
