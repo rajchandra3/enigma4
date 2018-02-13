@@ -54,8 +54,13 @@ router.post('/player/forgot', function(req, res, next) {
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                res.json({code: 1, message:'An e-mail has been sent with further instructions.'});
-                done(err, 'done');
+                if(err){
+                    console.log(err);
+                    res.json({code: 0, message:'Failed to send e-mail. Please try again.'});
+                }
+                else{
+                    res.json({code: 1, message:'An e-mail has been sent with further instructions.'});
+                }
             });
         }
     ], function(err) {
@@ -110,7 +115,10 @@ router.post('/reset/:token', function(req, res) {
                 'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                done(err);
+                if(err)
+                    console.log(err);
+                else
+                    console.log("Email Sent !");
             });
         }
     ], function(err) {

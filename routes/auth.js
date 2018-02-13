@@ -86,6 +86,7 @@ router.post('/save', function (req, res, next) {
                 res.json({code: 0, message: err})
             }
             else {
+                console.log("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                 var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
                 var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                 var mailOptions = {
