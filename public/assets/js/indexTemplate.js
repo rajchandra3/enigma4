@@ -1,13 +1,11 @@
 
-  $('#logInHere').on('click touchstart', function(){
-      alert('something is clicked');
+$('#logInHere').on('click touchstart', function(){
     $('#signUpForm').css({"display":"none"});
     $('#logInForm').css({"display":"block"});
-  });
+});
 
-  $('#signUpHere').on('click touchstart', function(){
-      alert('something is clicked');
+$('#signUpHere').on('click touchstart', function(){
     $('#logInForm').css({"display":"none"});
     $('#signUpForm').css({"display":"block"});
-  });
+});
 

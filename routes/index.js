@@ -67,7 +67,7 @@ router.post('/player/forgot', function(req, res, next) {
 router.get('/reset/:token', function(req, res) {
     player.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-             // res.send('Password reset token is invalid or has expired.');
+            // res.send('Password reset token is invalid or has expired.');
             res.json('update',{
                 mainMessage:'Password reset token is invalid or has expired.',
                 trailingMessage : 'Go back'
@@ -95,10 +95,7 @@ router.post('/reset/:token', function(req, res) {
                     user.resetPasswordExpires = undefined;
 
                     user.save(function (err) {
-                        if(err)
-                            console.log(err);
-                        else
-                            res.json({code: 1,message:'Your password has been successfully changed.'});
+                        res.json({code: 1, message: 'Your password has been successfully changed.'});
                     });
                 }
             });
@@ -113,7 +110,6 @@ router.post('/reset/:token', function(req, res) {
                 'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                res.json({code: 1,message:'An email is sent with confirmation message.'});
                 done(err);
             });
         }
@@ -158,7 +154,7 @@ router.post('/resend', function(req, res) {
                             throw err;
                         else
                             res.json({code: 1, message: "Verify your email address using the link sent to you."});
-                            console.log("Email Sent");
+                        console.log("Email Sent");
                     });
                     // Invoke the next step here however you like
                     // Put all of the code here (not the best solution)
