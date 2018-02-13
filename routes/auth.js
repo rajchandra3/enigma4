@@ -87,7 +87,7 @@ router.post('/save', function (req, res, next) {
             }
             else {
                 var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
-                var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
+                var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                 var mailOptions = {
                     to: req.body.email,
                     from: '"IEEE VIT" enigma.ieeevit@gmail.com',

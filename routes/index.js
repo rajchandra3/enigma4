@@ -43,7 +43,7 @@ router.post('/player/forgot', function(req, res, next) {
             });
         },
         function(token, user, done) {
-            var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
+            var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
             var mailOptions = {
                 to: user.email,
                 from: '"IEEE VIT" enigma.ieeevit@gmail.com',
@@ -95,13 +95,16 @@ router.post('/reset/:token', function(req, res) {
                     user.resetPasswordExpires = undefined;
 
                     user.save(function (err) {
-                        res.json({code: 0, message: 'Your password has been successfully changed.'});
+                        if(err)
+                            console.log(err);
+                        else
+                            res.json({code: 1,message:'Your password has been successfully changed.'});
                     });
                 }
             });
         },
         function(user, done) {
-            var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
+            var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
             var mailOptions = {
                 to: user.email,
                 from: '"IEEE VIT" enigma.ieeevit@gmail.com',
@@ -110,7 +113,7 @@ router.post('/reset/:token', function(req, res) {
                 'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
-                res.json({code: 1,message:'Success! Your password has been changed.'});
+                res.json({code: 1,message:'An email is sent with confirmation message.'});
                 done(err);
             });
         }
@@ -141,7 +144,7 @@ router.post('/resend', function(req, res) {
                     var s = req.headers.host + '/auth/' + "verifyMail?code=" + user.hashcode + "&email=" + user.email;
 // load in the json file with the replace values
 
-                    var smtpTransport = nodemailer.createTransport("smtps://enigma.ieeevit%40gmail.com:" + encodeURIComponent('enigmadev_2017') + "@smtp.gmail.com:465");
+                    var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                     var mailOptions = {
                         to: req.body.email,
                         from: '"IEEE VIT" enigma.ieeevit@gmail.com',
