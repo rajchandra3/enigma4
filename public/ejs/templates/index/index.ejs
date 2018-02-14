@@ -27,12 +27,12 @@
 				<div id="logInForm">
 					<form ng-submit="getLogin()">
 						<div class="form-group">
-							<input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="player.email" required="true"></input>
+							<input type="text" class="form-control" name="user.email" placeholder=" Email" ng-model="playerLogin.email" required="true"></input>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="player.password" required="true"></input>
+							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="playerLogin.password" required="true"></input>
 						</div>
-						<div id="fpbtn" align="center" ng-click="$('#modal').modal('hide')">
+						<div id="fpbtn" align="center">
 							<a href="#!forgotPassword" class="helvetica" tabindex="-1">Forgot Password?</a>
 						</div>
 						<br>

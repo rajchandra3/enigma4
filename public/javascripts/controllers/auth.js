@@ -100,20 +100,20 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         $scope.code = 2;
         $scope.msg = "Verifying your credentials... ";
         //checking for emal and password
-        if($scope.player.email === '' || $scope.player.password === '') {
+        if($scope.playerLogin.email === '' || $scope.playerLogin.password === '') {
             $scope.code = 0;
             $scope.msg = "Invalid credentials !!";
         }
         else{
-            $scope.player.email = ($scope.player.email).toLowerCase();
-            $http.post('/auth/verifyPlayer', $scope.player).then(successCallback, errorCallback);
+            $scope.playerLogin.email = ($scope.playerLogin.email).toLowerCase();
+            $http.post('/auth/verifyPlayer', $scope.playerLogin).then(successCallback, errorCallback);
 
             function successCallback(response) {
-                $scope.resData = response.data;
-                $scope.code = $scope.resData.code;
+                $scope.respData = response.data;
+                $scope.code = $scope.respData.code;
                 switch ($scope.code) {
                     case 0:
-                        $scope.msg = $scope.resData.message;
+                        $scope.msg = $scope.respData.message;
                         break;
                     case 1:
                         $scope.msg = "Success ! We are redirecting you to Enigma.";
