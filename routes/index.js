@@ -126,49 +126,52 @@ router.post('/reset/:token', function(req, res) {
     });
 });
 
-router.get('/resend', function(req, res, next) {
-    res.render('resend');
-});
+// router.get('/resend', function(req, res, next) {
+//     res.render('resend');
+// });
 
-router.post('/resend', function(req, res) {
-    var email = req.body.email;
+router.get('/resend', function(req, res) {
+    // var email = req.body.email;
     var success = true;
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email)) {
-        res.json({code: 0, message: 'Invalid email!'});
-        success = false;
-    }
+    // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    // if (!re.test(email)) {
+    //     res.json({code: 0, message: 'Invalid email!'});
+    //     success = false;
+    // }
     if (success) {
-        player.findOne({email: email}, function (err, user) {
+        player.find({authcomp:false}, function (err, user) {
             if (!user) {
                 res.json({code: 0, message: 'No account with this email address exists.'});
             }
             else {
-                if (!user.authcomp) {
-                    var s = req.headers.host + '/auth/' + "verifyMail?code=" + user.hashcode + "&email=" + user.email;
+                for(var i=0;i<user.length;i++){
+                    if (!user[i].authcomp) {
+                        var s = req.headers.host + '/auth/' + "verifyMail?code=" + user[i].hashcode + "&email=" + user[i].email;
 // load in the json file with the replace values
 
-                    var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
-                    var mailOptions = {
-                        to: req.body.email,
-                        from: '"IEEE VIT" enigma.ieeevit@gmail.com',
-                        subject: 'Enigma - Email Authentication',
-                        text: "You are receiving this because you have requested us to resend the mail." + "\n\n" +
-                        "Please click on the following link, or paste this into your browser to complete the process:\n\n" + s + "\n\n" +
-                        "If you did not request this, please ignore this email."
-                    };
-                    smtpTransport.sendMail(mailOptions, function (err) {
-                        if (err)
-                            throw err;
-                        else
-                            res.json({code: 1, message: "Verify your email address using the link sent to you."});
-                        console.log("Email Sent");
-                    });
-                    // Invoke the next step here however you like
-                    // Put all of the code here (not the best solution)
-                }
-                else {
-                    res.json({code: 0, message: 'You have already verified this Email-ID'});
+                        var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+                        var mailOptions = {
+                            to: user[i].email,
+                            from: '"IEEE VIT" enigma.ieeevit@gmail.com',
+                            subject: 'Enigma Authentication',
+                            text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
+                            "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+                            "http://" + req.headers.host + '/auth/' + "verifyMail?code=" + user[i].hashcode + "&email=" + user[i].email + "\n\n" +
+                            "If you did not intend to register for Enigma 4.0 kindly ignore this message."
+                        };
+                        smtpTransport.sendMail(mailOptions, function (err) {
+                            if (err)
+                                throw err;
+                            else
+                                res.json({code: 1, message: "Verify your email address using the link sent to you."});
+                            console.log("Email Sent");
+                        });
+                        // Invoke the next step here however you like
+                        // Put all of the code here (not the best solution)
+                    }
+                    else {
+                        res.json({code: 0, message: 'You have already verified this Email-ID'});
+                    }
                 }
             }
         });
