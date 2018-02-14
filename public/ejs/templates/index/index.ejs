@@ -32,10 +32,6 @@
 						<div class="form-group">
 							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="playerLogin.password" required="true"></input>
 						</div>
-						<div id="fpbtn" align="center">
-							<a href="#!forgotPassword" class="helvetica" tabindex="-1">Forgot Password?</a>
-						</div>
-						<br>
 						<!--Message Container for user comfort-->
 						<div class="message-container">
 							<div class="alert alert-danger" role="alert" ng-if="code==0">
@@ -55,6 +51,9 @@
 							</div>
 						</div>
 						<!--Buttons-->
+						<div id="fpbtn" align="center">
+							<a href="#!forgotPassword" class="helvetica" tabindex="-1">Forgot Password?</a>
+						</div>
 						<div class="form-group">
 							<button class="btn horizontal-center" type="submit">
 								<span id="btn-text">LOGIN</span>
