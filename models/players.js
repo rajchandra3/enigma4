@@ -22,7 +22,8 @@ var playerSchema = new Schema({
     lastcorrect : {type:Date},
     developer : {type : Boolean, default : false},
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    gender: {type: String}
 });
 
 playerSchema.methods.verifyPassword = function (password, callback) {
