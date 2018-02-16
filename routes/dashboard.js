@@ -136,12 +136,13 @@ router.post('/question',authenticateTime,function(req,res){
                                     var new_hint = playerData.hint;
                                 }
                                 var new_qno = playerData.currqno + 1;
+                                var new_solvedFirst = playerData.solvedFirst +1;
                                 var new_score = playerData.score;
                                 if (!que.solved) {
                                     new_score += 110;
                                     player.update(
                                         {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint}},
+                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, solvedFirst : new_solvedFirst}},
                                         function (err, data) {
                                             if (err) throw(err);
                                         });
@@ -271,5 +272,43 @@ router.get('/mini', function(req, res) {
         res.json(docs);
     });
 });
+
+router.get('/achievements', function(req,res){
+    var playerId = req.decoded._doc._id;
+    var enigmaStart = new Date(2018, 2, 23, 16, 20, 0, 0).getTime();
+    var response_json = {
+        "a1": false,
+        "a2": false,
+        "a3": false,
+        "a4": false,
+        "a5": false,
+        "a6": false,
+        "a7": false
+    };
+
+    player.findCurrentPlayerId(playerId,function (err, playerData) {
+        if(err){
+            throw(err);
+        }
+        if(playerData.currqno >= 2){
+            response_json.a6 = true;
+        }
+        if(playerData.solvedFirst >= 3){
+            response_json.a2 = true;
+        }
+        if((playerData.currqno - playerData.lastHintUsed)>=5){
+            response_json.a4 = true;
+        }
+
+        var lastCorrectTime = playerData.lastcorrect.getTime();
+        var solvingHours = Math.abs((lastCorrectTime - enigmaStart)/3600000)
+
+        if(solvingHours <= 10 & (playerData.currqno-1) >= 10){
+            response_json.a3 = true;
+        }
+    });
+
+    res.json(response_json);
+})
 
 module.exports = router;
