@@ -20,6 +20,7 @@ var playerSchema = new Schema({
     lastHintUsed: { type: Number, default : 0},
     score : {type: Number, default : 0},
     lastcorrect : {type:Date},
+    solvedFirst : {type: Number, default: 0},
     developer : {type : Boolean, default : false},
     resetPasswordToken: String,
     resetPasswordExpires: Date,
