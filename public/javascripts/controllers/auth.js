@@ -149,7 +149,8 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
     $scope.forgotEmailGen = function () {
         $scope.code = 2;
         $scope.msg = "Checking our database...";
-        $http.post('/player/forgot', $scope.player).then(successCallback, errorCallback);
+        var forgotemail = $scope.player.toLowerCase();
+        $http.post('/player/forgot', forgotemail ).then(successCallback, errorCallback);
 
         function successCallback(response) {
             $scope.resData = response.data;
