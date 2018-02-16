@@ -33,7 +33,7 @@
 							<input type="password" class="form-control" name="user.password" placeholder=" Password" ng-model="playerLogin.password" required="true"></input>
 						</div>
 						<!--Message Container for user comfort-->
-						<div class="message-container">
+						<div class="message-container" ng-if="msg">
 							<div class="alert alert-danger" role="alert" ng-if="code==0">
 								<div class="font-weight-strong centered" ng-model="msg">
 									<font size="2" class="font-weight-bold">{{msg}}</font>
@@ -98,20 +98,20 @@
 							</p>
 						</div>
 						<!--Message container for all types of messages-->
-						<div class="message-container">
+						<div class="message-container" ng-if="msgReg">
 							<div class="alert alert-danger" role="alert" ng-if="code==0">
-								<div class="font-weight-strong centered" ng-model="msg">
-									<font size="2" class="font-weight-bold">{{msg}}</font>
+								<div class="font-weight-strong centered" ng-model="msgReg">
+									<font size="2" class="font-weight-bold">{{msgReg}}</font>
 								</div>
 							</div>
 							<div class="alert alert-success" role="alert" ng-if="code==1">
-								<div class="font-weight-strong centered" ng-model="msg">
-									<font size="2" class="font-weight-bold">{{msg}}</font>
+								<div class="font-weight-strong centered" ng-model="msgReg">
+									<font size="2" class="font-weight-bold">{{msgReg}}</font>
 								</div>
 							</div>
 							<div class="alert alert-info" role="alert" ng-if="code==2">
-								<div class="font-weight-strong centered" ng-model="msg">
-									<font size="2" class="font-weight-bold">{{msg}}</font>
+								<div class="font-weight-strong centered" ng-model="msgReg">
+									<font size="2" class="font-weight-bold">{{msgReg}}</font>
 								</div>
 							</div>
 						</div>

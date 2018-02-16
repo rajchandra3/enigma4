@@ -18,6 +18,18 @@ router.get('/', function(req, res, next) {
     res.render('index');
 });
 
+/* GET stats page. */
+router.get('/stats', function(req, res, next) {
+    var count = player.find({},(err,data)=>{
+        if(err)
+            console.log(err);
+        else
+        res.render('stats',{
+            playerCount : data.length
+    });
+        });
+});
+
 
 router.post('/player/forgot', function(req, res, next) {
     async.waterfall([

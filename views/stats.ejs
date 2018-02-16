@@ -1,0 +1,53 @@
+
+<!DOCTYPE HTML>
+
+<!--Made with roses and tears - sahil3vedi -->
+
+<html lang="en">
+<head>
+    <title>Enigma 4.0</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/timerView.css">
+</head>
+<body>
+
+<div class="container vertical-placing">
+    <div class="vertical-center text-center">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="time">
+                    <span id="days"><%=Math.floor(playerCount/1000)%></span>
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="time">
+                    <span id="hours"><%=Math.floor(playerCount/100)%></span>
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="time">
+                    <span id="minutes"><%=Math.floor(playerCount/10)%></span>
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="time">
+                    <span id="seconds"><%=Math.floor(playerCount%10)%></span>
+                </p>
+            </div>
+        </div>
+        <div class="vert-space"></div>
+        <a href="#">
+            <button class="btn">Regsitrations</button>
+        </a>
+    </div>
+
+</div>
+
+<!--Template Javascript-->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>
