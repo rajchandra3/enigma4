@@ -10,7 +10,7 @@ app.config(function($routeProvider, $locationProvider){
             controller: "authController"
         })
         .when("/forgotPassword", {
-            templateUrl: "ejs/templates/index/forgot.ejs",
+            templateUrl: "/ejs/templates/index/forgot.ejs",
             controller: "authController"
         })
         .when("/resetPassword/:params", {
@@ -96,9 +96,6 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                 }
             }
         checkCookie();
-    }
-    $scope.routechange= function () {
-        $location.path('/forgotPassword');
     }
 
     $scope.getLogin = function () {

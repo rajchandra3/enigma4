@@ -61,8 +61,10 @@
 					</form>
 					<!--Buttons-->
 					<div id="fpbtn" align="center">
-						<a href="#" ng-click="routechange();" class="helvetica" tabindex="-1">Forgot Password?</a>
+						<a  onclick="removemodal();" href="/forgotPassword" class="helvetica" tabindex="-1">Forgot Password?</a>
 					</div>
+
+
 
 				</div>
 
@@ -128,5 +130,10 @@
 				</div>
 			</div>
 		</div>
+<script>
+      function removemodal () {
+          $('#modal').modal('hide');
+          	 }
+</script>
 	</div>
 </div>
