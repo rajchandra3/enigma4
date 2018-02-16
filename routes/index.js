@@ -26,8 +26,8 @@ router.get('/stats', function(req, res, next) {
         else
         res.render('stats',{
             playerCount : data.length
-    });
         });
+    });
 });
 
 
