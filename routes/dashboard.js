@@ -138,11 +138,17 @@ router.post('/question',authenticateTime,function(req,res){
                                 var new_qno = playerData.currqno + 1;
                                 var new_solvedFirst = playerData.solvedFirst +1;
                                 var new_score = playerData.score;
+                                var lastcorrect = {
+                                    date: Date.now(),
+                                    qno: playerData.qno
+                                };
+                                hintless =  max(playerData.solvedHintless, new_qno - playerData.lastHintUsed);
+
                                 if (!que.solved) {
                                     new_score += 110;
                                     player.update(
                                         {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, solvedFirst : new_solvedFirst}},
+                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, solvedFirst : new_solvedFirst, lastcorrect: lastcorrect, solvedHintless: hintless}},
                                         function (err, data) {
                                             if (err) throw(err);
                                         });
@@ -157,7 +163,7 @@ router.post('/question',authenticateTime,function(req,res){
                                     new_score += 100;
                                     player.update(
                                         {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint}},
+                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, lastcorrect: lastcorrect, solvedHintless: hintless}},
                                         function (err, data) {
                                             if (err) throw(err);
                                         });
@@ -276,39 +282,60 @@ router.get('/mini', function(req, res) {
 router.get('/achievements', function(req,res){
     var playerId = req.decoded._doc._id;
     var enigmaStart = new Date(2018, 2, 23, 16, 20, 0, 0).getTime();
+    var enigmaTenHours = new Date(2018, 2, 24, 2, 30, 0, 0).getTime();
+
     var response_json = {
-        "a1": false,
-        "a2": false,
-        "a3": false,
-        "a4": false,
-        "a5": false,
-        "a6": false,
-        "a7": false
+        "a1": {
+            status: false,
+            progress: 0
+        },
+        "a2": {
+            status: false,
+            progress: 0
+        },
+        "a3": {
+            status: false,
+            progress: 0
+        },
+        "a4": {
+            status: false,
+            progress: 0
+        },
+        "a5": {
+            status: false,
+            progress: 0
+        },
     };
 
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if(err){
             throw(err);
         }
+
         if(playerData.currqno >= 2){
-            response_json.a6 = true;
+            response_json.a1.status = true;
+            response_json.a1.progress = 1;
         }
+
+        if(playerData.solvedFirst >= 1){
+            response_json.a2.status = true;
+            response_json.a2.progress = playerData.solvedFirst;
+        }
+
         if(playerData.solvedFirst >= 3){
-            response_json.a2 = true;
-        }
-        if((playerData.currqno - playerData.lastHintUsed)>=5){
-            response_json.a4 = true;
+            response_json.a3.status = true;
+            response_json.a3.progress = playerData.solvedFirst;
         }
 
-        var lastCorrectTime = playerData.lastcorrect.getTime();
-        var solvingHours = Math.abs((lastCorrectTime - enigmaStart)/3600000)
+        //Update a4 here (solved 10 questions before 10 hours)
 
-        if(solvingHours <= 10 & (playerData.currqno-1) >= 10){
-            response_json.a3 = true;
+        response_json.a5.progress = playerData.solvedHintless;
+        if(playerData.solvedHintless >= 5){
+            response_json.a5.status = true;
         }
     });
 
     res.json(response_json);
-})
+});
 
 module.exports = router;
