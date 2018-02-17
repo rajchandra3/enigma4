@@ -50,10 +50,6 @@
 								</div>
 							</div>
 						</div>
-						<!--Buttons-->
-						<div id="fpbtn" align="center">
-							<a href="#!forgotPassword" class="helvetica" tabindex="-1">Forgot Password?</a>
-						</div>
 						<div class="form-group">
 							<button class="btn horizontal-center" type="submit">
 								<span id="btn-text">LOGIN</span>
@@ -63,6 +59,13 @@
 							</button>
 						</div>
 					</form>
+					<!--Buttons-->
+					<div id="fpbtn" align="center">
+						<a  onclick="removemodal();" href="/forgotPassword" class="helvetica" tabindex="-1">Forgot Password?</a>
+					</div>
+
+
+
 				</div>
 
 				<div class="prompt horizontal-center" style="display:flex;">
@@ -127,5 +130,10 @@
 				</div>
 			</div>
 		</div>
+<script>
+      function removemodal () {
+          $('#modal').modal('hide');
+          	 }
+</script>
 	</div>
 </div>

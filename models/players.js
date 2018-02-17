@@ -19,7 +19,12 @@ var playerSchema = new Schema({
     hint: {type: Number, default : 2},
     lastHintUsed: { type: Number, default : 0},
     score : {type: Number, default : 0},
-    lastcorrect : {type:Date},
+    lastcorrect : {
+        date: {type: Date},
+        qno: {type: Number, default: 0}
+    },
+    solvedFirst : {type: Number, default: 0},
+    solvedHintless: {type: Number, default: 0},
     developer : {type : Boolean, default : false},
     resetPasswordToken: String,
     resetPasswordExpires: Date,
