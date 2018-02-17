@@ -61,11 +61,11 @@ router.post('/save', function (req, res, next) {
         success=false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
-        res.json({code: 0, message: 'Invalid Organisation'});
+        res.json({code: 0, message: 'Invalid University name'});
         success=false;
     }
     if (!check.phone.test(req.body.phone) || !req.body.phone) {
-        res.json({code: 0, message: 'Invalid PHONE NUMBER'});
+        res.json({code: 0, message: 'Invalid Contact detail'});
         success=false;
     }
     if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {

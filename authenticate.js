@@ -38,7 +38,7 @@ function authenticate(req, res) {
 }
 
 function authenticate_user(email, password, callback) {
-    player.findOne({ email: email }, function (err, user) {
+    player.findOne({ email: email },'email password _id authcomp',(err, user)=> {
         if (err) {
             return callback(err, null);
         }
