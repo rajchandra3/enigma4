@@ -24,10 +24,10 @@ var playerSchema = new Schema({
         qno: {type: Number, default: 0}
     },
     solvedFirst : {type: Number, default: 0},
-    solvedHintless: {type: Number, default: 0},
+    solvedHintless : {type: Number, default: 0},
     developer : {type : Boolean, default : false},
-    resetPasswordToken: String,
-    resetPasswordExpires: Date,
+    resetPasswordToken : String,
+    resetPasswordExpires : Date,
     gender: {type: String}
 });
 
