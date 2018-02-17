@@ -36,6 +36,9 @@ var x=setInterval(function() {
   hourSlot.innerHTML = currentHour;
   minuteSlot.innerHTML = currentMinute;
   secondSlot.innerHTML = currentSecond;
+  if(time <=0){
+      location.reload(true);
+  }
 },1000);
 
 

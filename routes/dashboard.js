@@ -33,7 +33,7 @@ router.use(function (req, res, next) {
  */
 
 var authenticateTime = function(req, res, next){
-    var current_TIME = new Date().getTime(); //getting time in milliseconds
+    var currentTime = new Date().getTime(); //getting time in milliseconds
     var playerId = req.decoded._doc._id;
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if (err) {
@@ -42,10 +42,16 @@ var authenticateTime = function(req, res, next){
         else if (playerData.developer) {
             next();
         }
-        else if (current_TIME < 1519383000000) {
+        else if (currentTime < process.env.START_TIME) {
             res.render('timer');
         }
-        else if (current_TIME >= 1519383000000) {
+        else if(currentTime > process.env.END_TIME){
+            res.render('update',{
+                mainMessage : "Enigma has ended !",
+                trailingMessage : "show leaderboard"
+            });
+        }
+        else if (currentTime >= process.env.START_TIME && currentTime <= process.env.END_TIME) {
             next();
         }
     });
@@ -63,6 +69,7 @@ router.get('/',authenticateTime, function(req, res, next) {
         //     res.send('Access denied till Enigma Begins !!');
         else {
             res.render('question',{
+                    timeRem : new Date(process.env.START_TIME - new Date()).toString(),
                     timeNow : new Date().toString(),
                     timeOfStart : new Date(1519383000000).toString()
             });
