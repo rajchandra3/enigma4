@@ -35,51 +35,51 @@ router.get('/enigmaVerification', function (req, res) {
 
 //Post Registration - EMAIL AUTHENTICATION (Sending EMAIL)
 router.post('/save', function (req, res, next) {
-    var success = true;
+    var success=true;
     var rand = Math.random().toString(36).slice(2);
     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     var data = new player({
-        name: req.body.name,
+        name:req.body.name,
         password: hash,
         email: req.body.email,
-        hashcode: rand,
+        hashcode : rand,
         reg_no: req.body.reg_no,
         organisation: req.body.organisation,
         phone: req.body.phone,
-        authcomp: false
+        authcomp : false
     });
     if (!req.body.name) {
         res.json({code: 0, message: 'Invalid Name'});
-        success = false;
+        success=false;
     }
     if (!check.email.test(req.body.email) || !req.body.email) {
         res.json({code: 0, message: 'Invalid E-MAIL'});
-        success = false;
+        success=false;
     }
     if (!check.reg_no.test(req.body.reg_no)) {
         res.json({code: 0, message: 'Invalid Registration Number'});
-        success = false;
+        success=false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
         res.json({code: 0, message: 'Invalid Organisation'});
-        success = false;
+        success=false;
     }
     if (!check.phone.test(req.body.phone) || !req.body.phone) {
         res.json({code: 0, message: 'Invalid PHONE NUMBER'});
-        success = false;
+        success=false;
     }
     if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
         res.json({code: 0, message: 'Invalid Password'});
+        success=false;
+    }
+    if(req.body.password!==req.body.cpassword){
         success = false;
     }
-    if (req.body.password !== req.body.cpassword) {
-        success = false;
-    }
-    if (success) {
+    if(success) {
 
         genderize(req.body.name.split(' ')[0], function (err, obj) {
 
-            if (obj.gender != null) {
+            if(obj.gender!=null){
                 data.gender = obj.gender;
             }
 
@@ -94,9 +94,9 @@ router.post('/save', function (req, res, next) {
                     res.json({code: 0, message: err})
                 }
                 else {
-                    console.log("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+                    console.log("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                     var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
-                    var smtpTransport = nodemailer.createTransport("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+                    var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                     var mailOptions = {
                         to: req.body.email,
                         from: '"IEEE VIT" enigma.ieeevit@gmail.com',
@@ -129,59 +129,65 @@ router.post('/save', function (req, res, next) {
     }
 });
 
-router.get('/verifyMail', function (req, res, next) {
+router.get('/verifyMail', function(req, res, next) {
     if (!check.email.test(req.query.email)) {
-        res.render('update', {
-            mainMessage: "Incorrect Link !!",
-            trailingMessage: "Ask to resend the mail."
+        res.render('update',{
+            mainMessage : "Incorrect Link !!",
+            trailingMessage : "Ask to resend the mail."
         });
         //res.json({code: '0', message: 'Incorrect Link!'});
     }
     else {
         player.findOne({email: req.query.email}, function (err, result) {
             if (err) throw err;
-
-            var mainMess = "Hey There!";
-            var trailingMess = "Wassup!";
-
             if (!result) {
-                mainMess = "You have not yet registered";
-                trailingMess = "Click here to Register";
+                res.render('update',{
+                    mainMessage : "You have not yet registered",
+                    trailingMessage : "Click here to Register"
+                });
+                // res.json({code: '0', message: 'You have not yet registered!'});
             }
-            else if (result.authcomp) {
-                mainMess = "Already authorized";
-                trailingMess = "Click here to Log In";
+            else if(result.authcomp){
+                res.render('update',{
+                    mainMessage : "Already authorized",
+                    trailingMessage : "Click here to Log In"
+                });
+                // res.json({code: '0', message: 'Already Authorized'});
             }
             else {
                 if (check.code.test(req.query.code)) {
-                    if (req.query.code !== result.hashcode) {
-                        mainMess = "Incorrect Hash Code/Hash Code expired";
-                        trailingMess = "Ask to resend the mail.";
+                    if (req.query.code !== result.hashcode){
+                        res.render('update',{
+                            mainMessage : "Incorrect Hash Code/Hash Code expired",
+                            trailingMessage : "Ask to resend the mail."
+                        });
                     }
-                    // res.json({code: '0', message: 'Incorrect Hash Code/Hash Code expired'});
+                        // res.json({code: '0', message: 'Incorrect Hash Code/Hash Code expired'});
                     else {
+                        var newValues = result;
+                        newValues.authcomp=true;
+
                         //Successfully change the authcomp variable to true, in order to allow login
-                        player.updateOne({_id: result._id}, {authcomp: true}, function (err, res1) {
+                        player.updateOne({_id:result._id}, newValues, function (err, res1) {
                             if (err) throw err;
-                            else {
-                                mainMess = "Email Verified";
-                                trailingMess = "Click here to login";
+                            else{
+                                res.render('update',{
+                                    mainMessage : "Email Verified",
+                                    trailingMessage : "Click here to login"
+                                });
                             }
                             // res.redirect('/auth/enigmaVerification');
                         });
                     }
                 }
-                else {
-                    mainMess = "Incorrect Hash Code/Hash Code expired";
-                    trailingMess = "Ask to resend the mail.";
+                else{
+                    res.render('update',{
+                        mainMessage : "Incorrect Hash Code/Hash Code expired",
+                        trailingMessage : "Ask to resend the mail."
+                    });
                 }
-                // res.json({code: '0', message: 'Incorrect Hash Code/Hash Code expired'});
+                    // res.json({code: '0', message: 'Incorrect Hash Code/Hash Code expired'});
             }
-
-            res.render('update', {
-                mainMessage: mainMess,
-                trailingMessage: trailingMess
-            });
         });
     }
 });
