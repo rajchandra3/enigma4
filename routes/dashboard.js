@@ -62,7 +62,10 @@ router.get('/',authenticateTime, function(req, res, next) {
         // else if(current_TIME <= Start_time) //start time is not defined
         //     res.send('Access denied till Enigma Begins !!');
         else {
-            res.render('question');
+            res.render('question',{
+                    timeNow : new Date().toString(),
+                    timeOfStart : new Date(1519383000000).toString()
+            });
         }
     });
 });
