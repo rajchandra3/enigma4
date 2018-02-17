@@ -284,7 +284,7 @@ router.get('/achievements', function(req,res){
     var enigmaStart = new Date(2018, 2, 23, 16, 20, 0, 0).getTime();
     var enigmaTenHours = new Date(2018, 2, 24, 2, 30, 0, 0).getTime();
 
-    var response_json = {
+    var achievementsJson = {
         "a1": {
             status: false,
             progress: 0
@@ -313,29 +313,30 @@ router.get('/achievements', function(req,res){
         }
 
         if(playerData.currqno >= 2){
-            response_json.a1.status = true;
-            response_json.a1.progress = 1;
+            achievementsJson.a1.status = true;
+            achievementsJson.a1.progress = 1;
         }
 
         if(playerData.solvedFirst >= 1){
-            response_json.a2.status = true;
-            response_json.a2.progress = playerData.solvedFirst;
+            achievementsJson.a2.status = true;
+            achievementsJson.a2.progress = playerData.solvedFirst;
+            achievementsJson.a3.progress = playerData.solvedFirst;
         }
 
         if(playerData.solvedFirst >= 3){
-            response_json.a3.status = true;
-            response_json.a3.progress = playerData.solvedFirst;
+            achievementsJson.a3.status = true;
+            achievementsJson.a3.progress = playerData.solvedFirst;
         }
 
         //Update a4 here (solved 10 questions before 10 hours)
 
-        response_json.a5.progress = playerData.solvedHintless;
+        achievementsJson.a5.progress = playerData.solvedHintless;
         if(playerData.solvedHintless >= 5){
-            response_json.a5.status = true;
+            achievementsJson.a5.status = true;
         }
     });
 
-    res.json(response_json);
+    res.json(achievementsJson);
 });
 
 module.exports = router;
