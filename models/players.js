@@ -6,6 +6,7 @@ var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
 var playerSchema = new Schema({
+<<<<<<< HEAD
     name: {type: String},
     hashcode: {type: String},
     password: {type: String, required: true},
@@ -24,6 +25,30 @@ var playerSchema = new Schema({
     developer: {type: Boolean, default: false},
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+=======
+    name : {type:String},
+    hashcode:{type : String},
+    password: { type : String,required: true},
+    reg_no:{type : String},
+    organisation: {type : String,default: "VIT University"},
+    email:{type : String,unique : true,lowercase : true,required: true},
+    phone:{type : String, required : true},
+    date:{type:Date, default: Date.now},//to track the time of registration
+    authcomp:{type: Boolean, default: false},
+    currqno : {type: Number, default : 1},
+    hint: {type: Number, default : 2},
+    lastHintUsed: { type: Number, default : 0},
+    score : {type: Number, default : 0},
+    lastcorrect : {
+        date: {type: Date},
+        qno: {type: Number, default: 0}
+    },
+    solvedFirst : {type: Number, default: 0},
+    solvedHintless : {type: Number, default: 0},
+    developer : {type : Boolean, default : false},
+    resetPasswordToken : String,
+    resetPasswordExpires : Date,
+>>>>>>> 54353723a36b1c8db339310a4ca5ee495ce5ef43
     gender: {type: String}
 });
 

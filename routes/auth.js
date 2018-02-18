@@ -61,12 +61,12 @@ router.post('/save', function (req, res, next) {
         success = false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
-        res.json({code: 0, message: 'Invalid Organisation'});
-        success = false;
+        res.json({code: 0, message: 'Invalid University name'});
+        success=false;
     }
     if (!check.phone.test(req.body.phone) || !req.body.phone) {
-        res.json({code: 0, message: 'Invalid PHONE NUMBER'});
-        success = false;
+        res.json({code: 0, message: 'Invalid Contact detail'});
+        success=false;
     }
     if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
         res.json({code: 0, message: 'Invalid Password'});
@@ -75,7 +75,10 @@ router.post('/save', function (req, res, next) {
     if (req.body.password !== req.body.cpassword) {
         success = false;
     }
-    if (success) {
+    if(req.body.coupan.toLowerCase() === "palette"){
+        data.hint = 3;
+    }
+    if(success) {
         genderize(req.body.name.split(' ')[0], function (err, obj) {
 
             if (obj.gender) data.gender = obj.gender;

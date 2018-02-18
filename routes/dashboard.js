@@ -33,7 +33,7 @@ router.use(function (req, res, next) {
  */
 
 var authenticateTime = function(req, res, next){
-    var current_TIME = new Date().getTime(); //getting time in milliseconds
+    var currentTime = new Date().getTime(); //getting time in milliseconds
     var playerId = req.decoded._doc._id;
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if (err) {
@@ -42,10 +42,16 @@ var authenticateTime = function(req, res, next){
         else if (playerData.developer) {
             next();
         }
-        else if (current_TIME < 1519383000000) {
+        else if (currentTime < process.env.START_TIME) {
             res.render('timer');
         }
-        else if (current_TIME >= 1519383000000) {
+        else if(currentTime > process.env.END_TIME){
+            res.render('update',{
+                mainMessage : "Enigma has ended !",
+                trailingMessage : "show leaderboard"
+            });
+        }
+        else if (currentTime >= process.env.START_TIME && currentTime <= process.env.END_TIME) {
             next();
         }
     });
@@ -62,7 +68,11 @@ router.get('/',authenticateTime, function(req, res, next) {
         // else if(current_TIME <= Start_time) //start time is not defined
         //     res.send('Access denied till Enigma Begins !!');
         else {
-            res.render('question');
+            res.render('question',{
+                    timeRem : new Date(process.env.START_TIME - new Date()).toString(),
+                    timeNow : new Date().toString(),
+                    timeOfStart : new Date(1519383000000).toString()
+            });
         }
     });
 });
@@ -138,11 +148,17 @@ router.post('/question',authenticateTime,function(req,res){
                                 var new_qno = playerData.currqno + 1;
                                 var new_solvedFirst = playerData.solvedFirst +1;
                                 var new_score = playerData.score;
+                                var lastcorrect = {
+                                    date: Date.now(),
+                                    qno: playerData.qno
+                                };
+                                hintless =  max(playerData.solvedHintless, new_qno - playerData.lastHintUsed);
+
                                 if (!que.solved) {
                                     new_score += 110;
                                     player.update(
                                         {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, solvedFirst : new_solvedFirst}},
+                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, solvedFirst : new_solvedFirst, lastcorrect: lastcorrect, solvedHintless: hintless}},
                                         function (err, data) {
                                             if (err) throw(err);
                                         });
@@ -157,7 +173,7 @@ router.post('/question',authenticateTime,function(req,res){
                                     new_score += 100;
                                     player.update(
                                         {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint}},
+                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, lastcorrect: lastcorrect, solvedHintless: hintless}},
                                         function (err, data) {
                                             if (err) throw(err);
                                         });
@@ -276,39 +292,61 @@ router.get('/mini', function(req, res) {
 router.get('/achievements', function(req,res){
     var playerId = req.decoded._doc._id;
     var enigmaStart = new Date(2018, 2, 23, 16, 20, 0, 0).getTime();
-    var response_json = {
-        "a1": false,
-        "a2": false,
-        "a3": false,
-        "a4": false,
-        "a5": false,
-        "a6": false,
-        "a7": false
+    var enigmaTenHours = new Date(2018, 2, 24, 2, 30, 0, 0).getTime();
+
+    var achievementsJson = {
+        "a1": {
+            status: false,
+            progress: 0
+        },
+        "a2": {
+            status: false,
+            progress: 0
+        },
+        "a3": {
+            status: false,
+            progress: 0
+        },
+        "a4": {
+            status: false,
+            progress: 0
+        },
+        "a5": {
+            status: false,
+            progress: 0
+        },
     };
 
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if(err){
             throw(err);
         }
+
         if(playerData.currqno >= 2){
-            response_json.a6 = true;
+            achievementsJson.a1.status = true;
+            achievementsJson.a1.progress = 1;
         }
+
+        if(playerData.solvedFirst >= 1){
+            achievementsJson.a2.status = true;
+            achievementsJson.a2.progress = playerData.solvedFirst;
+            achievementsJson.a3.progress = playerData.solvedFirst;
+        }
+
         if(playerData.solvedFirst >= 3){
-            response_json.a2 = true;
-        }
-        if((playerData.currqno - playerData.lastHintUsed)>=5){
-            response_json.a4 = true;
+            achievementsJson.a3.status = true;
+            achievementsJson.a3.progress = playerData.solvedFirst;
         }
 
-        var lastCorrectTime = playerData.lastcorrect.getTime();
-        var solvingHours = Math.abs((lastCorrectTime - enigmaStart)/3600000)
+        //Update a4 here (solved 10 questions before 10 hours)
 
-        if(solvingHours <= 10 & (playerData.currqno-1) >= 10){
-            response_json.a3 = true;
+        achievementsJson.a5.progress = playerData.solvedHintless;
+        if(playerData.solvedHintless >= 5){
+            achievementsJson.a5.status = true;
         }
     });
 
-    res.json(response_json);
-})
+    res.json(achievementsJson);
+});
 
 module.exports = router;

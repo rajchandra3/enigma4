@@ -21,7 +21,7 @@ function authenticate(req, res) {
                 res.send({code: 0,message : "You haven't verified your email ! Make sure You have verified your email."});
             }
             else {
-                user.password = '';
+                user.password = "You don't belong here mate";
                 var token = jwt.sign(user, process.env.SECRET);
                 //don't set cookies till the game begins
 
@@ -30,7 +30,7 @@ function authenticate(req, res) {
                 // return the information including token as JSON
                 res.json({
                     code: 1 ,
-                    user : user
+                    message : "Success ! We are redirecting you to Enigma."
                 });
             }
         })
@@ -38,7 +38,7 @@ function authenticate(req, res) {
 }
 
 function authenticate_user(email, password, callback) {
-    player.findOne({ email: email }, function (err, user) {
+    player.findOne({ email: email },'email password _id authcomp',(err, user)=> {
         if (err) {
             return callback(err, null);
         }
