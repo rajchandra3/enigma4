@@ -108,6 +108,9 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $scope.msg = "Invalid credentials !!";
         }
         else{
+            if($scope.playerLogin.coupon!=''){
+                $scope.playerLogin.coupon = ($scope.playerLogin.coupon).toLowerCase();
+            }
             $scope.playerLogin.email = ($scope.playerLogin.email).toLowerCase();
             $http.post('/auth/verifyPlayer', $scope.playerLogin).then(successCallback, errorCallback);
 

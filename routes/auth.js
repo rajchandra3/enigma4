@@ -75,7 +75,7 @@ router.post('/save', function (req, res, next) {
     if (req.body.password !== req.body.cpassword) {
         success = false;
     }
-    if(req.body.coupan.toLowerCase() === "palette"){
+    if(req.body.coupon === "palette"){
         data.hint = 3;
     }
     if(success) {
