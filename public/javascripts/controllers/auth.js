@@ -45,6 +45,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $scope.code = 2;
             $scope.msgReg = "Saving your credentials...";
             $scope.player.email = ($scope.player.email).toLowerCase();
+            $scope.player.coupon = ($scope.player.coupon).toLowerCase();
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response
@@ -108,7 +109,6 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $scope.msg = "Invalid credentials !!";
         }
         else{
-            $scope.playerLogin.coupon = ($scope.playerLogin.coupon).toLowerCase();
             $scope.playerLogin.email = ($scope.playerLogin.email).toLowerCase();
             $http.post('/auth/verifyPlayer', $scope.playerLogin).then(successCallback, errorCallback);
 
