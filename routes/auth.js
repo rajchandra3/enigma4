@@ -35,161 +35,154 @@ router.get('/enigmaVerification', function (req, res) {
 
 //Post Registration - EMAIL AUTHENTICATION (Sending EMAIL)
 router.post('/save', function (req, res, next) {
-    var success=true;
+    var success = true;
     var rand = Math.random().toString(36).slice(2);
     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
     var data = new player({
-        name:req.body.name,
+        name: req.body.name,
         password: hash,
         email: req.body.email,
-        hashcode : rand,
+        hashcode: rand,
         reg_no: req.body.reg_no,
         organisation: req.body.organisation,
         phone: req.body.phone,
-        authcomp : false
+        authcomp: false
     });
     if (!req.body.name) {
         res.json({code: 0, message: 'Invalid Name'});
-        success=false;
+        success = false;
     }
     if (!check.email.test(req.body.email) || !req.body.email) {
         res.json({code: 0, message: 'Invalid E-MAIL'});
-        success=false;
+        success = false;
     }
     if (!check.reg_no.test(req.body.reg_no)) {
         res.json({code: 0, message: 'Invalid Registration Number'});
-        success=false;
+        success = false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
         res.json({code: 0, message: 'Invalid Organisation'});
-        success=false;
+        success = false;
     }
     if (!check.phone.test(req.body.phone) || !req.body.phone) {
         res.json({code: 0, message: 'Invalid PHONE NUMBER'});
-        success=false;
+        success = false;
     }
     if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
         res.json({code: 0, message: 'Invalid Password'});
-        success=false;
-    }
-    if(req.body.password!==req.body.cpassword){
         success = false;
     }
-    if(success) {
-
+    if (req.body.password !== req.body.cpassword) {
+        success = false;
+    }
+    if (success) {
         genderize(req.body.name.split(' ')[0], function (err, obj) {
 
-            if(obj.gender!=null){
-                data.gender = obj.gender;
-            }
+            if (obj.gender) data.gender = obj.gender;
 
             data.save(function (err, doc) {
-                if (err && err.code == 11000) {
+                if (err && err.code == 11000)
                     res.json({code: 0, message: 'This Email is Already registered!'})
-                }
-                else if (err && err.code != 66) {
+                else if (err && err.code != 66)
                     res.json({code: 0, message: err})
-                }
-                else if (err) {
+                else if (err)
                     res.json({code: 0, message: err})
-                }
-                else {
-                    console.log("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
-                    var myobj = {email: req.body.email, hashcode: rand, authcomp: false};
-                    var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
-                    var mailOptions = {
-                        to: req.body.email,
-                        from: '"IEEE VIT" enigma.ieeevit@gmail.com',
-                        subject: 'Enigma Authentication',
-                        text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
-                        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-                        "http://" + req.headers.host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email + "\n\n" +
-                        "If you did not intend to register for Enigma 4.0 kindly ignore this message."
-                    };
-
-                    //Sending the mail
-                    smtpTransport.sendMail(mailOptions, function (err) {
-                        if (err)
-                            throw err;
-                        else {
-                            res.json({
-                                code: 1,
-                                message: "Verify your email address using the link sent to you.Check spam if not found."
-                            });
-                            //console.log("Email Sent successfully !");
-                        }
+                else
+                    sendVerificationEmail(req.body.email, req.headers.host, rand, function (result) {
+                        res.json(result);
                     });
-                    //Invoke the next step here however you like
-                    //Put all of the code here (not the best solution)
-                }
             });
         });
-
-
     }
 });
 
-router.get('/verifyMail', function(req, res, next) {
-    if (!check.email.test(req.query.email)) {
-        res.render('update',{
-            mainMessage : "Incorrect Link !!",
-            trailingMessage : "Ask to resend the mail."
+router.get('/verifyMail', function (req, res, next) {
+    getEmailVerificationResult(req.query.email, req.query.code, function (result) {
+        res.render('update', result);
+    });
+});
+
+function sendVerificationEmail(email, host, random, callback) {
+    console.log("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+    let myobj = {email: email, hashcode: random, authcomp: false};
+    let smtpTransport = nodemailer.createTransport("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+    let mailOptions = {
+        to: email,
+        from: '"IEEE VIT" enigma.ieeevit@gmail.com',
+        subject: 'Enigma Authentication',
+        text: "Congratulations on getting registered for Enigma 4.0." + "\n\n" +
+        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+        "http://" + host + '/auth/' + "verifyMail?code=" + myobj.hashcode + "&email=" + myobj.email + "\n\n" +
+        "If you did not intend to register for Enigma 4.0 kindly ignore this message."
+    };
+
+    //Sending the mail
+    smtpTransport.sendMail(mailOptions, function (err) {
+        if (err)
+            throw err;
+        else
+            callback({
+                code: 1,
+                message: "Verify your email address using the link sent to you.Check spam if not found."
+            });
+    });
+}
+
+function getEmailVerificationResult(email, code, callback) {
+    if (!check.email.test(email))
+        callback({
+            mainMessage: "Incorrect Link !!",
+            trailingMessage: "Ask to resend the mail."
         });
-        //res.json({code: '0', message: 'Incorrect Link!'});
-    }
+
     else {
-        player.findOne({email: req.query.email}, function (err, result) {
+        player.findOne({email: email}, function (err, result) {
             if (err) throw err;
-            if (!result) {
-                res.render('update',{
-                    mainMessage : "You have not yet registered",
-                    trailingMessage : "Click here to Register"
+
+            if (!result)
+                callback({
+                    mainMessage: "You have not yet registered",
+                    trailingMessage: "Click here to Register"
                 });
-                // res.json({code: '0', message: 'You have not yet registered!'});
-            }
-            else if(result.authcomp){
-                res.render('update',{
-                    mainMessage : "Already authorized",
-                    trailingMessage : "Click here to Log In"
+
+            else if (result.authcomp)
+                callback({
+                    mainMessage: "Already authorized",
+                    trailingMessage: "Click here to Log In"
                 });
-                // res.json({code: '0', message: 'Already Authorized'});
-            }
+
             else {
-                if (check.code.test(req.query.code)) {
-                    if (req.query.code !== result.hashcode){
-                        res.render('update',{
-                            mainMessage : "Incorrect Hash Code/Hash Code expired",
-                            trailingMessage : "Ask to resend the mail."
+                if (check.code.test(code)) {
+                    if (code !== result.hashcode)
+                        callback({
+                            mainMessage: "Incorrect Hash Code/Hash Code expired",
+                            trailingMessage: "Ask to resend the mail."
                         });
-                    }
-                        // res.json({code: '0', message: 'Incorrect Hash Code/Hash Code expired'});
+
                     else {
-                        var newValues = result;
-                        newValues.authcomp=true;
+                        let newValues = result;
+                        newValues.authcomp = true;
 
                         //Successfully change the authcomp variable to true, in order to allow login
-                        player.updateOne({_id:result._id}, newValues, function (err, res1) {
+                        player.updateOne({_id: result._id}, newValues, function (err, res1) {
                             if (err) throw err;
-                            else{
-                                res.render('update',{
-                                    mainMessage : "Email Verified",
-                                    trailingMessage : "Click here to login"
+                            else {
+                                callback({
+                                    mainMessage: "Email Verified",
+                                    trailingMessage: "Click here to login"
                                 });
                             }
-                            // res.redirect('/auth/enigmaVerification');
                         });
                     }
                 }
-                else{
-                    res.render('update',{
-                        mainMessage : "Incorrect Hash Code/Hash Code expired",
-                        trailingMessage : "Ask to resend the mail."
+                else
+                    callback({
+                        mainMessage: "Incorrect Hash Code/Hash Code expired",
+                        trailingMessage: "Ask to resend the mail."
                     });
-                }
-                    // res.json({code: '0', message: 'Incorrect Hash Code/Hash Code expired'});
             }
         });
     }
-});
+}
 
 module.exports = router;

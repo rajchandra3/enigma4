@@ -6,22 +6,22 @@ var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
 var playerSchema = new Schema({
-    name : {type:String},
-    hashcode:{type : String},
-    password: { type : String,required: true},
-    reg_no:{type : String},
-    organisation: {type : String,default: "VIT University"},
-    email:{type : String,unique : true,lowercase : true,required: true},
-    phone:{type : String, required : true},
-    date:{type:Date, default: Date.now},//to track the time of registration
-    authcomp:{type: Boolean, default: false},
-    currqno : {type: Number, default : 1},
-    hint: {type: Number, default : 2},
-    lastHintUsed: { type: Number, default : 0},
-    score : {type: Number, default : 0},
-    lastcorrect : {type:Date},
-    solvedFirst : {type: Number, default: 0},
-    developer : {type : Boolean, default : false},
+    name: {type: String},
+    hashcode: {type: String},
+    password: {type: String, required: true},
+    reg_no: {type: String},
+    organisation: {type: String, default: "VIT University"},
+    email: {type: String, unique: true, lowercase: true, required: true},
+    phone: {type: String, required: true},
+    date: {type: Date, default: Date.now},//to track the time of registration
+    authcomp: {type: Boolean, default: false},
+    currqno: {type: Number, default: 1},
+    hint: {type: Number, default: 2},
+    lastHintUsed: {type: Number, default: 0},
+    score: {type: Number, default: 0},
+    lastcorrect: {type: Date},
+    solvedFirst: {type: Number, default: 0},
+    developer: {type: Boolean, default: false},
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     gender: {type: String}
@@ -32,8 +32,8 @@ playerSchema.methods.verifyPassword = function (password, callback) {
         if (err) {
             callback(err, null);
         }
-        else if(!res){
-            callback("Incorrect Password!",false);
+        else if (!res) {
+            callback("Incorrect Password!", false);
         }
         else {
             callback(res, true);
@@ -41,10 +41,10 @@ playerSchema.methods.verifyPassword = function (password, callback) {
     });
 };
 
-var player =module.exports = mongoose.model('enigma4', playerSchema);
+var player = module.exports = mongoose.model('enigma4', playerSchema);
 
 //Finding the Player by Id
-module.exports.findCurrentPlayerId =function (id, callback) {
-    player.findOne({_id : id}, callback);
-}
+module.exports.findCurrentPlayerId = function (id, callback) {
+    player.findOne({_id: id}, callback);
+};
 
