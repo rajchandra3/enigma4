@@ -99,7 +99,6 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
     }
 
     $scope.getLogin = function () {
-        console.log($scope.playerLogin);
         //send some message
         $scope.code = 2;
         $scope.msg = "Verifying your credentials... ";
