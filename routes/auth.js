@@ -35,6 +35,7 @@ router.get('/enigmaVerification', function (req, res) {
 
 //Post Registration - EMAIL AUTHENTICATION (Sending EMAIL)
 router.post('/save', function (req, res, next) {
+    console.log(req.body);
     var success = true;
     var rand = Math.random().toString(36).slice(2);
     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
@@ -75,14 +76,14 @@ router.post('/save', function (req, res, next) {
     if (req.body.password !== req.body.cpassword) {
         success = false;
     }
-    if(req.body.coupon === "palette"){
+    if(req.body.coupon === "palette" || req.body.coupon === "PALETTE"){
         data.hint = 3;
     }
     if(success) {
         genderize(req.body.name.split(' ')[0], function (err, obj) {
 
             if (obj.gender) data.gender = obj.gender;
-
+            console.log(data);
             data.save(function (err, doc) {
                 if (err && err.code == 11000)
                     res.json({code: 0, message: 'This Email is Already registered!'})
