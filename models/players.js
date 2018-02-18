@@ -36,8 +36,8 @@ playerSchema.methods.verifyPassword = function (password, callback) {
         if (err) {
             callback(err, null);
         }
-        else if(!res){
-            callback("Incorrect Password!",false);
+        else if (!res) {
+            callback("Incorrect Password!", false);
         }
         else {
             callback(res, true);
@@ -45,10 +45,10 @@ playerSchema.methods.verifyPassword = function (password, callback) {
     });
 };
 
-var player =module.exports = mongoose.model('enigma4', playerSchema);
+var player = module.exports = mongoose.model('enigma4', playerSchema);
 
 //Finding the Player by Id
-module.exports.findCurrentPlayerId =function (id, callback) {
-    player.findOne({_id : id}, callback);
-}
+module.exports.findCurrentPlayerId = function (id, callback) {
+    player.findOne({_id: id}, callback);
+};
 

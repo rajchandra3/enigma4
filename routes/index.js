@@ -1,12 +1,12 @@
-var express   = require('express');
-var router    = express.Router();
-var extend    = require('util')._extend;
-var path      = require('path');
-var fs        = require('fs');
-var cheerio   = require('cheerio');
+var express = require('express');
+var router = express.Router();
+var extend = require('util')._extend;
+var path = require('path');
+var fs = require('fs');
+var cheerio = require('cheerio');
 var async = require('async');
 var crypto = require('crypto');
-var bcrypt      = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-nodejs');
 var nodemailer = require('nodemailer');
 
 
@@ -14,35 +14,35 @@ var player = require('../models/players');
 var Logs = require('../models/logs');
 
 /* GET index page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('index');
 });
 
 /* GET stats page. */
-router.get('/stats', function(req, res, next) {
-    var count = player.find({},(err,data)=>{
-        if(err)
+router.get('/stats', function (req, res, next) {
+    var count = player.find({}, (err, data) => {
+        if (err)
             console.log(err);
         else
-        res.render('stats',{
-            playerCount : data.length
-        });
+            res.render('stats', {
+                playerCount: data.length
+            });
     });
 });
 
 
-router.post('/player/forgot', function(req, res, next) {
+router.post('/player/forgot', function (req, res, next) {
     async.waterfall([
-        function(done) {
-            crypto.randomBytes(20, function(err, buf) {
+        function (done) {
+            crypto.randomBytes(20, function (err, buf) {
                 var token = buf.toString('hex');
                 done(err, token);
             });
         },
-        function(token, done) {
-            player.findOne({ email: req.body.email }, function(err, user) {
+        function (token, done) {
+            player.findOne({email: req.body.email}, function (err, user) {
                 if (!user) {
-                    res.json({code: 0,message:'No account with that email address exists.'});
+                    res.json({code: 0, message: 'No account with that email address exists.'});
                 }
                 else {
                     user.resetPasswordToken = token;
@@ -54,8 +54,8 @@ router.post('/player/forgot', function(req, res, next) {
                 }
             });
         },
-        function(token, user, done) {
-            var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+        function (token, user, done) {
+            var smtpTransport = nodemailer.createTransport("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
             var mailOptions = {
                 to: user.email,
                 from: '"IEEE VIT" enigma.ieeevit@gmail.com',
@@ -65,40 +65,46 @@ router.post('/player/forgot', function(req, res, next) {
                 'http://' + req.headers.host + '/reset/' + token + '\n\n' +
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                if(err){
+            smtpTransport.sendMail(mailOptions, function (err) {
+                if (err) {
                     console.log(err);
-                    res.json({code: 0, message:'Failed to send e-mail. Please try again.'});
+                    res.json({code: 0, message: 'Failed to send e-mail. Please try again.'});
                 }
-                else{
-                    res.json({code: 1, message:'An e-mail has been sent with further instructions.'});
+                else {
+                    res.json({code: 1, message: 'An e-mail has been sent with further instructions.'});
                 }
             });
         }
-    ], function(err) {
+    ], function (err) {
         if (err) return next(err);
     });
 });
 
 
-router.get('/reset/:token', function(req, res) {
-    player.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+router.get('/reset/:token', function (req, res) {
+    player.findOne({
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {$gt: Date.now()}
+    }, function (err, user) {
         if (!user) {
             // res.send('Password reset token is invalid or has expired.');
-            res.json('update',{
-                mainMessage:'Password reset token is invalid or has expired.',
-                trailingMessage : 'Go back'
+            res.json('update', {
+                mainMessage: 'Password reset token is invalid or has expired.',
+                trailingMessage: 'Go back'
             });
         }
         else
-            res.redirect('/#!resetPassword/'+req.params.token);
+            res.redirect('/#!resetPassword/' + req.params.token);
     });
 });
 
-router.post('/reset/:token', function(req, res) {
+router.post('/reset/:token', function (req, res) {
     async.waterfall([
-        function(done) {
-            player.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+        function (done) {
+            player.findOne({
+                resetPasswordToken: req.params.token,
+                resetPasswordExpires: {$gt: Date.now()}
+            }, function (err, user) {
                 if (!user) {
                     res.json({code: 0, message: 'Password reset token is invalid or has expired.'});
                 }
@@ -117,8 +123,8 @@ router.post('/reset/:token', function(req, res) {
                 }
             });
         },
-        function(user, done) {
-            var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+        function (user, done) {
+            var smtpTransport = nodemailer.createTransport("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
             var mailOptions = {
                 to: user.email,
                 from: '"IEEE VIT" enigma.ieeevit@gmail.com',
@@ -126,14 +132,14 @@ router.post('/reset/:token', function(req, res) {
                 text: 'Hello,\n\n' +
                 'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
             };
-            smtpTransport.sendMail(mailOptions, function(err) {
-                if(err)
+            smtpTransport.sendMail(mailOptions, function (err) {
+                if (err)
                     console.log(err);
                 else
                     console.log("Email Sent !");
             });
         }
-    ], function(err) {
+    ], function (err) {
         res.redirect('/');
     });
 });
@@ -142,7 +148,7 @@ router.post('/reset/:token', function(req, res) {
 //     res.render('resend');
 // });
 
-router.get('/resend', function(req, res) {
+router.get('/resend', function (req, res) {
     // var email = req.body.email;
     var success = true;
     // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -151,17 +157,17 @@ router.get('/resend', function(req, res) {
     //     success = false;
     // }
     if (success) {
-        player.find({authcomp:false}, function (err, user) {
+        player.find({authcomp: false}, function (err, user) {
             if (!user) {
                 res.json({code: 0, message: 'No account with this email address exists.'});
             }
             else {
-                for(var i=0;i<user.length;i++){
+                for (var i = 0; i < user.length; i++) {
                     if (!user[i].authcomp) {
                         var s = req.headers.host + '/auth/' + "verifyMail?code=" + user[i].hashcode + "&email=" + user[i].email;
 // load in the json file with the replace values
 
-                        var smtpTransport = nodemailer.createTransport("smtps://"+process.env.EMAIL+":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
+                        var smtpTransport = nodemailer.createTransport("smtps://" + process.env.EMAIL + ":" + encodeURIComponent(process.env.PASSWORD) + "@smtp.gmail.com:465");
                         var mailOptions = {
                             to: user[i].email,
                             from: '"IEEE VIT" enigma.ieeevit@gmail.com',
@@ -193,39 +199,37 @@ router.get('/resend', function(req, res) {
 //leaderboard put here for time being
 
 router.post('/leaderboard', (req, res) => {
-    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1}).limit(100).exec(function(err, docs){
-    res.json(docs);
-});
-});
-
-
-// <---- This is for getting user responses by Admin ---->
-router.post('/playerLog',function (req,res) {
-    var playerName = req.body.name;
-    player.find({'name' : playerName},function (err, playerData) { //to mentain security
-        if (err) {
-            throw err;
-        }
-        else if(!playerData){
-            res.send("No player with this name found !");
-        }
-        else{
-            Logs.find({'player' : playerName},(error,log)=>{
-                if(error)
-                throw error;
-        else if(log)
-                res.json({
-                    name:playerName,
-                    attempts:log.length
-                });
-            else
-                res.send("player has no attempts");
-        });
-        }
+    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1}).limit(100).exec(function (err, docs) {
+        res.json(docs);
     });
 });
 
 
+// <---- This is for getting user responses by Admin ---->
+router.post('/playerLog', function (req, res) {
+    var playerName = req.body.name;
+    player.find({'name': playerName}, function (err, playerData) { //to mentain security
+        if (err) {
+            throw err;
+        }
+        else if (!playerData) {
+            res.send("No player with this name found !");
+        }
+        else {
+            Logs.find({'player': playerName}, (error, log) => {
+                if (error)
+                    throw error;
+                else if (log)
+                    res.json({
+                        name: playerName,
+                        attempts: log.length
+                    });
+                else
+                    res.send("player has no attempts");
+            });
+        }
+    });
+});
 
 
 module.exports = router;
