@@ -42,7 +42,7 @@ router.post('/player/forgot', function (req, res, next) {
         function (token, done) {
             player.findOne({email: req.body.email}, function (err, user) {
                 if (!user) {
-                    res.json({code: 0, message: 'No account with that email address exists.'});
+                    res.json({code: 1, message: 'No account with that email address exists.'});
                 }
                 else {
                     user.resetPasswordToken = token;
@@ -68,10 +68,10 @@ router.post('/player/forgot', function (req, res, next) {
             smtpTransport.sendMail(mailOptions, function (err) {
                 if (err) {
                     console.log(err);
-                    res.json({code: 0, message: 'Failed to send e-mail. Please try again.'});
+                    res.json({code: 1, message: 'Failed to send e-mail. Please try again.'});
                 }
                 else {
-                    res.json({code: 1, message: 'An e-mail has been sent with further instructions.'});
+                    res.json({code: 0, message: 'An e-mail has been sent with further instructions.'});
                 }
             });
         }
@@ -106,10 +106,10 @@ router.post('/reset/:token', function (req, res) {
                 resetPasswordExpires: {$gt: Date.now()}
             }, function (err, user) {
                 if (!user) {
-                    res.json({code: 0, message: 'Password reset token is invalid or has expired.'});
+                    res.json({code: 1, message: 'Password reset token is invalid or has expired.'});
                 }
                 else if (req.body.password !== req.body.confirm) {
-                    res.json({code: 0, message: 'Passwords do not match.'});
+                    res.json({code: 1, message: 'Passwords do not match.'});
                 }
                 else {
                     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
@@ -118,7 +118,7 @@ router.post('/reset/:token', function (req, res) {
                     user.resetPasswordExpires = undefined;
 
                     user.save(function (err) {
-                        res.json({code: 1, message: 'Your password has been successfully changed.'});
+                        res.json({code: 0, message: 'Your password has been successfully changed.'});
                     });
                 }
             });
@@ -153,13 +153,13 @@ router.get('/resend', function (req, res) {
     var success = true;
     // var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     // if (!re.test(email)) {
-    //     res.json({code: 0, message: 'Invalid email!'});
+    //     res.json({code: 1, message: 'Invalid email!'});
     //     success = false;
     // }
     if (success) {
         player.find({authcomp: false}, function (err, user) {
             if (!user) {
-                res.json({code: 0, message: 'No account with this email address exists.'});
+                res.json({code: 1, message: 'No account with this email address exists.'});
             }
             else {
                 for (var i = 0; i < user.length; i++) {
@@ -181,14 +181,14 @@ router.get('/resend', function (req, res) {
                             if (err)
                                 throw err;
                             else
-                                res.json({code: 1, message: "Verify your email address using the link sent to you."});
+                                res.json({code: 0, message: "Verify your email address using the link sent to you."});
                             console.log("Email Sent");
                         });
                         // Invoke the next step here however you like
                         // Put all of the code here (not the best solution)
                     }
                     else {
-                        res.json({code: 0, message: 'You have already verified this Email-ID'});
+                        res.json({code: 1, message: 'You have already verified this Email-ID'});
                     }
                 }
             }

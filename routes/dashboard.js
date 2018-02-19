@@ -230,10 +230,10 @@ router.post('/question',authenticateTime,function(req,res){
                         else {
                             switch (code) {
                                 case 0:
-                                    res.json({code: 0, msg: "Wrong"});
+                                    res.json({code: 0, msg: "Correct"});
                                     break;
                                 case 1:
-                                    res.json({code: 1, msg: "Correct"});
+                                    res.json({code: 1, msg: "Wrong"});
                                     break;
                                 case 2:
                                     res.json({code: 2, msg: "You are close"});

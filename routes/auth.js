@@ -49,27 +49,27 @@ router.post('/save', function (req, res, next) {
         authcomp: false
     });
     if (!req.body.name) {
-        res.json({code: 0, message: 'Invalid Name'});
+        res.json({code: 1, message: 'Invalid Name'});
         success = false;
     }
     if (!check.email.test(req.body.email) || !req.body.email) {
-        res.json({code: 0, message: 'Invalid E-MAIL'});
+        res.json({code: 1, message: 'Invalid E-MAIL'});
         success = false;
     }
     if (!check.reg_no.test(req.body.reg_no)) {
-        res.json({code: 0, message: 'Invalid Registration Number'});
+        res.json({code: 1, message: 'Invalid Registration Number'});
         success = false;
     }
     if (!check.reg_no.test(req.body.organisation)) {
-        res.json({code: 0, message: 'Invalid University name'});
+        res.json({code: 1, message: 'Invalid University name'});
         success=false;
     }
     if (!check.phone.test(req.body.phone) || !req.body.phone) {
-        res.json({code: 0, message: 'Invalid Contact detail'});
+        res.json({code: 1, message: 'Invalid Contact detail'});
         success=false;
     }
     if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
-        res.json({code: 0, message: 'Invalid Password'});
+        res.json({code: 1, message: 'Invalid Password'});
         success = false;
     }
     if (req.body.password !== req.body.cpassword) {
@@ -87,11 +87,11 @@ router.post('/save', function (req, res, next) {
             if (obj.gender) data.gender = obj.gender;
             data.save(function (err, doc) {
                 if (err && err.code == 11000)
-                    res.json({code: 0, message: 'This Email is Already registered!'})
+                    res.json({code: 1, message: 'This Email is Already registered!'})
                 else if (err && err.code != 66)
-                    res.json({code: 0, message: err})
+                    res.json({code: 1, message: err})
                 else if (err)
-                    res.json({code: 0, message: err})
+                    res.json({code: 1, message: err})
                 else
                     sendVerificationEmail(req.body.email, req.headers.host, rand, function (result) {
                         res.json(result);
@@ -126,7 +126,7 @@ function sendVerificationEmail(email, host, random, callback) {
             throw err;
         else
             callback({
-                code: 1,
+                code: 0,
                 message: "Verify your email address using the link sent to you.Check spam if not found."
             });
     });

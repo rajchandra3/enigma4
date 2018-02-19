@@ -9,16 +9,16 @@ function authenticate(req, res) {
     if (req.body.email && req.body.password) {
         authenticate_user(req.body.email, req.body.password, function (err, user) {
             if(err){
-                res.send({code: 0,message: "Something went wrong! Please try again."});
+                res.send({code: 1,message: "Something went wrong! Please try again."});
             }
             else if(user === 1){
-                res.send({code: 0,message : 'You have not registered for Enigma. Please register and try logging in.'});
+                res.send({code: 1,message : 'You have not registered for Enigma. Please register and try logging in.'});
             }
             else if(user === 2){
-                res.send({code: 0,message : 'Incorrect Password !'});
+                res.send({code: 1,message : 'Incorrect Password !'});
             }
             else if(user === 3){
-                res.send({code: 0,message : "You haven't verified your email ! Make sure You have verified your email."});
+                res.send({code: 1,message : "You haven't verified your email ! Make sure You have verified your email."});
             }
             else {
                 user.password = "You don't belong here mate";
@@ -29,7 +29,7 @@ function authenticate(req, res) {
 
                 // return the information including token as JSON
                 res.json({
-                    code: 1 ,
+                    code: 0 ,
                     message : "Success ! We are redirecting you to Enigma."
                 });
             }

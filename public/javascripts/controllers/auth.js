@@ -51,10 +51,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                 $scope.resData = response.data; //getting response
                 $scope.code = $scope.resData.code;
                 switch ($scope.code) {
-                    case 1:
+                    case 0:
                         $scope.msgReg = "Please verify your email to compelete the registration. Check spam if not found.";
                         break;
-                    case 0:
+                    case 1:
                         $scope.msgReg = $scope.resData.message;
                         break;
                 }
@@ -65,7 +65,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             }
         }
         else{
-            $scope.code = 0;
+            $scope.code = 1;
             $scope.msgReg = "Passwords do not match ! ";
         }
     };
@@ -105,7 +105,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         $scope.msg = "Verifying your credentials... ";
         //checking for emal and password
         if($scope.playerLogin.email === '' || $scope.playerLogin.password === '') {
-            $scope.code = 0;
+            $scope.code = 1;
             $scope.msg = "Invalid credentials !!";
         }
         else{
@@ -116,10 +116,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                 $scope.respData = response.data;
                 $scope.code = $scope.respData.code;
                 switch ($scope.code) {
-                    case 0:
+                    case 1:
                         $scope.msg = $scope.respData.message;
                         break;
-                    case 1:
+                    case 0:
                         $scope.msg = $scope.respData.message;
                         window.location.href = '/dashboard';
                         break;
@@ -137,10 +137,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         function successCallback(response) {
             $scope.resData = response.data; //getting response\
             switch (parseInt($scope.resData.code)) {
-                case 1:
+                case 0:
                     $scope.msg = $scope.resData.message;
                     break;
-                case 0:
+                case 1:
                     $scope.msg = $scope.resData.message;
                     break
             }
@@ -156,10 +156,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $scope.resData = response.data;
             $scope.code = $scope.resData.code;
             switch ($scope.code) {
-                case 1:
+                case 0:
                     $scope.msg = $scope.resData.message;
                     break;
-                case 0:
+                case 1:
                     $scope.msg = $scope.resData.message;
                     break;
             }
@@ -175,10 +175,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
         function successCallback(response) {
             $scope.resData = response.data; //getting response\
             switch (parseInt($scope.resData.code)) {
-                case 1:
+                case 0:
                     $scope.msg = $scope.resData.message;
                     break;
-                case 0:
+                case 1:
                     $scope.msg = $scope.resData.message;
                     break
             }
@@ -200,10 +200,10 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                 $scope.resData = response.data; //getting response
                 $scope.code = $scope.resData.code;
                 switch (parseInt($scope.code)) {
-                    case 1:
+                    case 0:
                         $scope.msg = $scope.resData.message;
                         break;
-                    case 0:
+                    case 1:
                         $scope.msg = $scope.resData.message;
                         break;
                 }
@@ -214,7 +214,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             }
         }
         else{
-            $scope.code = 0;
+            $scope.code = 1;
             $scope.msg = "Passwords do not match !";
         }
     };
