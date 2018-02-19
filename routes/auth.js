@@ -78,7 +78,7 @@ router.post('/save', function (req, res, next) {
     if(req.body.coupon){
         req.body.coupon = req.body.coupon.toLowerCase();
     }
-    if(req.body.coupon === "palette" || req.body.coupon === "PALETTE"){
+    if(req.body.coupon === "techloop" || req.body.coupon === "TECHLOOP"){
         data.hint = 3;
     }
     if(success) {
