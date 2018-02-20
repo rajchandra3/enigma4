@@ -11,20 +11,23 @@
     <link rel="stylesheet" href="assets/css/questionView.css">
 </head>
 <body>
-<nav class="navbar fixed-top">
-    <div class="container">
+      <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4">
-                <i class="fa fa-caret-square-o-right"></i>
-                <%=timeRem%>
-            </div>
-            <div class="col-sm-4"><%=timeNow%>
-            </div>
-            <div class="col-sm-4"><%=timeOfStart%>
-            </div>
+          <div class="col-lg-8 col-sm-9 col-sm-10 mx-auto question-tab">
+            <h2 class="horizontal-center question-title"> Q.1 Her Life </h2>
+            <img src="/images/pantera.png" class="horizontal-center question-image" alt="question_image">
+            <div class="prompt" style="display:none">HINT:<i> insert here here</i></div>
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control answer-box horizontal-center" placeholder=" Enter Your Answer"></input>
+              </div>
+              <div class="form-group">
+                <a tabindex="0" class="btn horizontal-center helvetica btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="And here's a smart comment. I am so funny. Right?">SUBMIT</a>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>
-</nav>
+      </div>
 
 <!--Template CSS-->
 
@@ -32,6 +35,6 @@
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<script src="assets/js/indexTemplate.js"></script>
+<script src="assets/js/question.js"></script>
 </body>
 </html>
