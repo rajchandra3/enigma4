@@ -1,0 +1,100 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: #11155C;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.column-name{
+    font-size: large;
+    padding-left: 20px;
+    color: #292b2c;
+    font-family:   Elianto;;
+}
+
+.artboard {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 800px;
+    height: 600px;
+    background-color: #D9F2F5;
+}
+.artboard .artboard-accent {
+    display: inline;
+}
+
+.app-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 610px;
+    height: 375px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 32px 44px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+}
+
+.app-title {
+    font-size: 22px;
+    position: relative;
+    left: 177px;
+    margin-top: 20px;
+}
+
+.app-table .app-header {
+    color: #C7C7C7;
+    display: flex;
+    position: relative;
+    left: 177px;
+    margin-top: 20px;
+}
+.app-table .app-row {
+    padding: 6px 41px 6px 41px;
+    border-bottom: 1px solid #F6F6FA;
+}
+.app-table .app-row .player {
+    display: flex;
+    align-items: center;
+}
+.app-table .app-row .player .rank {
+    width: 57px;
+    color: #292b2c;
+    font-size: 60px;
+}
+.app-table .app-row .player .image {
+    height: 57px;
+    width: 57px;
+    background-color: #D9F2F5;
+    border-radius: 50%;
+}
+.app-table .app-row .player .name {
+    width: 140px;
+    margin-left: 30px;
+}
+.app-table .app-row .player .college {
+    width: 100px;
+    color: #292b2c;
+}
+.app-table .app-row .player .goals {
+    width: 100px;
+    text-align: center;
+    color:  #292b2c;
+
+
+}.app-table .app-row .player .score {
+    width: 100px;
+    text-align: center;
+    color:  #292b2c;
+
+
+}
