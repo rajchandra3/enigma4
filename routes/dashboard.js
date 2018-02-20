@@ -65,8 +65,6 @@ router.get('/',authenticateTime, function(req, res, next) {
         if (err) {
             throw err;
         }
-        // else if(current_TIME <= Start_time) //start time is not defined
-        //     res.send('Access denied till Enigma Begins !!');
         else {
             res.render('question',{
                     timeRem : new Date(process.env.START_TIME - new Date()).toString(),
