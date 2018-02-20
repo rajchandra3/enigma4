@@ -11,7 +11,7 @@ var logSchema = new Schema({
     time:{type:Date},
     qno:{type: Number},
     answer:{type:String},
-    correct:{type:Boolean}
+    correct:{type:Number}
 });
 
-var logs = module.exports = mongoose.model('logs', logSchema);
+var logs = module.exports = mongoose.model('enigma4Logs', logSchema);

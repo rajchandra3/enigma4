@@ -17,18 +17,27 @@ var playerSchema = new Schema({
     authcomp:{type: Boolean, default: false},
     currqno : {type: Number, default : 1},
     hint: {type: Number, default : 2},
-    lastHintUsed: { type: Number, default : 0},
     score : {type: Number, default : 0},
-    lastcorrect : {
-        date: {type: Date},
-        qno: {type: Number, default: 0}
-    },
-    solvedFirst : {type: Number, default: 0},
-    solvedHintless : {type: Number, default: 0},
     developer : {type : Boolean, default : false},
     resetPasswordToken : String,
     resetPasswordExpires : Date,
-    gender: {type: String}
+    gender: {type: String},
+    answerLog : [{
+        questionNumber : {type : Number},
+        hintUsed : {type : Boolean},
+        attempts : {
+            count : Number
+        },
+        solved : {
+            status : Boolean,
+            rank : Number,
+            time : Date
+        }
+    }],
+    achievements : {
+        status: [false,false,false,false,false],
+        progress: [0,0,0,0,0]
+    }
 });
 
 playerSchema.methods.verifyPassword = function (password, callback) {
