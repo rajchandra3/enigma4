@@ -31,9 +31,6 @@ app.config(function($routeProvider, $locationProvider){
         .otherwise({
             template : "404 url not Found !!"
         });
-
-        $locationProvider.html5Mode({ enabled: true, requireBase: false }); // Required to remove AngularJS hash from URL (no base is required in index file)
-
 });
 
 app.controller('authController',['$scope','$http','$location','$rootScope',function ($scope,$http,$location,$rootScope) {
