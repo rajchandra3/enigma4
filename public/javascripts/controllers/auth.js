@@ -19,10 +19,14 @@ app.config(function($routeProvider, $locationProvider){
         })
         .when("/leaderboard", {
             templateUrl: "/ejs/templates/others/leaderboard.ejs",
-            controller: "authController"
+            controller: "gameCtrl"
         })
         .when("/profile", {
             templateUrl: "/ejs/templates/others/profile.ejs",
+            controller: "authController"
+        })
+        .when("/mleaderboard", {
+            templateUrl: "/ejs/templates/others/minileaderboard.ejs",
             controller: "authController"
         })
         .when("/rules", {
@@ -248,6 +252,8 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
 
 }]);
 
+
+
 app.directive("ngMobileClick", [function () {
     return function (scope, elem, attrs) {
         elem.bind("touchstart click", function (e) {
@@ -285,3 +291,52 @@ function loader($http) {
         }
     };
 }
+
+
+
+app.controller('gameCtrl',function ($scope,$http) {
+    var app = this;
+    app.limit = 100;        // Set a default limit to ng-repeat
+    app.searchLimit = 0;    // Set the default search page results limit to zero
+    function getGames() {
+    $http.get('api.............').then(successCallback,errorCallback);
+    function successCallback(response) {
+          app.datta=response.data; // Assign titles from database to variable
+    }
+
+    function errorCallback(error) {
+        console.log("Message could not be Obtained !" + error);
+    }
+    }
+
+    getGames(); // Invoke function to get heading from databases
+
+    console.log(datta); // ERROR VALUE IS NOT BEING CARRIED OUT OF CALLBACK CORRECT IT
+    // Function: Show more results on page
+    app.showMore = function(number) {
+        app.showMoreError = false; // Clear error message
+        // Run function only if a valid number above zero
+        if (number > 0) {
+            app.limit = number; // Change ng-repeat filter to number requested by user
+        } else {
+            app.showMoreError = 'Please enter a valid number'; // Return error if number not valid
+        }
+    };
+
+
+
+    // Function: Perform an advanced, criteria-based search
+    app.advancedSearch = function(searchByName) {
+        // Ensure only to perform advanced search if one of the fields was submitted
+        if (searchByName) {
+            $scope.advancedSearchFilter = {};                       // Create the filter object
+
+            if (searchByName) {
+                $scope.advancedSearchFilter.title = searchByName;   // If name keyword was provided, search by name
+            }
+            app.searchLimit = undefined;                            // Clear limit on search results
+        }
+    };
+
+
+});

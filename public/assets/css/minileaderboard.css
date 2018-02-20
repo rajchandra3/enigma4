@@ -1,0 +1,171 @@
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) {
+    .body {
+        transform: scale(0.85);
+    }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+    .body {
+        transform: scale(0.8);
+    }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) {
+    .body {
+        transform: scale(0.7);
+    }
+}
+
+@media only screen
+and (min-device-width : 414px)
+and (max-device-width : 736px) {.body{transform: scale(0.85)}}
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px) {.body{transform: scale(0.80)}}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {.body{transform: scale(0.70)}}
+
+
+body {
+    background: #fff;
+    margin: auto;
+    overflow: hidden;
+    transform: scale(0.9);
+}
+
+h1 {
+    background: #292b2c;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 20px;
+    padding: 18px 0px 18px 0px;
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+}
+
+a {
+    color: #292b2c;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+}
+
+a:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    margin-bottom: -1px;
+    margin-left: 1px;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #292b2c;
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+a:hover:before {
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+.Name {
+    margin-left: 10px;
+}
+
+.Score {
+    margin-left: auto;
+    padding-right: 50px;
+    font-weight: 700;
+    color:
+}
+
+.Person {
+    align-items: center;
+    background-size: cover;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.leaderboard {
+    font-family: Elianto;
+    width: 350px;
+    height: auto;
+    padding: 0px 0px 8px 0px;
+    background: #292b2c;
+    color: #FFFFFF;
+    border-radius: 10px;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: -700px;
+    transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+}
+
+#toggle {
+    position: absolute;
+    appearance: none;
+    cursor: pointer;
+    left: -100%;
+    top: -100%;
+
+}
+
+#toggle + label {
+    position: absolute;
+    margin-left:100px;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+    padding: 10px 10px 10px 10px;
+    background: #000000;
+    font-family: Elianto;
+    font-weight: 700;
+    width: 120px;
+    border-radius: 3px;
+    color: #FFF;
+    line-height: 20px;
+    font-size: 12px;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+    display: block;
+    transition: all 500ms ease;
+}
+
+#toggle + label:after {
+    content: "MINI LEADERBOARD"
+}
+.container {
+    transition: margin 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
+    padding: 5em 3em;
+}
+
+#toggle:checked ~ .leaderboard {
+    top: 0;
+}
+
+#toggle:checked ~ .container {
+    margin-bottom: 250px;
+}
+
+#toggle:checked + label {
+    background: #292b2c;
+}
+
+#toggle:checked + label:after {
+    content: "CLOSE"
+}

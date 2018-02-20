@@ -16,6 +16,8 @@
 body{
   font-family: Elianto;
   color: black;
+  background-color: #eee;
+  overflow-x: hidden;
 }
 
 nav{
@@ -45,17 +47,74 @@ nav{
   font-family: Elianto;
   font-weight: lighter;
   margin:10px;
+  background-color: #eee;
+  border-color: rgb(41,43,44);
+  color: rgb(41,43,44);
   cursor: pointer;
 }
 
-img{
-  width: 60%;
+.btn:hover{
+  background-color: rgb(41,43,44);
+  color: #eee;
+}
+
+.question-tab{
+  margin-top: 2vh;
+}
+
+.logo{
+  width: 6em;
   height: auto;
 }
 
-.answer-field{
-  margin-top: 20px;
-  width: 50% !important;
+.question-image{
+  width: 90%;
+  height: auto;
+}
+
+.answer-box{
+  width: 60%;
+  margin: 20px;
+}
+
+.question-title{
+  font-size: 1.5em;
+  text-align: center;
+  color: rgb(41,43,44);
+}
+
+@media (min-width: 1024px){
+  .logo{
+    width: 9em;
+  }
+
+  .question-image{
+    width: 60%;
+    height: auto;
+  }
+
+  .question-title{
+    font-size: 2em;
+    text-align: center;
+    color: rgb(41,43,44);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px){
+  .logo{
+    width: 7.5em;
+  }
+
+  .question-image{
+    width: 60%;
+    height: auto;
+  }
+
+  .question-title{
+    font-size: 2em;
+    text-align: center;
+    color: rgb(41,43,44);
+  }
 }
 
 .navicon{
@@ -71,4 +130,8 @@ img{
 
 .bg-off-black{
   background-color: rgb(41,43,44);
+}
+
+a:visited{
+  text-decoration: none;
 }

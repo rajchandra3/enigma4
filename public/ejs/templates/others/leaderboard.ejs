@@ -1,43 +1,49 @@
 <link rel="stylesheet" href="assets/css/leaderboardView.css">
 
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-
-<div class="artboard">
-
-  <div class="app-container">
-
-    <div class="app-title">
-      TOP SCORES
-    </div>
-    <div class="app-table">
-      <div class="app-header">
-        <div class="column-name">
-          Player
-        </div>
-        <div class="column-name" style="padding-left: 50px;">
-          College
-        </div>
-        <div class="column-name">
-          Score
-        </div>
-        <div class="column-name">
-          Question
-        </div>
-      </div>
-      <div class="app-row">
-        <div class="player">
-          <div class="rank">1</div>
-          <div class="image">
-            <img src="https://raw.githubusercontent.com/idonahue/assets/master/images/leaderboard/player-sanchez.png">
-          </div>
-          <div class="name">Alexis Sanchez</div>
-          <div class="college">VIT UNIVERSITY</div>
-          <div class="score">1750</div>
-          <div class="goals">15</div>
-        </div>
-      </div>
-
-    </div>
+<div class="row text-center">
+  <div class="container">
+    <h2 class="section-heading">LEADER BOARD</h2>
   </div>
+</div>
+
+<br>
+
+<!-- Name Search Box -->
+<div class="navbar-form">
+  <div class="form-group">
+    <input type="text" class="form-control" name="searchByName" placeholder="search by name" ng-model="searchByName">
+  </div>
+</div>
+
+
+<!-- Search Button -->
+<div class="navbar-form" >
+  <button type="button" align="right" ng-click="gameCtrl.advancedSearch(searchByName);" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+
+</div>
+<br>
+
+
+<br>
+
+<div class="panel ">
+  <!-- Heading -->
+  <div class="panel-heading"></div>
+  <!-- Start: Table -->
+  <table class="table" >
+    <tr>
+      <th>Name</th>
+      <th>College</th>
+      <th>Question No</th>
+      <th>Score</th>
+    </tr>
+    <tr ng-repeat="person in gameCtrl.datta | filter: advancedSearchFilter | limitTo:100 ">
+      <td>{{ person.title }}</td>
+      <td>{{ person.platform}}</td>
+      <td>{{ person.genre }}</td>
+      <td>{{ person.score }}</td>
+    </tr>
+
+  </table>
 </div>
