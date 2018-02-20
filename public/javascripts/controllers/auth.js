@@ -25,6 +25,10 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: "/ejs/templates/others/profile.ejs",
             controller: "authController"
         })
+        .when("/mleaderboard", {
+            templateUrl: "/ejs/templates/others/minileaderboard.ejs",
+            controller: "authController"
+        })
         .when("/rules", {
             templateUrl: "/ejs/templates/others/rules.ejs"
         })
