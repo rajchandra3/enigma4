@@ -1,14 +1,4 @@
-/*var timeRem;
-var timeNow;
-var timeStart;
-
-timeRem = document.getElementById('timeRem');
-timeNow = document.getElementById('timeNow');
-timeStart = document.getElementById('timeStart');
-
-timeRem.innerHTML = "timeRem";
-timeNow.innerHTML = "timeRem";
-timeStart.innerHTML = "timeRem";*/
+//POPOVER UI
 
 $(function () {
   $('[data-toggle="popover"]').popover()
@@ -27,4 +17,18 @@ $('.popover-dismiss').popover({
 $("#menu-toggle").click(function(e) {
        e.preventDefault();
        $("#wrapper").toggleClass("toggled");
+});
+
+//JQUERY GOES HERE
+
+$( document ).ready(function(){
+
+  $('.burger').on('click touchstart', function(e) {
+    $('.context').css("left","0");
+  });
+
+  $('.cross').on('click touchstart', function() {
+    $('.context').css("left","-100%");
+  });
+
 });

@@ -17,6 +17,10 @@ body{
   font-family: Elianto;
   color: black;
   background-color: #eee;
+}
+
+html, body{
+  max-width: 100%;
   overflow-x: hidden;
 }
 
@@ -134,4 +138,13 @@ nav{
 
 a:visited{
   text-decoration: none;
+}
+
+.context{
+  background-color: #abcdef;
+  position: absolute;
+  left: -100%;
+  top:0;
+  width: 100%;
+  transition-duration: 1s;
 }
