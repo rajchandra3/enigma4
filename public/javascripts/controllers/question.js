@@ -37,13 +37,14 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
 
             function successCallback(response) {
                 $scope.check = response.data;//code & message
+                console.log($scope.check.code);
                 switch ($scope.check.code) {
                     case 0:
                         $scope.msg = $scope.check.msg;
+                        location.reload();
                         break;
                     case 1:
                         $scope.msg = $scope.check.msg;
-                        location.reload();
                         break;
                     case 2:
                         $scope.msg = $scope.check.msg;

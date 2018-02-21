@@ -193,7 +193,7 @@ router.post('/question',authenticateTime,function(req,res){
                             //update the playerData
                             player.update(
                                 {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
-                                {$inc: {"answerLog.$.attempts" : 1}},
+                                {$inc: {"answerLog.$.attempts" : 1},$inc : {currentQueAttempts : 1}},
                                 function (err, data) {
                                     if (err) throw(err);
                                 });
@@ -201,7 +201,7 @@ router.post('/question',authenticateTime,function(req,res){
 
                         case 1: // for correct answer
                             var new_hint = (playerData.currqno%5==0)? playerData.hint+2:playerData.hint;
-                            var new_qno = ++playerData.qno;
+                            var new_qno = ++playerData.currqno;
                             //achievements
                             var badge = playerData.achievements;
                             var badgeUpdate = badge;
@@ -219,7 +219,7 @@ router.post('/question',authenticateTime,function(req,res){
                                             var topCounter = 0;
                                             topCounter += (queData.solved)?0:1;
 
-                                            if(topcounter==1) {
+                                            if(topCounter==1) {
                                                 badgeUpdate.status[i] = true;
                                                 badgeUpdate.progress[i] = 1;
                                             }
@@ -230,7 +230,7 @@ router.post('/question',authenticateTime,function(req,res){
                                                 topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
                                             }
                                             topCounter += (queData.solved)?0:1;
-                                            if(topcounter==3) {
+                                            if(topCounter==3) {
                                                 badgeUpdate.status[i] = true;
                                                 badgeUpdate.progress[i] = 3;
                                             } else {
@@ -265,25 +265,23 @@ router.post('/question',authenticateTime,function(req,res){
 
                             //checking whether the user is first to solve
                             if (!queData.solved) {
-                                new_score += 110;
+                                var new_score = 110;
 
                                 //update the question data if solved by anyone
                                 question.update(
-                                    {_id: que._id},
+                                    {_id: queData._id},
                                     {$set: {solved: true}},
                                     function (err, data) {
                                         if (err) throw(err);
                                     });
                             }
                             else {
-                                new_score += 100;
+                                var new_score = 100;
                             }
 
                             var solvedBy = queData.solvedBy;
 
-                            question.update(
-                                {_id: que._id},
-                                {$inc: {solvedBy:1}},
+                            question.update({_id: queData._id}, {$inc: {solvedBy:1}},
                                 function (err, data) {
                                     if (err) throw(err);
                                 });
@@ -295,7 +293,7 @@ router.post('/question',authenticateTime,function(req,res){
                             answerLogsUpdate = {
                                 questionNumber : playerData.currqno,
                                 hintUsed :hintUsedStatus,
-                                attempts: playerData.answerLog[playerData.currqno-1].attempts+1,
+                                attempts: playerData.currentQueAttempt+1,
                                 "solved.status": true,
                                 "solved.rank" : solvedBy+1,
                                 "solved.time" : Date.now()
@@ -307,7 +305,6 @@ router.post('/question',authenticateTime,function(req,res){
                                 attempts: 0,
                                 "solved.status": false
                             };
-
                             //update the playerData
                             player.update(
                                 {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
