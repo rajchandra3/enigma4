@@ -8,25 +8,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/questionView.css">
 </head>
 <body>
   <nav class="navbar">
     <img class="burger" src="/images/burger.png" width="30" height="30" alt="">
+    <img class="star" src="/images/crown.png" width="30" height="30" alt="">
   </nav>
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-8 col-sm-9 col-sm-10 mx-auto question-tab">
-        <h2 class="horizontal-center question-title"> Q.1 Her Life </h2>
+      <div class="col-lg-8 col-md-9 col-sm-10 mx-auto question-tab">
+        <h2 class="horizontal-center question-title montserrat"> Q.1 Her Life Is What Life? </h2>
         <img src="/images/pantera.png" class="horizontal-center question-image" alt="question_image">
         <div class="prompt" style="display:none">HINT:<i> insert here here</i></div>
         <form>
           <div class="form-group">
-            <input type="text" class="form-control answer-box horizontal-center" placeholder=" Enter Your Answer"></input>
+            <input type="text" class="form-control answer-box horizontal-center" placeholder=" Answer"></input>
           </div>
           <div class="form-group">
-            <a tabindex="0" class="btn horizontal-center helvetica btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="And here's a smart comment. I am so funny. Right?">SUBMIT</a>
+            <button tabindex="0" class="btn montserrat horizontal-center btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="And here's a smart comment. I am so funny. Right?">SUBMIT</button>
           </div>
         </form>
       </div>
@@ -36,9 +38,93 @@
   <!-- Modal -->
 <div class="context">
   <nav class="navbar">
-    <img class="cross" src="/images/cross.png" width="30" height="30" alt="">
+    <img class="cross" src="/images/crossWhite.png" width="30" height="30" alt="">
   </nav>
-  <div class="container">
+  <div class="container helvetica">
+    <img class="logo horizontal-center menu-logo" src="/images/logoplus.png" alt="">
+
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOne">
+          <h5 class="mb-0">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Collapsible Group Item #1
+            </a>
+          </h5>
+        </div>
+
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-block">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTwo">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Collapsible Group Item #2
+            </a>
+          </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="card-block">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingThree">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Collapsible Group Item #3
+            </a>
+          </h5>
+        </div>
+        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="card-block">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFour">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFalse">
+              Collapsible Group Item #3
+            </a>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+          <div class="card-block">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFive">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              Collapsible Group Item #3
+            </a>
+          </h5>
+        </div>
+        <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
+          <div class="card-block">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="context-left">
+  <nav class="navbar">
+    <img class="cross-left" src="/images/crossWhite.png" width="30" height="30" alt="">
+  </nav>
+  <div class="container helvetica">
     <h3> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, numquam quas qui distinctio temporibus. Aut maiores earum delectus quo fuga eos soluta dignissimos doloribus, a quam similique vel. Vero voluptatum incidunt pariatur neque facilis sit molestiae id temporibus unde iusto voluptatem, quas est sint amet laboriosam. Corporis voluptatibus, rerum voluptatum!</h3>
   </div>
 </div>
