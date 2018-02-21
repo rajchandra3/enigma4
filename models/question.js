@@ -19,7 +19,7 @@ var questionsSchema = new Schema({
     audioUrl : {type : String},// to store the audio url form cloudinary
     special :{type : Boolean, default : false},// make it tue if the question special
     solved : {type : Boolean, default : false}, //give bonus when solved the first time
-    solvedBy : {type : Number}
+    solvedBy : {type : Number, default: 0}
 });
 
 var questions = module.exports = mongoose.model( 'questions' , questionsSchema );
