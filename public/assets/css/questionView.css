@@ -17,6 +17,10 @@ body{
   font-family: Elianto;
   color: black;
   background-color: #eee;
+}
+
+html, body{
+  max-width: 100%;
   overflow-x: hidden;
 }
 
