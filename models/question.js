@@ -7,15 +7,19 @@ var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
 var questionsSchema = new Schema({
-    que: {type:String}, //question
-    qno: {type:Number}, //question number
-    ans : {type : String}, //answer pool
-    cans : {type : String},//correct answer
+    questionDesc: {type:String}, //question
+    questionNumber: {type:Number}, //question number
+    correctAnswer : {type : [String]}, //correct answer pool
+    closeAnswer : {
+            shortAnswer : [String],
+            mediumAnswer : [String]
+        },//close answer
     hint : {type : String},//When asked for hint..this is to be displayed
     imageUrl : [{type : String}],// to store the image url form cloudinary
     audioUrl : {type : String},// to store the audio url form cloudinary
     special :{type : Boolean, default : false},// make it tue if the question special
-    solved : {type : Boolean, default : false} //give bonus when solved the first time
+    solved : {type : Boolean, default : false}, //give bonus when solved the first time
+    solvedBy : {type : Number, default: 0}
 });
 
 var questions = module.exports = mongoose.model( 'questions' , questionsSchema );

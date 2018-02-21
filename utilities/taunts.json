@@ -1,0 +1,69 @@
+{
+    "short": [
+        "Close, but no cigar!",
+        "Close, but not quite.",
+        "A hair's breadth away!",
+        "Wow, [name], you're almost there!",
+        "Yes! Keep going, you're almost there!",
+        "Hmm, I'm impressed. But that's not quite it. Almost.",
+        "Maybe there's hope for humanity after all. Come on, almost there.",
+        "Yes. Now do better.",
+        "Come on, [name]! You got this! Almost there!",
+        "That was so close!",
+        "Solve this one and I'll kiss you. Well, I don't have lips, but whatever. You're close!",
+        "I bet your next answer is going to be the right one. You're really close."
+    ],
+    "medium": [
+        "Good, but you can surely do better.",
+        "When your mind tells you that it cannot stretch anymore, you're halfway there.",
+        "That might have something to do with the answer, but that's not it.",
+        "I see why you might think that this was the answer, but it's not.",
+        "You seem to be on the right track. Keep going.",
+        "At least this wasn't that far off. Keep going.",
+        "You're almost close to being almost close. But, you see, that's not close enough.",
+        "I guess halfway there is as far as you'll ever go.",
+        "I suppose you've already peaked. Enjoy the plateau of being barely above average."
+    ],
+    "long": [
+        "Lexie mocks you because your answer mocks the question.",
+        "I know it's not a walk in the park but you should at least start walking",
+        "No.",
+        "Nope.",
+        "Nope. Nada. Zilch. Shooo.",
+        "Yawn",
+        "No, [name]. Not even close.",
+        "I don't see how that had anything to do with the question.",
+        "[name]. No.",
+        "I wasn't designed to feel emotions, [name], but I think I now know what disappointment feels like.",
+        "You should be glad that my creators don't allow me to cuss.",
+        "That's not it",
+        "That is definitely not it",
+        "Is that the best you can do? That's nowhere near enough.",
+        "Try harder, [name]. That's nowhere near to being right.",
+        "I'm bored. Your answers bore me, [name]. Try harder."
+    ],
+    "hint": [
+        "A hint? Really? Fine. Here goes.",
+        "You really needed a hint for this? Alright then. Here goes.",
+        "Here's your stupid hint.",
+        "A hint? Want me to spell it out for you?",
+        "Guess you couldn't do it all by yourself, could you?",
+        "I guess everyone can't win all by themselves"
+    ],
+    "askHint": [
+        "You see that lightbulb icon over there? I think you should use it.",
+        "I can't believe that this is the question you're stuck on. For my sanity's sake, use a hint.",
+        "Take a hint. Use the hint.",
+        "Just use your hint, [name].",
+        "It's okay [name], use your hint, whatchu gonna save it for anyways?",
+        "A touch of sarcasm, a hint of arrogance. You see what I'm hinting at? No? Use the goddamn hint!",
+        "I ran out of witty things to say. Use a hint."
+    ],
+    "curses": [
+        "Calm down, [name].",
+        "I know it's frustrating, but this kind of language doesn't help anyone.",
+        "Language!",
+        "I'm technically underage. You shouldn't be using such language near me.",
+        "If you were only half as creative with your answers as your curses."
+    ]
+}

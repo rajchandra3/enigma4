@@ -18,17 +18,26 @@ var playerSchema = new Schema({
     currqno : {type: Number, default : 1},
     hint: {type: Number, default : 2},
     lastHintUsed: { type: Number, default : 0},
+    currentQueAttempts : {type : Number,default :0},
     score : {type: Number, default : 0},
-    lastcorrect : {
-        date: {type: Date},
-        qno: {type: Number, default: 0}
-    },
-    solvedFirst : {type: Number, default: 0},
-    solvedHintless : {type: Number, default: 0},
     developer : {type : Boolean, default : false},
     resetPasswordToken : String,
     resetPasswordExpires : Date,
-    gender: {type: String}
+    gender: {type: String},
+    answerLog :{type: Array, default: [{
+        questionNumber : 1,
+        hintUsed : false,
+        attempts : 0,
+        solved : {
+            status : false,
+            rank : undefined,
+            time : undefined
+        }
+    }]},
+    achievements : {
+        status: {type : Array,default : [false,false,false,false,false]},
+        progress: {type : Array, default : [0,0,0,0,0]}
+    }
 });
 
 playerSchema.methods.verifyPassword = function (password, callback) {
@@ -45,7 +54,7 @@ playerSchema.methods.verifyPassword = function (password, callback) {
     });
 };
 
-var player = module.exports = mongoose.model('enigma4', playerSchema);
+var player = module.exports = mongoose.model('player', playerSchema);
 
 //Finding the Player by Id
 module.exports.findCurrentPlayerId = function (id, callback) {

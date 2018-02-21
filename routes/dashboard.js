@@ -3,12 +3,16 @@
  */
 var express = require('express');
 var router = express.Router();
-
+var path        = require('path');
+var fs = require('fs');
 //Environment variables not working in  /dashboard using manual value
 var jwt = require('jsonwebtoken');
 var player = require('../models/players');
 var question = require('../models/question');
 var Logs = require('../models/logs');
+// to fetch taunts
+let reqPath = path.join(__dirname, '../utilities/taunts.json');
+var allTaunts = JSON.parse(fs.readFileSync(reqPath, 'utf8'));
 
 var authenticate = require('../authenticate');
 router.use(function (req, res, next) {
@@ -98,16 +102,7 @@ router.get('/question',authenticateTime, function(req, res) {
                 if(err){
                     throw err;
                 }
-                que.ans = que.cans = que.hint = "";
-
-                if(que.qno == 8){
-                    if(data.mode == 1){ //for good imageUrl[0]
-                        que.imageUrl[1] = "";
-                    }
-                    else if(data.mode == 2){ //for evil imageUrl[1]
-                        que.imageUrl[0] = "";
-                    }
-                }
+                que.correctAnswer = que.closeAnswer = que.hint = "";
                 res.json({queData : que, playerData : data});
             })
         }
@@ -124,94 +119,186 @@ router.post('/question',authenticateTime,function(req,res){
             throw err;
         }
         else {
-            question.findQuestion(playerData.currqno, function (err, que) {
+            question.findQuestion(playerData.currqno, function (err, queData) {
                 if (err) {
                     throw err;
                 }
                 else {
-                    var f = 1;
-                    if (f) {
-                        //checking for correct answer
-                        cans_pool = (que.cans).split(',');
-                        for (var i = 0; i < cans_pool.length; i++) {
-                            if (answer === cans_pool[i]) {
-                                code = 1;
-                                f = 0;
-                                if(playerData.currqno % 5 == 0){ //need to change this to 5
-                                    var new_hint = playerData.hint + 2;
-                                }
-                                else{
-                                    var new_hint = playerData.hint;
-                                }
-                                var new_qno = playerData.currqno + 1;
-                                var new_solvedFirst = playerData.solvedFirst +1;
-                                var new_score = playerData.score;
-                                var lastcorrect = {
-                                    date: Date.now(),
-                                    qno: playerData.qno
-                                };
-                                hintless =  max(playerData.solvedHintless, new_qno - playerData.lastHintUsed);
 
-                                if (!que.solved) {
-                                    new_score += 110;
-                                    player.update(
-                                        {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, solvedFirst : new_solvedFirst, lastcorrect: lastcorrect, solvedHintless: hintless}},
-                                        function (err, data) {
-                                            if (err) throw(err);
-                                        });
-                                    question.update(
-                                        {"_id": que._id},
-                                        {$set: {solved: true}},
-                                        function (err, data) {
-                                            if (err) throw(err);
-                                        });
-                                }
-                                else {
-                                    new_score += 100;
-                                    player.update(
-                                        {"_id": playerData._id},
-                                        {$set: {currqno: new_qno, score: new_score,hint : new_hint, lastcorrect: lastcorrect, solvedHintless: hintless}},
-                                        function (err, data) {
-                                            if (err) throw(err);
-                                        });
-                                }
-                                break;
-                            }
+                    var playerUpdate = playerData;
+                    var currAnswerLog = playerData.answerLog.filter(function (obj) {
+                        return obj.questionNumber == playerData.currqno;
+                    })[0];
+
+
+                    var caseCode = 0;
+                    for(var i=0;i<queData.correctAnswer.length;i++){
+                        if(answer == queData.correctAnswer[i]){
+                            var caseCode = 1;
+                            break;
                         }
-                        if (f)
-                            f++;
                     }
-                    if (f == 2) {
-                        //checking for nearest correct answer
-                        ans_pool = (que.ans).split(',');
-                        for (var i = 0; i < ans_pool.length; i++) {
-                            if (answer === ans_pool[i]) {
-                                code = 2;
-                                f = 0;
-                                break;
-                            }
-                        }
-                        //for wrong answer
-                        if (f==2) {
-                            var words = ["fuck this shit","shit","crap","chutiya","chut","madarchod","fuck","fucked","fuck off", "maa chuda", "lauda", "luda", "fuck enigma", "motherfucker", "mother fucker","behenchod","kutta","teri maa ki chut","bhosada","randi","wtf","what the fuck"];
-                            for (var i = 0; i < words.length; i++) {
-                                if (answer === words[i]) {
-                                    code = 3;
-                                    f = 0;
+
+                    switch(caseCode){
+                        case 0: // For wrong answer
+                            //checking for correct answer
+                            var shortAnsPool = queData.closeAnswer.shortAnswer;
+                            var newstr = answer.replace( /[^a-zA-Z]/, ""); //Remove all non-alpha chars
+                            var wordsInAnswer = newstr.split(' ');  //Extracting each word
+                            for (var i = 0; i < wordsInAnswer.length; i++) {
+                                if (shortAnsPool.indexOf(wordsInAnswer[i].toLowerCase()) > -1) {
+                                    code = 1;
                                     break;
                                 }
                             }
-                        }
-                        //if enitrely wrong
-                        if (f==2) {
-                            code = 0;
-                        }
+                            if(code!=1){
+                                mediumAnsPool = queData.closeAnswer.mediumAnswer;
+                                for (var i = 0; i < wordsInAnswer.length; i++) {
+                                    if (mediumAnsPool.indexOf(wordsInAnswer[i].toLowerCase()) > -1) {
+                                        code = 2;
+                                        break;
+                                    }
+                                }
+                                code = (code!==2)?3:2;
+                            }
+                            //update the playerData
+                            player.update(
+                                {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
+                                {$inc: {"answerLog.$.attempts" : 1}},
+                                function (err, data) {
+                                    if (err) throw(err);
+                                });
+                            break;
+
+                        case 1: // for correct answer
+                            var new_hint = (playerData.currqno%5==0)? playerData.hint+2:playerData.hint;
+                            var new_qno = ++playerData.qno;
+                            //achievements
+                            var badge = playerData.achievements;
+                            var badgeUpdate = badge;
+
+                            for(var i = 0;i < badge.status.length;i++){
+                                if(!badge.status[i]){
+                                    switch(i){
+                                        case 0://Achievement 1: Welcome!
+                                            if(new_qno > 1){
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 1;
+                                            }
+                                            break;
+                                        case 1://Achievement 2: Early Bird
+                                            var topCounter = 0;
+                                            topCounter += (queData.solved)?0:1;
+
+                                            if(topcounter==1) {
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 1;
+                                            }
+                                            break;
+                                        case 2://Achievement 3: On a Roll
+                                            var topCounter = 0;
+                                            for(var j=1;j<new_qno;j++){
+                                                topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
+                                            }
+                                            topCounter += (queData.solved)?0:1;
+                                            if(topcounter==3) {
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 3;
+                                            } else {
+                                                badgeUpdate.progress[i] = topCounter;
+                                            }
+                                            break;
+                                        case 3://Achievement 4: Cruise Control
+                                            if((new_qno == 11) && (((Date.now() - process.env.START_TIME)/3600000) <= 10)){
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 10;
+                                            } else if (new_qno<11 && (((Date.now() - process.env.START_TIME)/3600000) <= 10)){
+                                                badgeUpdate.progress[i] = --new_qno;
+                                            } else {
+                                                badgeUpdate.progress[i] = new_qno;
+                                            }
+                                            break;
+                                        case 4://Achievement 5: Hintless
+                                            var hintless = 0;
+                                            for(var j=1;j<new_qno;j++){
+                                                (playerData.answerLog[j].solved.hintUsed)?hintless =0:hintless+=1;
+                                            }
+                                            if(hintless==5) {
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 5;
+                                            } else {
+                                                badgeUpdate.progress[i] = hintless;
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+
+                            //checking whether the user is first to solve
+                            if (!queData.solved) {
+                                new_score += 110;
+
+                                //update the question data if solved by anyone
+                                question.update(
+                                    {_id: que._id},
+                                    {$set: {solved: true}},
+                                    function (err, data) {
+                                        if (err) throw(err);
+                                    });
+                            }
+                            else {
+                                new_score += 100;
+                            }
+
+                            var solvedBy = queData.solvedBy;
+
+                            question.update(
+                                {_id: que._id},
+                                {$inc: {solvedBy:1}},
+                                function (err, data) {
+                                    if (err) throw(err);
+                                });
+
+
+                            var hintUsedStatus = (playerData.lastHintUsed==playerData.currqno)?false:true;
+
+                            //update the player answer log
+                            answerLogsUpdate = {
+                                questionNumber : playerData.currqno,
+                                hintUsed :hintUsedStatus,
+                                attempts: playerData.answerLog[playerData.currqno-1].attempts+1,
+                                "solved.status": true,
+                                "solved.rank" : solvedBy+1,
+                                "solved.time" : Date.now()
+                            };
+
+                            newAnswerLog = {
+                                questionNumber: playerData.currqno + 1,
+                                hintUsed: false,
+                                attempts: 0,
+                                "solved.status": false
+                            };
+
+                            //update the playerData
+                            player.update(
+                                {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
+                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate, "answerLog.$" : answerLogsUpdate},$push: { answerLog: newAnswerLog} },
+                                function (err, data) {
+                                    if (err) throw(err);
+                                });
+                            break;
                     }
-                    if (code === 1)
-                        status = true;
-                    else
-                        status = false;
+
+                    //FETCH TAUNT
+                    if(code==1){
+                        taunt = allTaunts.short[Math.floor(Math.random()*allTaunts.short.length)];
+                    }
+                    else if(code==2){
+                        taunt = allTaunts.medium[Math.floor(Math.random()*allTaunts.medium.length)];
+                    }
+                    else if(code==3){
+                        taunt = allTaunts.long[Math.floor(Math.random()*allTaunts.long.length)];
+                    }
                     //UPDATE THE LOGS
                     var post = new Logs({
                         player: playerData.name,
@@ -219,7 +306,7 @@ router.post('/question',authenticateTime,function(req,res){
                         time: curr,
                         answer: answer,
                         qno: playerData.currqno,
-                        correct: status
+                        correct: code
                     });
                     post.save(function (err) {
                         if (err) {
@@ -228,16 +315,16 @@ router.post('/question',authenticateTime,function(req,res){
                         else {
                             switch (code) {
                                 case 0:
-                                    res.json({code: 0, msg: "Correct"});
+                                    res.json({code, msg: "Correct",taunt:taunt});
                                     break;
                                 case 1:
-                                    res.json({code: 1, msg: "Wrong"});
+                                    res.json({code, msg: "Short",taunt:taunt});
                                     break;
                                 case 2:
-                                    res.json({code: 2, msg: "You are close"});
+                                    res.json({code, msg: "Medium",taunt:taunt});
                                     break;
                                 case 3:
-                                    res.json({code: 3, msg: "Cool down"});
+                                    res.json({code, msg: "Long",taunt:taunt});
                                     break;
                             }
                         }
