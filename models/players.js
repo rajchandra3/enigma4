@@ -35,8 +35,8 @@ var playerSchema = new Schema({
         }
     }],
     achievements : {
-        status: [false,false,false,false,false],
-        progress: [0,0,0,0,0]
+        status: {type : Array,default : [false,false,false,false,false]},
+        progress: {type : Array, default : [0,0,0,0,0]}
     }
 });
 
