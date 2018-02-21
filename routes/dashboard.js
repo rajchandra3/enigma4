@@ -124,6 +124,13 @@ router.post('/question',authenticateTime,function(req,res){
                     throw err;
                 }
                 else {
+
+                    var playerUpdate = playerData;
+                    var currAnswerLog = playerData.answerLog.filter(function (obj) {
+                        return obj.questionNumber == playerData.currqno;
+                    })[0];
+
+
                     var caseCode = 0;
                     for(var i=0;i<queData.correctAnswer.length;i++){
                         if(answer == queData.correctAnswer[i]){
@@ -156,8 +163,8 @@ router.post('/question',authenticateTime,function(req,res){
                             }
                             //update the playerData
                             player.update(
-                                {"_id": playerData._id},
-                                {$inc: {currentQueAttempts: 1} },
+                                {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
+                                {$inc: {"answerLog.$.attempts" : 1}},
                                 function (err, data) {
                                     if (err) throw(err);
                                 });
@@ -230,6 +237,7 @@ router.post('/question',authenticateTime,function(req,res){
                             //checking whether the user is first to solve
                             if (!queData.solved) {
                                 new_score += 110;
+
                                 //update the question data if solved by anyone
                                 question.update(
                                     {_id: que._id},
@@ -237,24 +245,44 @@ router.post('/question',authenticateTime,function(req,res){
                                     function (err, data) {
                                         if (err) throw(err);
                                     });
-                                }
+                            }
                             else {
                                 new_score += 100;
                             }
+
+                            var solvedBy = queData.solvedBy;
+
+                            question.update(
+                                {_id: que._id},
+                                {$inc: {solvedBy:1}},
+                                function (err, data) {
+                                    if (err) throw(err);
+                                });
+
+
                             var hintUsedStatus = (playerData.lastHintUsed==playerData.currqno)?false:true;
+
                             //update the player answer log
                             answerLogsUpdate = {
                                 questionNumber : playerData.currqno,
                                 hintUsed :hintUsedStatus,
-                                attempts: playerData.attempts+1,
+                                attempts: playerData.answerLog[playerData.currqno-1].attempts+1,
                                 "solved.status": true,
-                                "solved.rank" : queData.solvedBy+1,
+                                "solved.rank" : solvedBy+1,
                                 "solved.time" : Date.now()
                             };
+
+                            newAnswerLog = {
+                                questionNumber: playerData.currqno + 1,
+                                hintUsed: false,
+                                attempts: 0,
+                                "solved.status": false
+                            };
+
                             //update the playerData
                             player.update(
-                                {"_id": playerData._id},
-                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate},$push: { answerLog: answerLogsUpdate } },
+                                {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
+                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate, "answerLog.$" : answerLogsUpdate},$push: { answerLog: newAnswerLog} },
                                 function (err, data) {
                                     if (err) throw(err);
                                 });
