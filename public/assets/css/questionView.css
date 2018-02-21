@@ -139,6 +139,8 @@ a:visited{
 .context{
   background-color: #abcdef;
   position: absolute;
-  top: 0;
-  display: none;
+  left: -100%;
+  top:0;
+  width: 100%;
+  transition-duration: 1s;
 }

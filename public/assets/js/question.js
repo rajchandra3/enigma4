@@ -23,12 +23,12 @@ $("#menu-toggle").click(function(e) {
 
 $( document ).ready(function(){
 
-  $('.burger').on('click touchend', function() {
-    $('.context').css("display","block");
+  $('.burger').on('click touchstart', function(e) {
+    $('.context').css("left","0");
   });
 
-  $('.cross').on('click touchend', function() {
-    $('.context').css("display","none");
+  $('.cross').on('click touchstart', function() {
+    $('.context').css("left","-100%");
   });
 
 });
