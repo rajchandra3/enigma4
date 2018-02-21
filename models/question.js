@@ -9,10 +9,10 @@ var Schema = mongoose.Schema;
 var questionsSchema = new Schema({
     questionDesc: {type:String}, //question
     questionNumber: {type:Number}, //question number
-    correctAnswer : {type : [String]}, //correct answer pool
+    correctAnswer : {type : Array}, //correct answer pool
     closeAnswer : {
-            shortAnswer : [String],
-            mediumAnswer : [String]
+            shortAnswer : {type : Array},
+            mediumAnswer : {type : Array}
         },//close answer
     hint : {type : String},//When asked for hint..this is to be displayed
     imageUrl : [{type : String}],// to store the image url form cloudinary
@@ -40,7 +40,7 @@ module.exports.findDataById=function (id, callback) {
 
 //finding Question by qno
 module.exports.findQuestion=function (qno, callback) {
-    questions.findOne({qno : qno}, callback);
+    questions.findOne({questionNumber : qno}, callback);
 }
 
 //Update data using id
@@ -59,10 +59,4 @@ module.exports.updateData = function(id, data, options, callback) {
     }
     console.log(update,query);
     questions.findOneAndUpdate(query, update, options, callback);
-}
-
-//delete data
-module.exports.removeData = function (id, callback) {
-    var query = {_id : id};
-    questions.remove(query,callback);
 }

@@ -3,17 +3,6 @@
  */
 var app = angular.module('enigma',["ngRoute"]);
 
-app.directive("ngMobileClick", [function () {
-    return function (scope, elem, attrs) {
-        elem.bind("touchstart click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            scope.$apply(attrs["ngMobileClick"]);
-        });
-    }
-}])
-
 app.controller('questionController',['$scope','$http','$location','$routeParams',function ($scope,$http,$location,$routeParams) {
 
     $('#ansX').keypress(function(event){
@@ -40,9 +29,11 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
             $scope.msg = "Empty Response :(";
         }
         else {
-            $scope.response = $scope.response.answer.toLowerCase();
-            var res  = $scope.response;
-            $http.post('/dashboard/question', res).then(successCallback, errorCallback);
+            var sendAnswer = {
+                answer : $scope.response.answer.toLowerCase()
+            };
+            console.log(sendAnswer);
+            $http.post('/dashboard/question', sendAnswer).then(successCallback, errorCallback);
 
             function successCallback(response) {
                 $scope.check = response.data;//code & message

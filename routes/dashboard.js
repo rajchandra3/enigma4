@@ -60,7 +60,32 @@ var authenticateTime = function(req, res, next){
         }
     });
 }
+var authenticateDeveloper = function(req, res, next){
+    var playerId = req.decoded._doc._id;
+    player.findCurrentPlayerId(playerId,function (err, playerData) {
+        if (err) {
+            throw err;
+        }
+        else if (playerData.developer) {
+            next();
+        }
+        else{
+            res.send("Unauthorized Access!");
+        }
+    });
+}
 
+/* GET stats page. */
+router.get('/stats', function (req, res, next) {
+    var count = player.find({}, (err, data) => {
+    if (err)
+        console.log(err);
+    else
+        res.render('stats', {
+            playerCount: data.length
+        });
+    });
+});
 
 /* GET home page. */
 router.get('/',authenticateTime, function(req, res, next) {
@@ -70,11 +95,12 @@ router.get('/',authenticateTime, function(req, res, next) {
             throw err;
         }
         else {
-            res.render('question',{
-                    timeRem : new Date(process.env.START_TIME - new Date()).toString(),
-                    timeNow : new Date().toString(),
-                    timeOfStart : new Date(1519383000000).toString()
-            });
+            res.render('questionwhite');
+            // res.render('question',{
+            //         timeRem : new Date(process.env.START_TIME - new Date()).toString(),
+            //         timeNow : new Date().toString(),
+            //         timeOfStart : new Date(1519383000000).toString()
+            // });
         }
     });
 });
@@ -100,8 +126,11 @@ router.get('/question',authenticateTime, function(req, res) {
         else{
             question.findQuestion(data.currqno,function (err,que) {
                 if(err){
-                    throw err;
+                    console.log(err);
+                    // throw err;
                 }
+
+                // console.log(que);
                 que.correctAnswer = que.closeAnswer = que.hint = "";
                 res.json({queData : que, playerData : data});
             })
