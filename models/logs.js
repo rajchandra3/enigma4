@@ -14,4 +14,4 @@ var logSchema = new Schema({
     correct:{type:Number}
 });
 
-var logs = module.exports = mongoose.model('enigma4Logs', logSchema);
+var logs = module.exports = mongoose.model('logs', logSchema);

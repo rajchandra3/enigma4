@@ -22,7 +22,7 @@ var questionsSchema = new Schema({
     solvedBy : {type : Number}
 });
 
-var questions = module.exports = mongoose.model( 'challenges' , questionsSchema );
+var questions = module.exports = mongoose.model( 'questions' , questionsSchema );
 
 //Add  data
 module.exports.addData = function (data, callback) {

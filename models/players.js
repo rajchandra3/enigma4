@@ -54,7 +54,7 @@ playerSchema.methods.verifyPassword = function (password, callback) {
     });
 };
 
-var player = module.exports = mongoose.model('enigma4', playerSchema);
+var player = module.exports = mongoose.model('player', playerSchema);
 
 //Finding the Player by Id
 module.exports.findCurrentPlayerId = function (id, callback) {
