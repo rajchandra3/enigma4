@@ -24,16 +24,16 @@ var playerSchema = new Schema({
     resetPasswordToken : String,
     resetPasswordExpires : Date,
     gender: {type: String},
-    answerLog : [{
-        questionNumber : {type : Number},
-        hintUsed : {type : Boolean},
-        attempts : {type : Number},
+    answerLog :{type: Array, default: [{
+        questionNumber : 1,
+        hintUsed : false,
+        attempts : 0,
         solved : {
-            status : Boolean,
-            rank : Number,
-            time : Date
+            status : false,
+            rank : undefined,
+            time : undefined
         }
-    }],
+    }]},
     achievements : {
         status: {type : Array,default : [false,false,false,false,false]},
         progress: {type : Array, default : [0,0,0,0,0]}
