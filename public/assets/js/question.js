@@ -31,4 +31,12 @@ $( document ).ready(function(){
     $('.context').css("left","-100%");
   });
 
+  $('.star').on('click touchstart', function() {
+    $('.context-left').css("right","0");
+  });
+
+  $('.cross-left').on('click touchstart', function() {
+    $('.context-left').css("right","-100%");
+  });
+
 });

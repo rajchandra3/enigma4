@@ -3,20 +3,24 @@
   color: black;
 }
 
+.montserrat{
+  font-family: Montserrat;
+}
+
 .text-center{
   text-align: center;
 }
 
 /*fonts*/
 @font-face {
-    font-family: Elianto;
-    src: url(../fonts/Elianto-Regular.ttf);
+    font-family: Wakanda;
+    src: url(../fonts/Wakanda.ttf);
 }
 
 body{
-  font-family: Elianto;
+  font-family: Wakanda;
   color: black;
-  background-color: #eee;
+  background-color: white;
 }
 
 html, body{
@@ -48,24 +52,24 @@ nav{
 }
 
 .btn{
-  font-family: Elianto;
-  font-weight: lighter;
-  margin:10px;
-  background-color: #eee;
-  border-color: rgb(41,43,44);
-  color: rgb(41,43,44);
+  font-weight: bolder;
+  margin: 5px;
+  background-color: white;
+  border-color: #1b1b1d;
+  color: #1b1b1d;
   cursor: pointer;
 }
 
 .btn:hover{
-  background-color: rgb(41,43,44);
-  color: #eee;
+  background-color: #1b1b1d;
+  color: white;
 }
 
 .question-tab{
   margin-top: 2vh;
 }
 
+/* mobile view*/
 .logo{
   width: 6em;
   height: auto;
@@ -74,36 +78,59 @@ nav{
 .question-image{
   width: 90%;
   height: auto;
+  border-radius: 6px;
 }
 
 .answer-box{
   width: 60%;
   margin: 20px;
+  background-color: transparent;
+  outline: none;
+  text-align: center;
+  border-bottom: 2px solid #1b1b1d;
+  border-left: none;
+  border-right: none;
+  border-top: none;
 }
+
+input:focus{
+   outline:none;
+   border-bottom: 2px solid #1b1b1d !important;
+   background-color: transparent !important;
+   color: #1b1b1d;
+  }
 
 .question-title{
   font-size: 1.5em;
   text-align: center;
-  color: rgb(41,43,44);
+  color: #1b1b1d;
+  margin-bottom: 3vh;
 }
 
+/* pc view*/
 @media (min-width: 1024px){
   .logo{
     width: 9em;
   }
 
   .question-image{
-    width: 60%;
+    width: 40%;
     height: auto;
   }
 
   .question-title{
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
-    color: rgb(41,43,44);
+    color: #1b1b1d;
+  }
+
+  .answer-box{
+    width: 40%;
+    margin: 20px;
   }
 }
 
+/* tablet view*/
 @media (min-width: 768px) and (max-width: 1023px){
   .logo{
     width: 7.5em;
@@ -117,7 +144,12 @@ nav{
   .question-title{
     font-size: 2em;
     text-align: center;
-    color: rgb(41,43,44);
+    color: #1b1b1d;
+  }
+
+  .answer-box{
+    width: 40%;
+    margin: 20px;
   }
 }
 
@@ -133,7 +165,7 @@ nav{
 }
 
 .bg-off-black{
-  background-color: rgb(41,43,44);
+  background-color: #1b1b1d;
 }
 
 a:visited{
@@ -141,10 +173,61 @@ a:visited{
 }
 
 .context{
-  background-color: #abcdef;
+  background-color: #1b1b1d;
   position: absolute;
   left: -100%;
   top:0;
   width: 100%;
-  transition-duration: 1s;
+  transition-duration: 0.5s;
+  z-index: 20;
+  min-height: 100vh;
+}
+
+.context-left{
+  background-color: #fedcba;
+  position: absolute;
+  right: -100%;
+  top:0;
+  width: 100%;
+  transition-duration: 0.5s;
+  z-index: 20;
+}
+
+.cross-left{
+  right: 1rem;
+  position: absolute;
+  cursor: pointer;
+  z-index: 30;
+}
+
+.cross{
+  cursor: pointer;
+  color: white;
+}
+
+.burger{
+  left: 1rem;
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.star{
+  right: 1rem;
+  position: absolute;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.menu-logo{
+  width: 20%;
+  margin-bottom: 3vh;
+}
+
+a{
+  color: white!important;
+}
+
+a:hover{
+  color: white!important;
 }
