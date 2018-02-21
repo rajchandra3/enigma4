@@ -17,6 +17,8 @@ var playerSchema = new Schema({
     authcomp:{type: Boolean, default: false},
     currqno : {type: Number, default : 1},
     hint: {type: Number, default : 2},
+    lastHintUsed: { type: Number, default : 0},
+    currentQueAttempts : {type : Number,default :0},
     score : {type: Number, default : 0},
     developer : {type : Boolean, default : false},
     resetPasswordToken : String,
@@ -25,9 +27,7 @@ var playerSchema = new Schema({
     answerLog : [{
         questionNumber : {type : Number},
         hintUsed : {type : Boolean},
-        attempts : {
-            count : Number
-        },
+        attempts : {type : Number},
         solved : {
             status : Boolean,
             rank : Number,

@@ -124,19 +124,20 @@ router.post('/question',authenticateTime,function(req,res){
                     throw err;
                 }
                 else {
+                    var caseCode = 0;
                     for(var i=0;i<queData.correctAnswer.length;i++){
                         if(answer == queData.correctAnswer[i]){
                             var caseCode = 1;
-                        }else{
-                            var caseCode = 0;
+                            break;
                         }
                     }
+
                     switch(caseCode){
                         case 0: // For wrong answer
                             //checking for correct answer
-                            shortAnsPool = queData.closeAnswer.shortAnswer;
+                            var shortAnsPool = queData.closeAnswer.shortAnswer;
                             var newstr = answer.replace( /[^a-zA-Z]/, ""); //Remove all non-alpha chars
-                            wordsInAnswer = newstr.split(' ');  //Extracting each word
+                            var wordsInAnswer = newstr.split(' ');  //Extracting each word
                             for (var i = 0; i < wordsInAnswer.length; i++) {
                                 if (shortAnsPool.indexOf(wordsInAnswer[i].toLowerCase()) > -1) {
                                     code = 1;
@@ -151,15 +152,113 @@ router.post('/question',authenticateTime,function(req,res){
                                         break;
                                     }
                                 }
-                                code = (code!=2)?3:2;
+                                code = (code!==2)?3:2;
                             }
+                            //update the playerData
+                            player.update(
+                                {"_id": playerData._id},
+                                {$inc: {currentQueAttempts: 1} },
+                                function (err, data) {
+                                    if (err) throw(err);
+                                });
                             break;
+
                         case 1: // for correct answer
-                            var new_points = queData.solved? 100:110;
                             var new_hint = (playerData.currqno%5==0)? playerData.hint+2:playerData.hint;
                             var new_qno = ++playerData.qno;
+                            //achievements
+                            var badge = playerData.achievements;
+                            var badgeUpdate = badge;
 
-                            break
+                            for(var i = 0;i < badge.status.length;i++){
+                                if(!badge.status[i]){
+                                    switch(i){
+                                        case 0://Achievement 1: Welcome!
+                                            if(new_qno > 1){
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 1;
+                                            }
+                                            break;
+                                        case 1://Achievement 2: Early Bird
+                                            var topCounter = 0;
+                                            topCounter += (queData.solved)?0:1;
+
+                                            if(topcounter==1) {
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 1;
+                                            }
+                                            break;
+                                        case 2://Achievement 3: On a Roll
+                                            var topCounter = 0;
+                                            for(var j=1;j<new_qno;j++){
+                                                topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
+                                            }
+                                            topCounter += (queData.solved)?0:1;
+                                            if(topcounter==3) {
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 3;
+                                            } else {
+                                                badgeUpdate.progress[i] = topCounter;
+                                            }
+                                            break;
+                                        case 3://Achievement 4: Cruise Control
+                                            if((new_qno == 11) && (((Date.now() - process.env.START_TIME)/3600000) <= 10)){
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 10;
+                                            } else if (new_qno<11 && (((Date.now() - process.env.START_TIME)/3600000) <= 10)){
+                                                badgeUpdate.progress[i] = --new_qno;
+                                            } else {
+                                                badgeUpdate.progress[i] = new_qno;
+                                            }
+                                            break;
+                                        case 4://Achievement 5: Hintless
+                                            var hintless = 0;
+                                            for(var j=1;j<new_qno;j++){
+                                                (playerData.answerLog[j].solved.hintUsed)?hintless =0:hintless+=1;
+                                            }
+                                            if(hintless==5) {
+                                                badgeUpdate.status[i] = true;
+                                                badgeUpdate.progress[i] = 5;
+                                            } else {
+                                                badgeUpdate.progress[i] = hintless;
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+
+                            //checking whether the user is first to solve
+                            if (!queData.solved) {
+                                new_score += 110;
+                                //update the question data if solved by anyone
+                                question.update(
+                                    {_id: que._id},
+                                    {$set: {solved: true}},
+                                    function (err, data) {
+                                        if (err) throw(err);
+                                    });
+                                }
+                            else {
+                                new_score += 100;
+                            }
+                            var hintUsedStatus = (playerData.lastHintUsed==playerData.currqno)?false:true;
+                            //update the player answer log
+                            answerLogsUpdate = {
+                                questionNumber : playerData.currqno,
+                                hintUsed :hintUsedStatus,
+                                attempts: playerData.attempts+1,
+                                "solved.status": true,
+                                "solved.rank" : queData.solvedBy+1,
+                                "solved.time" : Date.now()
+                            };
+                            //update the playerData
+                            player.update(
+                                {"_id": playerData._id},
+                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate},$push: { answerLog: answerLogsUpdate } },
+                                function (err, data) {
+                                    if (err) throw(err);
+                                });
+                            break;
                     }
 
                     //FETCH TAUNT
