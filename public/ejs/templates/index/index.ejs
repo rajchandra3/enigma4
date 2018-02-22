@@ -147,17 +147,18 @@
           	 }
     function validiateCouponCode(){
           var coupon = $('#coupon').val().toLowerCase();
-          var cc = ['techloop','turing','alan turing','alan mathison turing'];
+          var cc = ['techloop','turing','alan turing','alan mathison turing','enigma'];
           for(var i=0;i<cc.length;i++){
+              console.log(coupon ,cc[i],coupon == cc[i]);
               if(coupon == cc[i]){
-                  $('#orm-div-coupon-code').removeClass("form-group has-danger");
-                  $('#orm-div-coupon-code').addClass("form-group has-success");
+                  $('#form-div-coupon-code').removeClass("form-group has-danger");
+                  $('#form-div-coupon-code').addClass("form-group has-success");
                   $('#feedback-invalid-message').hide();
                   $('#feedback-valid-message').show();
               }
               else{
-                  $('#orm-div-coupon-code').addClass("form-group has-danger");
-                  $('#orm-div-coupon-code').removeClass("form-group has-success");
+                  $('#form-div-coupon-code').addClass("form-group has-danger");
+                  $('#form-div-coupon-code').removeClass("form-group has-success");
                   $('#feedback-valid-message').hide();
                   $('#feedback-invalid-message').show();
               }
