@@ -21,10 +21,12 @@ body{
   font-family: Wakanda;
   color: black;
   background-color: white;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-html, body{
-  max-width: 100%;
+html{
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -191,6 +193,7 @@ a:visited{
   width: 100%;
   transition-duration: 0.5s;
   z-index: 20;
+  display: none;
 }
 
 .cross-left{

@@ -32,11 +32,15 @@ $( document ).ready(function(){
   });
 
   $('.star').on('click touchstart', function() {
+    $('.context-left').css("display","block");
     $('.context-left').css("right","0");
+    $('.star').css("display","none");
   });
 
   $('.cross-left').on('click touchstart', function() {
     $('.context-left').css("right","-100%");
+    $('.context-left').css("display","none");
+    $('.star').css("display","block");
   });
 
 });
