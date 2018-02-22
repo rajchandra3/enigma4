@@ -183,40 +183,4 @@ router.get('/resend', function (req, res) {
     }
 });
 
-//leaderboard put here for time being
-
-router.post('/leaderboard', (req, res) => {
-    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1}).limit(100).exec(function (err, docs) {
-        res.json(docs);
-    });
-});
-
-
-// <---- This is for getting user responses by Admin ---->
-router.post('/playerLog', function (req, res) {
-    var playerName = req.body.name;
-    player.find({'name': playerName}, function (err, playerData) { //to mentain security
-        if (err) {
-            throw err;
-        }
-        else if (!playerData) {
-            res.send("No player with this name found !");
-        }
-        else {
-            Logs.find({'player': playerName}, (error, log) => {
-                if (error)
-                    throw error;
-                else if (log)
-                    res.json({
-                        name: playerName,
-                        attempts: log.length
-                    });
-                else
-                    res.send("player has no attempts");
-            });
-        }
-    });
-});
-
-
 module.exports = router;

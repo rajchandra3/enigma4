@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="assets/css/leaderboardView.css">
+<link rel="stylesheet" href="../assets/css/leaderboardView.css">
 
 
 <div class="row text-center">
@@ -19,7 +19,7 @@
 
 <!-- Search Button -->
 <div class="navbar-form" >
-  <button type="button" align="right" ng-click="gameCtrl.advancedSearch(searchByName);" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+    <button type="button" align="right" ng-click="gameCtrl.advancedSearch(searchByName);" class="btn btn-outline-success my-2 my-sm-0">Search</button>
 
 </div>
 <br>
@@ -38,7 +38,7 @@
       <th>Question No</th>
       <th>Score</th>
     </tr>
-    <tr ng-repeat="person in gameCtrl.datta | filter: advancedSearchFilter | limitTo:100 ">
+    <tr ng-repeat="person in dataset | filter: advancedSearchFilter | limitTo:100 ">
       <td>{{ person.title }}</td>
       <td>{{ person.platform}}</td>
       <td>{{ person.genre }}</td>

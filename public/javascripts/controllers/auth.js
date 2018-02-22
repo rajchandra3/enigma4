@@ -17,18 +17,6 @@ app.config(function($routeProvider, $locationProvider){
             templateUrl: "/ejs/templates/index/reset.ejs",
             controller: "authController"
         })
-        .when("/leaderboard", {
-            templateUrl: "/ejs/templates/others/leaderboard.ejs",
-            controller: "gameCtrl"
-        })
-        .when("/profile", {
-            templateUrl: "/ejs/templates/others/profile.ejs",
-            controller: "authController"
-        })
-        .when("/mleaderboard", {
-            templateUrl: "/ejs/templates/others/minileaderboard.ejs",
-            controller: "authController"
-        })
         .when("/rules", {
             templateUrl: "/ejs/templates/others/rules.ejs"
         })

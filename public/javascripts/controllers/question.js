@@ -3,6 +3,17 @@
  */
 var app = angular.module('enigma',["ngRoute"]);
 
+app.config(function($routeProvider, $locationProvider){
+    $routeProvider
+        .when("/leaderboard", {
+            templateUrl: "/ejs/templates/others/leaderboard.ejs",
+            controller: "questionController"
+        })
+        .otherwise({
+            template : "<h1>NOT FOUND</h1>"
+        });
+});
+
 app.controller('questionController',['$scope','$http','$location','$routeParams',function ($scope,$http,$location,$routeParams) {
 
     $('#ansX').keypress(function(event){
@@ -149,8 +160,10 @@ function loader($http) {
             }, function(isLoading) {
                 if (isLoading) {
                     $(element).show();
+                    document.getElementById("ansX").disabled = true;
                 } else {
                     $(element).hide();
+                    document.getElementById('ansX').disabled = false;
                 }
             });
         }
