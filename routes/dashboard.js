@@ -95,7 +95,7 @@ router.get('/',authenticateTime, function(req, res, next) {
             throw err;
         }
         else {
-            res.render('questionwhite');
+            res.render('question');
             // res.render('question',{
             //         timeRem : new Date(process.env.START_TIME - new Date()).toString(),
             //         timeNow : new Date().toString(),
@@ -143,6 +143,7 @@ router.post('/question',authenticateTime,function(req,res){
     var curr = Date.now();
     var playerId = req.decoded._doc._id;
     var code = 0;
+    var taunt = null;
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if (err) {
             throw err;
@@ -201,7 +202,7 @@ router.post('/question',authenticateTime,function(req,res){
 
                         case 1: // for correct answer
                             var new_hint = (playerData.currqno%5==0)? playerData.hint+2:playerData.hint;
-                            var new_qno = ++playerData.currqno;
+                            var new_qno = playerData.currqno+1;
                             //achievements
                             var badge = playerData.achievements;
                             var badgeUpdate = badge;
@@ -226,15 +227,17 @@ router.post('/question',authenticateTime,function(req,res){
                                             break;
                                         case 2://Achievement 3: On a Roll
                                             var topCounter = 0;
-                                            for(var j=1;j<new_qno;j++){
-                                                topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
-                                            }
-                                            topCounter += (queData.solved)?0:1;
-                                            if(topCounter==3) {
-                                                badgeUpdate.status[i] = true;
-                                                badgeUpdate.progress[i] = 3;
-                                            } else {
-                                                badgeUpdate.progress[i] = topCounter;
+                                            if(playerData.answerLog.length>=3){
+                                                for(var j=1;j<new_qno;j++){
+                                                    topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
+                                                }
+                                                topCounter += (queData.solved)?0:1;
+                                                if(topCounter==3) {
+                                                    badgeUpdate.status[i] = true;
+                                                    badgeUpdate.progress[i] = 3;
+                                                } else {
+                                                    badgeUpdate.progress[i] = topCounter;
+                                                }
                                             }
                                             break;
                                         case 3://Achievement 4: Cruise Control
@@ -242,21 +245,23 @@ router.post('/question',authenticateTime,function(req,res){
                                                 badgeUpdate.status[i] = true;
                                                 badgeUpdate.progress[i] = 10;
                                             } else if (new_qno<11 && (((Date.now() - process.env.START_TIME)/3600000) <= 10)){
-                                                badgeUpdate.progress[i] = --new_qno;
+                                                badgeUpdate.progress[i] =new_qno-1;
                                             } else {
                                                 badgeUpdate.progress[i] = new_qno;
                                             }
                                             break;
                                         case 4://Achievement 5: Hintless
                                             var hintless = 0;
-                                            for(var j=1;j<new_qno;j++){
-                                                (playerData.answerLog[j].solved.hintUsed)?hintless =0:hintless+=1;
-                                            }
-                                            if(hintless==5) {
-                                                badgeUpdate.status[i] = true;
-                                                badgeUpdate.progress[i] = 5;
-                                            } else {
-                                                badgeUpdate.progress[i] = hintless;
+                                            if(playerData.answerLog>=5){
+                                                for(var j=1;j<new_qno;j++){
+                                                    (playerData.answerLog[j].solved.hintUsed)?hintless =0:hintless+=1;
+                                                }
+                                                if(hintless==5) {
+                                                    badgeUpdate.status[i] = true;
+                                                    badgeUpdate.progress[i] = 5;
+                                                } else {
+                                                    badgeUpdate.progress[i] = hintless;
+                                                }
                                             }
                                             break;
                                     }
@@ -293,22 +298,16 @@ router.post('/question',authenticateTime,function(req,res){
                             answerLogsUpdate = {
                                 questionNumber : playerData.currqno,
                                 hintUsed :hintUsedStatus,
-                                attempts: playerData.currentQueAttempt+1,
+                                attempts: playerData.currentQueAttempts+1,
                                 "solved.status": true,
                                 "solved.rank" : solvedBy+1,
                                 "solved.time" : Date.now()
                             };
 
-                            newAnswerLog = {
-                                questionNumber: playerData.currqno + 1,
-                                hintUsed: false,
-                                attempts: 0,
-                                "solved.status": false
-                            };
                             //update the playerData
                             player.update(
-                                {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
-                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate, "answerLog.$" : answerLogsUpdate},$push: { answerLog: newAnswerLog} },
+                                {"_id": playerData._id},
+                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate},$push: { answerLog: answerLogsUpdate} },
                                 function (err, data) {
                                     if (err) throw(err);
                                 });
