@@ -75,11 +75,10 @@ router.post('/save', function (req, res, next) {
     if (req.body.password !== req.body.cpassword) {
         success = false;
     }
-    if(req.body.coupon !== null){
+    if(req.body.coupon !== undefined){
         req.body.coupon = req.body.coupon.toLowerCase();
-        var couponCodes = ['techloop','turing'];
+        var couponCodes = ['techloop','turing','alan turing','alan mathison turing','enigma'];
         for(var i=0;i<couponCodes.length;i++) {
-            console.log(req.body.coupon,couponCodes[i]);
             if (req.body.coupon == couponCodes[i]) {
                 data.hint = 3;
                 break;

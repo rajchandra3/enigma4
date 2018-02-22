@@ -399,64 +399,13 @@ router.get('/mini', function(req, res) {
     });
 });
 
-router.get('/achievements', function(req,res){
-    var playerId = req.decoded._doc._id;
-    var enigmaStart = new Date(2018, 2, 23, 16, 20, 0, 0).getTime();
-    var enigmaTenHours = new Date(2018, 2, 24, 2, 30, 0, 0).getTime();
-
-    var achievementsJson = {
-        "a1": {
-            status: false,
-            progress: 0
-        },
-        "a2": {
-            status: false,
-            progress: 0
-        },
-        "a3": {
-            status: false,
-            progress: 0
-        },
-        "a4": {
-            status: false,
-            progress: 0
-        },
-        "a5": {
-            status: false,
-            progress: 0
-        },
-    };
-
-    player.findCurrentPlayerId(playerId,function (err, playerData) {
-        if(err){
-            throw(err);
-        }
-
-        if(playerData.currqno >= 2){
-            achievementsJson.a1.status = true;
-            achievementsJson.a1.progress = 1;
-        }
-
-        if(playerData.solvedFirst >= 1){
-            achievementsJson.a2.status = true;
-            achievementsJson.a2.progress = playerData.solvedFirst;
-            achievementsJson.a3.progress = playerData.solvedFirst;
-        }
-
-        if(playerData.solvedFirst >= 3){
-            achievementsJson.a3.status = true;
-            achievementsJson.a3.progress = playerData.solvedFirst;
-        }
-
-        //Update a4 here (solved 10 questions before 10 hours)
-
-        achievementsJson.a5.progress = playerData.solvedHintless;
-        if(playerData.solvedHintless >= 5){
-            achievementsJson.a5.status = true;
-        }
-    });
-
-    res.json(achievementsJson);
-});
+// router.get('/achievements', function(req,res){
+//     var playerId = req.decoded._doc._id;
+//     player.findCurrentPlayerId(playerId,function (err, playerData) {
+//         if(err){
+//             throw(err);
+//         }
+//         res.json(playerData.achievements);
+// });
 
 module.exports = router;
