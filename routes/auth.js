@@ -75,11 +75,16 @@ router.post('/save', function (req, res, next) {
     if (req.body.password !== req.body.cpassword) {
         success = false;
     }
-    if(req.body.coupon){
+    if(req.body.coupon !== null){
         req.body.coupon = req.body.coupon.toLowerCase();
-    }
-    if(req.body.coupon === "techloop" || req.body.coupon === "TECHLOOP" || req.body.coupon === "Techloop"){
-        data.hint = 3;
+        var couponCodes = ['techloop','turing'];
+        for(var i=0;i<couponCodes.length;i++) {
+            console.log(req.body.coupon,couponCodes[i]);
+            if (req.body.coupon == couponCodes[i]) {
+                data.hint = 3;
+                break;
+            }
+        }
     }
     if(success) {
         genderize(req.body.name.split(' ')[0], function (err, obj) {

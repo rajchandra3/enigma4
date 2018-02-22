@@ -51,6 +51,9 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             $scope.msgReg = "Saving your credentials...";
             $scope.player.email = ($scope.player.email).toLowerCase();
             $scope.player.organisation = ($scope.player.organisation).replace(/[^a-zA-Z ]/g, '');
+            if($scope.player.coupon!==null){
+                $scope.player.coupon = $scope.player.coupon.toLowerCase();
+            }
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response
