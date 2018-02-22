@@ -73,8 +73,9 @@ nav{
 
 /* mobile view*/
 .logo{
-  width: 6em;
+  width: 50%;
   height: auto;
+  margin-bottom: 3vh;
 }
 
 .question-image{
@@ -112,7 +113,7 @@ input:focus{
 /* pc view*/
 @media (min-width: 1024px){
   .logo{
-    width: 9em;
+    width: 25%;
   }
 
   .question-image{
@@ -135,7 +136,7 @@ input:focus{
 /* tablet view*/
 @media (min-width: 768px) and (max-width: 1023px){
   .logo{
-    width: 7.5em;
+    width: 30%;
   }
 
   .question-image{
@@ -175,7 +176,7 @@ a:visited{
 }
 
 .context{
-  background-color: #1b1b1d;
+  background-color: #444;
   position: absolute;
   left: -100%;
   top:0;
@@ -183,17 +184,6 @@ a:visited{
   transition-duration: 0.5s;
   z-index: 20;
   min-height: 100vh;
-}
-
-.context-left{
-  background-color: #fedcba;
-  position: absolute;
-  right: -100%;
-  top:0;
-  width: 100%;
-  transition-duration: 0.5s;
-  z-index: 20;
-  display: none;
 }
 
 .cross-left{
@@ -222,15 +212,90 @@ a:visited{
   cursor: pointer;
 }
 
-.menu-logo{
-  width: 20%;
-  margin-bottom: 3vh;
-}
-
 a{
   color: white!important;
+  text-decoration: none;
 }
 
 a:hover{
   color: white!important;
+  text-decoration: none;
+}
+
+a:focus{
+  color: white!important;
+  text-decoration: none;
+}
+
+.card-header{
+  background-color: #616161;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 1px solid white;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-radius: 0px;
+
+}
+
+.card-block{
+  background-color: #E7E7E7;
+  color: black;
+  border: 0px;
+  border-radius: 0px;
+}
+
+.card{
+  border: 0px;
+  border-radius: 0px;
+}
+
+.card-header:first-child{
+  border-radius: 0px;
+}
+
+#accordion{
+  border: 0px;
+  border-radius: 6px;
+}
+
+/*mini Leaderboard*/
+.firstPos{
+  background-color: #e2d27e;
+  color: black;
+}
+
+.miniLeadSpacing{
+  vertical-align: middle;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.pos{
+  background-color: #c7c7c7;
+}
+
+.nthPos{
+  background-color: #616161;
+  color: white;
+}
+
+.link-dark{
+  color: black!important;
+  font-weight: bolder;
+  cursor: pointer!important;
+}
+
+.badgeCaption{
+  font-weight: bolder;
+  text-align: center;
+}
+
+.badgeContainer{
+  width: 80%;
+}
+
+.facebook{
+  cursor: pointer;
 }

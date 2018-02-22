@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/questionView.css">
 </head>
 <body>
@@ -22,7 +23,9 @@
       <div class="col-lg-8 col-md-9 col-sm-10 mx-auto question-tab">
         <h2 class="horizontal-center question-title montserrat"> Q.1 Her Life Is What Life? </h2>
         <img src="/images/pantera.png" class="horizontal-center question-image" alt="question_image">
-        <div class="prompt" style="display:none">HINT:<i> insert here here</i></div>
+        <div class="prompt montserrat">Use Hint</i></div>
+        <div class="prompt montserrat">Are you sure?<br>YEP&nbsp;&nbsp;&nbsp;NOPE</i></div>
+        <div class="prompt montserrat">HINT:<i> insert here here</i></div>
         <form>
           <div class="form-group">
             <input type="text" class="form-control answer-box horizontal-center" placeholder=" Answer"></input>
@@ -40,22 +43,26 @@
   <nav class="navbar">
     <img class="cross" src="/images/crossWhite.png" width="30" height="30" alt="">
   </nav>
-  <div class="container helvetica">
-    <img class="logo horizontal-center menu-logo" src="/images/logoplus.png" alt="">
+  <div class="container montserrat">
+    <img class="logo horizontal-center" src="/images/logoplus.png" alt="">
 
     <div id="accordion" role="tablist" aria-multiselectable="true">
       <div class="card">
         <div class="card-header" role="tab" id="headingOne">
           <h5 class="mb-0">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Collapsible Group Item #1
+              <i class="fa fa-fort-awesome"></i>&nbsp; Mini Leaderboard
             </a>
           </h5>
         </div>
 
         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
           <div class="card-block">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            <div class="firstPos">&nbsp;1. Raj Chandra </div>
+            <div class="miniLeadSpacing horizontal-center">.&nbsp;.&nbsp;.</div>
+            <div class="pos">&nbsp;6. Arushit Mudgal</div>
+            <div class="nthPos">&nbsp;7. Sahil Trivedi</div>
+            <div class="pos">&nbsp;8. Hemant HK</div>
           </div>
         </div>
       </div>
@@ -63,28 +70,73 @@
         <div class="card-header" role="tab" id="headingTwo">
           <h5 class="mb-0">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Collapsible Group Item #2
+              <i class="fa fa-trophy"></i>&nbsp; Achievements
             </a>
           </h5>
         </div>
         <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
           <div class="card-block">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-          </div>
+            <div class="content-badge">
+              <div class="horizontal-center">
+                <div>
+                  <img src="/images/badges/welcome.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <p class="badgeCaption horizontal-center">Hello There</p>
+                </div>
+                <div>
+                  <img src="/images/badges/earlyBird.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <p class="badgeCaption horizontal-center">Early Bird</p>
+                </div>
+                <div>
+                  <img src="/images/badges/hintLess.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <p class="badgeCaption horizontal-center">No Hints</p>
+                </div>
+                <div>
+                  <img src="/images/badges/onaRoll.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <p class="badgeCaption horizontal-center">On A Roll</p>
+                </div>
+                <div>
+                  <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <p class="badgeCaption horizontal-center">Cruise Control</p>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
       <div class="card">
         <div class="card-header" role="tab" id="headingThree">
           <h5 class="mb-0">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Collapsible Group Item #3
+              <i class="fa fa-leanpub"></i>&nbsp; Rules
             </a>
           </h5>
         </div>
         <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="card-block">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            <ol type="a">
+              <li>&nbsp; The event shall be held over 3 days, from 23<sup>rd</sup> to 26<sup>th</sup> of February, 2018.</li>
+              <li>&nbsp; Malpractice during the event will lead to disqualification.</li>
+              <li>&nbsp; Participation is open to everyone. Each participant represents himself/herself only.</li>
+              <li>&nbsp; The event entails an Online Cryptic Hunt in which participants must make their way through a series of levels filled with cryptic questions.</li>
+              <li>&nbsp; Answers will always be lowercase, alphanumeric and may contain spaces. Special characters are allowed.</li>
+              <li>&nbsp; Official clues may be released on the Facebook page if and when deemed necessary by the organizers.</li>
+              <li>&nbsp; Beware of the spelling you enter, we won't auto correct your spellings.</li>
+              <li>&nbsp; The Organisers reserve the right to change the Rules of Competition.</li>
+              <li>&nbsp; Read the terms and conditions of site use <a class="link-dark" href="#">over here</a></li>
+            </ol>
           </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingFour">
+          <h5 class="mb-0">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              <i class="fa fa-street-view"></i>&nbsp; Contact
+            </a>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+          <div class="card-block">
+            <i class="fa fa-facebook-square facebook"></i>&nbsp; Facebook
         </div>
       </div>
     </div>
@@ -92,14 +144,6 @@
   </div>
 </div>
 
-<div class="context-left">
-  <nav class="navbar">
-    <img class="cross-left" src="/images/crossWhite.png" width="30" height="30" alt="">
-  </nav>
-  <div class="container helvetica">
-    <h3> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, numquam quas qui distinctio temporibus. Aut maiores earum delectus quo fuga eos soluta dignissimos doloribus, a quam similique vel. Vero voluptatum incidunt pariatur neque facilis sit molestiae id temporibus unde iusto voluptatem, quas est sint amet laboriosam. Corporis voluptatibus, rerum voluptatum!</h3>
-  </div>
-</div>
 
 <!--Template CSS-->
 
