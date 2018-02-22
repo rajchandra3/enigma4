@@ -19,6 +19,10 @@ $("#menu-toggle").click(function(e) {
        $("#wrapper").toggleClass("toggled");
 });
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 //JQUERY GOES HERE
 
 $( document ).ready(function(){
@@ -31,16 +35,20 @@ $( document ).ready(function(){
     $('.context').css("left","-100%");
   });
 
-  $('.star').on('click touchstart', function() {
-    $('.context-left').css("display","block");
-    $('.context-left').css("right","0");
-    $('.star').css("display","none");
+  $('.star').on('click touchstart', function(e) {
+    /*var url="insert relative url here"
+    window.open(url, '_blank');*/
   });
 
-  $('.cross-left').on('click touchstart', function() {
-    $('.context-left').css("right","-100%");
-    $('.context-left').css("display","none");
-    $('.star').css("display","block");
+  $('.facebook').on('click touchstart', function(e) {
+    var url="https://www.facebook.com/IEEEVIT/";
+    window.open(url, '_blank');
   });
+
+  $('.link-dark').on('click touchstart', function(e) {
+    var url="../../docs/EnigmaTandC.pdf";
+    window.open(url, '_blank');
+  });
+
 
 });
