@@ -48,7 +48,7 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
 
             function successCallback(response) {
                 $scope.check = response.data;//code & message
-                console.log($scope.check.code);
+                console.log($scope.check);
                 switch ($scope.check.code) {
                     case 0:
                         $scope.msg = $scope.check.msg;
@@ -56,12 +56,15 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
                         break;
                     case 1:
                         $scope.msg = $scope.check.msg;
+                        $scope.taunt = $scope.check.taunt;
                         break;
                     case 2:
                         $scope.msg = $scope.check.msg;
+                        $scope.taunt = $scope.check.taunt;
                         break;
                     case 3:
                         $scope.msg = $scope.check.msg;
+                        $scope.taunt = $scope.check.taunt;
                         break;
                 }
             }
@@ -120,8 +123,18 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
             console.log("Data could not be Obtained !" + error);
         }
     }
+    $scope.getAchievements = function () {
+        $http.get('/dashboard/achievements').then(successCallback, errorCallback);
+
+        function successCallback(response) {
+            $scope.achieved = response.data[0].achievements.status;
+        }
+        function errorCallback(error) {
+            console.log("Data could not be Obtained !" + error);
+        }
+    }
     $scope.useHint = function () {
-        $http.get('/dashboard/hint').then(successCallback, errorCallback);
+        $http.post('/dashboard/hint').then(successCallback, errorCallback);
 
         function successCallback(response) {
             $scope.hintMsg = response.data.msg;

@@ -2,7 +2,7 @@
 
 <!--Made with roses and tears - sahil3vedi -->
 
-<html lang="en">
+<html lang="en" ng-app="enigma" ng-controller="questionController">
 <head>
     <title>Enigma 4.0</title>
     <meta charset="utf-8">
@@ -11,8 +11,17 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/questionView.css">
+
+  <!-- Angular comes here -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+  <script language="javascript" type="text/javascript" src="/javascripts/controllers/question.js"></script>
+
 </head>
-<body>
+<body ng-init="getQuestion()">
   <nav class="navbar">
     <img class="burger" src="/images/burger.png" width="30" height="30" alt="">
     <img class="star" src="/images/crown.png" width="30" height="30" alt="">
@@ -21,17 +30,25 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-9 col-sm-10 mx-auto question-tab">
-        <h2 class="horizontal-center question-title montserrat"> Q.1 Her Life Is What Life? </h2>
-        <img src="/images/pantera.png" class="horizontal-center question-image" alt="question_image">
-        <div class="prompt montserrat">Use Hint</i></div>
-        <div class="prompt montserrat">Are you sure?<br>YEP&nbsp;&nbsp;&nbsp;NOPE</i></div>
-        <div class="prompt montserrat">HINT:<i> insert here here</i></div>
-        <form>
+        <h2 class="horizontal-center question-title montserrat"> Q.{{data.queData.questionNumber - 1}} . {{data.queData.questionDesc}}? </h2>
+        <img src="{{data.queData.imageUrl[0]}}" class="horizontal-center question-image" alt="{{data.queData.imageUrl[0]}}">
+        <audio autoplay ng-if="data.queData.audioUrl">
+          <source src="{{data.queData.audioUrl}}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <!--Hint Display-->
+        <div class="prompt montserrat useHint" onclick="$('.hintWarning').show();"><span ng-if="!hintMsg">Use Hint</span><i ng-model="hintMsg"> {{hintMsg}}</i> | {{data.playerData.hint}}</div>
+        <div class="prompt montserrat hintWarning" >Are you sure?<br>
+          <button class="btn btn-secondary" ng-click="useHint()">YEP</button>
+          <button class="btn btn-secondary" onclick="$('.hintWarning').hide();">NOPE</button>
+        </div>
+        <!--<div class="prompt montserrat">HINT:</div>-->
+        <form ng-submit="sendResponse()">
           <div class="form-group">
-            <input type="text" class="form-control answer-box horizontal-center" placeholder=" Answer"></input>
+            <input type="text" id='answer' class="form-control answer-box horizontal-center" placeholder=" Answer" ng-model="response.answer">
           </div>
           <div class="form-group">
-            <button tabindex="0" class="btn montserrat horizontal-center btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="And here's a smart comment. I am so funny. Right?">SUBMIT</button>
+            <button tabindex="0" class="btn montserrat horizontal-center btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="{{taunt}}">SUBMIT</button>
           </div>
         </form>
       </div>
@@ -56,17 +73,17 @@
           </h5>
         </div>
 
-        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" ng-init="getMiniLeaderboard()">
           <div class="card-block">
-            <div class="firstPos">&nbsp;1. Raj Chandra </div>
-            <div class="miniLeadSpacing horizontal-center">.&nbsp;.&nbsp;.</div>
-            <div class="pos">&nbsp;6. Arushit Mudgal</div>
-            <div class="nthPos">&nbsp;7. Sahil Trivedi</div>
-            <div class="pos">&nbsp;8. Hemant HK</div>
+            <div class="firstPos" ng-hide="userRank==1 || userRank==2">&nbsp;{{dataset.topper.rank}}. {{dataset.topper.name}} - {{dataset.topper.score}}</div>
+            <div class="miniLeadSpacing horizontal-center" ng-hide="userRank==1 || userRank==2 || userRank ==3">.&nbsp;.&nbsp;.</div>
+            <div class="pos"ng-hide="userRank==1">&nbsp;{{dataset.userTop.rank}}. {{dataset.userTop.name}} - {{dataset.userTop.score}}</div>
+            <div class="nthPos">&nbsp;{{dataset.user.rank}}. {{dataset.user.name}} - {{dataset.user.score}}</div>
+            <div class="pos" ng-if="dataset.userBottom.name">&nbsp;{{dataset.userBottom.rank}}. {{dataset.userBottom.name}} - {{dataset.userBottom.score}}</div>
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card" ng-init="getAchievements()">
         <div class="card-header" role="tab" id="headingTwo">
           <h5 class="mb-0">
             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -78,23 +95,23 @@
           <div class="card-block">
             <div class="content-badge">
               <div class="horizontal-center">
-                <div>
+                <div ng-if="achieved[0]">
                   <img src="/images/badges/welcome.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
                   <p class="badgeCaption horizontal-center">Hello There</p>
                 </div>
-                <div>
+                <div ng-if="achieved[1]">
                   <img src="/images/badges/earlyBird.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
                   <p class="badgeCaption horizontal-center">Early Bird</p>
                 </div>
-                <div>
+                <div ng-if="achieved[2]">
                   <img src="/images/badges/hintLess.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
                   <p class="badgeCaption horizontal-center">No Hints</p>
                 </div>
-                <div>
+                <div ng-if="achieved[3]">
                   <img src="/images/badges/onaRoll.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
                   <p class="badgeCaption horizontal-center">On A Roll</p>
                 </div>
-                <div>
+                <div ng-if="achieved[4]">
                   <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
                   <p class="badgeCaption horizontal-center">Cruise Control</p>
                 </div>

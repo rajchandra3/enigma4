@@ -119,21 +119,19 @@ router.get('/currentUser', function(req, res) {
 
 router.get('/question',authenticateTime, function(req, res) {
     var id = req.decoded._doc._id;
-    player.findCurrentPlayerId(id,function (err, data) {
+    player.findOne({_id : id},'name currqno hint score',function (err, data) {
         if(err){
             throw err;
         }
         else{
-            question.findQuestion(data.currqno,function (err,que) {
+            question.findOne({questionNumber : data.currqno},'questionNumber questionDesc imageUrl audioUrl special',function (err,que) {
                 if(err){
                     console.log(err);
                     // throw err;
                 }
-
-                // console.log(que);
-                que.correctAnswer = que.closeAnswer = que.hint = "";
-                res.json({queData : que, playerData : data});
-            })
+                else
+                    res.json({queData : que, playerData : data});
+            });
         }
     });
 });
@@ -361,7 +359,7 @@ router.post('/question',authenticateTime,function(req,res){
 });
 
 
-router.get('/hint', function(req, res) {
+router.post('/hint', function(req, res) {
     var playerId = req.decoded._doc._id;
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if (err) {
@@ -393,6 +391,15 @@ router.get('/hint', function(req, res) {
         }
     });
 });
+
+
+router.get('/achievements', function(req, res) {
+    var playerId = req.decoded._doc._id;
+    player.find({_id : playerId},'achievements',function(err, docs){
+        res.json(docs);
+    });
+});
+
 router.get('/mini', function(req, res) {
     player.find({authcomp: true}).select("name score currqno date").sort({score: -1}).exec(function(err, docs){
         res.json(docs);
