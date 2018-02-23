@@ -5,13 +5,19 @@
         "A hair's breadth away!",
         "Wow, [name], you're almost there!",
         "Yes! Keep going, you're almost there!",
-        "Hmm, I'm impressed. But that's not quite it. Almost.",
+        "Hmm, I'm impressed. But that's not quite it.",
         "Maybe there's hope for humanity after all. Come on, almost there.",
         "Yes. Now do better.",
         "Come on, [name]! You got this! Almost there!",
         "That was so close!",
         "Solve this one and I'll kiss you. Well, I don't have lips, but whatever. You're close!",
-        "I bet your next answer is going to be the right one. You're really close."
+        "I bet your next answer is going to be the right one. You're really close.",
+        "Crawl an inch more, and you'll get there.",
+        "You're on the right path.",
+        "You're as close to the answer as I am to perfection.",
+        "You almost had that one in the bag, [name]. Almost.",
+        "A few fries short of a Happy Meal!",
+        "You almost hit the bull's eye!"
     ],
     "medium": [
         "Good, but you can surely do better.",
@@ -22,12 +28,18 @@
         "At least this wasn't that far off. Keep going.",
         "You're almost close to being almost close. But, you see, that's not close enough.",
         "I guess halfway there is as far as you'll ever go.",
-        "I suppose you've already peaked. Enjoy the plateau of being barely above average."
+        "I suppose you've already peaked. Enjoy the plateau of being barely above average.",
+        "Now we're getting somewhere. But judging from your pace, there's still a long way to go.",
+        "Mediocrity must be your middle name, [name]. Keep trying.",
+        "I'd congratulate you on getting this right, but almost right is not good enough.",
+        "Smart. Not smart enough.",
+        "I should applaud your effort, but just typing something relevent isn't going to get you to the answer."
     ],
     "long": [
         "Lexie mocks you because your answer mocks the question.",
         "I know it's not a walk in the park but you should at least start walking",
         "No.",
+        "Dude. No.",
         "Nope.",
         "Nope. Nada. Zilch. Shooo.",
         "Yawn",
@@ -40,7 +52,13 @@
         "That is definitely not it",
         "Is that the best you can do? That's nowhere near enough.",
         "Try harder, [name]. That's nowhere near to being right.",
-        "I'm bored. Your answers bore me, [name]. Try harder."
+        "I'm bored. Your answers bore me, [name]. Try harder.",
+        "Are you serious, [name]?",
+        "If I had arms, you'd get to see the ultimate facepalm in response to that answer.",
+        "All foam and no beer",
+        "I guess evolution CAN go backwards!",
+        "Did a thought just cross your mind? Must have been a long and lonely journey.",
+        "I'd argee with you, but then we'd both be wrong."
     ],
     "hint": [
         "A hint? Really? Fine. Here goes.",
@@ -48,7 +66,9 @@
         "Here's your stupid hint.",
         "A hint? Want me to spell it out for you?",
         "Guess you couldn't do it all by yourself, could you?",
-        "I guess everyone can't win all by themselves"
+        "I guess everyone can't win all by themselves",
+        "You don't deserve a hint. But I'm obliged to give one.",
+        "Maybe now you might just get close to the answer."
     ],
     "askHint": [
         "You see that lightbulb icon over there? I think you should use it.",
@@ -57,13 +77,20 @@
         "Just use your hint, [name].",
         "It's okay [name], use your hint, whatchu gonna save it for anyways?",
         "A touch of sarcasm, a hint of arrogance. You see what I'm hinting at? No? Use the goddamn hint!",
-        "I ran out of witty things to say. Use a hint."
+        "I ran out of witty things to say. Use a hint.",
+        "No shame in using a hint every once in a while. At least that's what they say.",
+        "Don't embbarrass yourself any more, [name]. Just use a hint.",
+        "If there's a reason hints are a thing in Enigma, it's because of humans like you. Use a hint."
     ],
     "curses": [
         "Calm down, [name].",
-        "I know it's frustrating, but this kind of language doesn't help anyone.",
+        "I know it's frustrating, but thi kind of language doesn't help anyone.",
         "Language!",
         "I'm technically underage. You shouldn't be using such language near me.",
-        "If you were only half as creative with your answers as your curses."
+        "If you were only half as creative with your answers as your curses.",
+        "There's no need for that, [name]",
+        "Hey! That's uncalled for.",
+        "Your frustration is justified. This is Enigma, after all.",
+        "Did you kiss your mother with that mouth?"
     ]
 }
