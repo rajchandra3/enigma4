@@ -173,10 +173,10 @@ function loader($http) {
             }, function(isLoading) {
                 if (isLoading) {
                     $(element).show();
-                    document.getElementById("ansX").disabled = true;
+                    document.getElementById("answer").disabled = true;
                 } else {
                     $(element).hide();
-                    document.getElementById('ansX').disabled = false;
+                    document.getElementById('answer').disabled = false;
                 }
             });
         }
