@@ -1,5 +1,5 @@
 /**
- * Created by Raj Chandra on 9/1/2017.
+ * Created by Hemant, Raj and Harsha (Lexie Boy) on 9/1/2017.
  */
 
 var mongoose = require('mongoose');
@@ -22,7 +22,7 @@ var questionsSchema = new Schema({
     solvedBy : {type : Number, default: 0}
 });
 
-var questions = module.exports = mongoose.model( 'questions' , questionsSchema );
+var questions = module.exports = mongoose.model('questions', questionsSchema );
 
 //Add  data
 module.exports.addData = function (data, callback) {
