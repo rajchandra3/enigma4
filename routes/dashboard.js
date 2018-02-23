@@ -334,6 +334,10 @@ router.post('/question',authenticateTime,function(req,res){
                         taunt = allTaunts.long[Math.floor(Math.random()*allTaunts.long.length)];
                     }
                     //UPDATE THE LOGS
+                    if(taunt.indexOf("[name]") !== -1)
+                    {
+                        taunt = taunt.replace("[name]", playerData.name);
+                    }
                     var post = new Logs({
                         player: playerData.name,
                         points: playerData.score,
