@@ -16,7 +16,7 @@ app.config(function($routeProvider, $locationProvider){
 
 app.controller('questionController',['$scope','$http','$location','$routeParams',function ($scope,$http,$location,$routeParams) {
 
-    $('#ansX').keypress(function(event){
+    $('#answer').keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         if(keycode == '13'){
             $scope.sendResponse();

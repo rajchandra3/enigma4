@@ -30,7 +30,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-9 col-sm-10 mx-auto question-tab">
-        <h2 class="horizontal-center question-title montserrat"> Q.{{data.queData.questionNumber - 1}} . {{data.queData.questionDesc}}? </h2>
+        <h2 class="horizontal-center question-title montserrat"> Q{{data.queData.questionNumber}} . {{data.queData.questionDesc}}? </h2>
         <img src="{{data.queData.imageUrl[0]}}" class="horizontal-center question-image" alt="{{data.queData.imageUrl[0]}}">
         <audio autoplay ng-if="data.queData.audioUrl">
           <source src="{{data.queData.audioUrl}}" type="audio/mpeg">
@@ -96,23 +96,24 @@
             <div class="content-badge">
               <div class="horizontal-center">
                 <div ng-if="achieved[0]">
-                  <img src="/images/badges/welcome.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <img src="/images/badges/welcome.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve the first question">
                   <p class="badgeCaption horizontal-center">Hello There</p>
                 </div>
                 <div ng-if="achieved[1]">
-                  <img src="/images/badges/earlyBird.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <img src="/images/badges/earlyBird.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Be the first to solve 1 question">
                   <p class="badgeCaption horizontal-center">Early Bird</p>
                 </div>
                 <div ng-if="achieved[2]">
-                  <img src="/images/badges/hintLess.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <img src="/images/badges/hintLess.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title=" Be the first to solve 3 questions
+">
                   <p class="badgeCaption horizontal-center">No Hints</p>
                 </div>
                 <div ng-if="achieved[3]">
-                  <img src="/images/badges/onaRoll.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <img src="/images/badges/onaRoll.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve first 10 questions within 10 hours">
                   <p class="badgeCaption horizontal-center">On A Roll</p>
                 </div>
                 <div ng-if="achieved[4]">
-                  <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+                  <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve five questions in a row without using">
                   <p class="badgeCaption horizontal-center">Cruise Control</p>
                 </div>
               </div>
