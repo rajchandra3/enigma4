@@ -336,6 +336,7 @@ router.post('/question',authenticateTime,function(req,res){
                     //UPDATE THE LOGS
                     if(taunt.indexOf("[name]") !== -1)
                     {
+                        console.log("HERE");
                         taunt = taunt.replace("[name]", playerData.name);
                     }
                     var post = new Logs({
