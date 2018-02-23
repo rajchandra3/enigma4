@@ -152,7 +152,7 @@ router.post('/question',authenticateTime,function(req,res){
     var curr = Date.now();
     var playerId = req.decoded._doc._id;
     var code = 0;
-    var taunt = null;
+    var taunt = '';
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if (err) {
             throw err;
@@ -172,8 +172,10 @@ router.post('/question',authenticateTime,function(req,res){
 
                     var caseCode = 0;
                     for(var i=0;i<queData.correctAnswer.length;i++){
+                        console.log("HERE"+queData.correctAnswer[i],answer);
                         if(answer == queData.correctAnswer[i]){
                             var caseCode = 1;
+
                             break;
                         }
                     }
