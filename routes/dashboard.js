@@ -176,7 +176,7 @@ router.post('/question',authenticateTime,function(req,res){
                             case 0: // For wrong answer
                             //checking for correct answer
                                 var shortAnsPool = queData.closeAnswer.shortAnswer;
-                                var newstr = answer.replace( /[^a-zA-Z]/, ""); //Remove all non-alpha chars
+                                var newstr = answer; //Remove all non-alpha chars
                                 if (shortAnsPool.indexOf(newstr.toLowerCase()) > -1) {
                                     code = 1;
                                 }

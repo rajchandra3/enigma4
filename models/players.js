@@ -20,7 +20,7 @@ var playerSchema = new Schema({
     lastHintUsed: { type: Number, default : 0},
     currentQueAttempts : {type : Number,default :0},
     score : {type: Number, default : 0},
-    developer : {type : Boolean, default : true},
+    developer : {type : Boolean, default : false},
     resetPasswordToken : String,
     resetPasswordExpires : Date,
     gender: {type: String},
