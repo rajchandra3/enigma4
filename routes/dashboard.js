@@ -173,35 +173,28 @@ router.post('/question',authenticateTime,function(req,res){
                     if(queData.correctAnswer.includes(answer)) caseCode = 1;
 
                     switch(caseCode){
-                        case 0: // For wrong answer
+                            case 0: // For wrong answer
                             //checking for correct answer
-                            var shortAnsPool = queData.closeAnswer.shortAnswer;
-                            var newstr = answer.replace( /[^a-zA-Z]/, ""); //Remove all non-alpha chars
-                            var wordsInAnswer = newstr.split(' ');  //Extracting each word
-                            for (var i = 0; i < wordsInAnswer.length; i++) {
-                                if (shortAnsPool.indexOf(wordsInAnswer[i].toLowerCase()) > -1) {
+                                var shortAnsPool = queData.closeAnswer.shortAnswer;
+                                var newstr = answer.replace( /[^a-zA-Z]/, ""); //Remove all non-alpha chars
+                                if (shortAnsPool.indexOf(newstr.toLowerCase()) > -1) {
                                     code = 1;
-                                    break;
                                 }
-                            }
-                            if(code!=1){
-                                mediumAnsPool = queData.closeAnswer.mediumAnswer;
-                                for (var i = 0; i < wordsInAnswer.length; i++) {
-                                    if (mediumAnsPool.indexOf(wordsInAnswer[i].toLowerCase()) > -1) {
+                                if(code!=1){
+                                    var mediumAnsPool = queData.closeAnswer.mediumAnswer;
+                                    if (mediumAnsPool.indexOf(newstr.toLowerCase()) > -1) {
                                         code = 2;
-                                        break;
                                     }
+                                    code = (code!==2)?3:2;
                                 }
-                                code = (code!==2)?3:2;
-                            }
-                            //update the playerData
-                            player.update(
-                                {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
-                                {$inc: {"answerLog.$.attempts" : 1},$inc : {currentQueAttempts : 1}},
-                                function (err, data) {
-                                    if (err) throw(err);
-                                });
-                            break;
+                                //update the playerData
+                                player.update(
+                                    {"_id": playerData._id, "answerLog.questionNumber" : playerData.currqno},
+                                    {$inc: {"answerLog.$.attempts" : 1},$inc : {currentQueAttempts : 1}},
+                                    function (err, data) {
+                                        if (err) throw(err);
+                                    });
+                                break;
 
                         case 1: // for correct answer
                             var new_hint = (playerData.currqno%5==0)? playerData.hint+2:playerData.hint;
