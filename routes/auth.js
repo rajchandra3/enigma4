@@ -34,7 +34,7 @@ router.get('/enigmaVerification', function (req, res) {
 });
 
 //Post Registration - EMAIL AUTHENTICATION (Sending EMAIL)
-/*router.post('/save', function (req, res, next) {
+router.post('/save', function (req, res, next) {
     var success = true;
     var rand = Math.random().toString(36).slice(2);
     var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
@@ -105,7 +105,7 @@ router.get('/enigmaVerification', function (req, res) {
             });
         });
     }
-});*/
+});
 
 router.get('/verifyMail', function (req, res, next) {
     getEmailVerificationResult(req.query.email, req.query.code, function (result) {
