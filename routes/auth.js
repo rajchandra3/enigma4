@@ -93,9 +93,9 @@ router.post('/save', function (req, res, next) {
                 if (err && err.code == 11000)
                     res.json({code: 1, message: 'This Email is Already registered!'})
                 else if (err && err.code != 66)
-                    res.json({code: 1, message: err})
+                    res.json({code: 1, message: ''})
                 else if (err)
-                    res.json({code: 1, message: err})
+                    res.json({code: 1, message: ''})
                 else{
                     res.json({code: 0, message: "Login Now! Enigma has already started."})
                 }
