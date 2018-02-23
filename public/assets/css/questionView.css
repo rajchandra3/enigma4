@@ -81,7 +81,8 @@ nav{
 .question-image{
   width: 90%;
   height: auto;
-  border-radius: 6px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
 
 .answer-box{
@@ -337,4 +338,9 @@ a:focus{
 .btn-logout{
   margin-top: 2vh;
   color: black!important;
+}
+
+.lexie{
+  background-color: blue;
+  color: white;
 }
