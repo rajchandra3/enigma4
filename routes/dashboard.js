@@ -169,7 +169,6 @@ router.post('/question',authenticateTime,function(req,res){
                         return obj.questionNumber == playerData.currqno;
                     })[0];
 
-
                     var caseCode = 0;
                     if(queData.correctAnswer.includes(answer)) caseCode = 1;
 
