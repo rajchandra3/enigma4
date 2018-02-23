@@ -48,7 +48,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                 $scope.code = $scope.resData.code;
                 switch ($scope.code) {
                     case 0:
-                        $scope.msgReg = "Please verify your email to compelete the registration. Check spam if not found.";
+                        $scope.msgReg = $scope.resData.message;
                         break;
                     case 1:
                         $scope.msgReg = $scope.resData.message;
