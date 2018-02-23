@@ -152,7 +152,7 @@ router.post('/question',authenticateTime,function(req,res){
     var curr = Date.now();
     var playerId = req.decoded._doc._id;
     var code = 0;
-    var taunt = null;
+    var taunt = '';
     player.findCurrentPlayerId(playerId,function (err, playerData) {
         if (err) {
             throw err;
@@ -171,12 +171,7 @@ router.post('/question',authenticateTime,function(req,res){
 
 
                     var caseCode = 0;
-                    for(var i=0;i<queData.correctAnswer.length;i++){
-                        if(answer == queData.correctAnswer[i]){
-                            var caseCode = 1;
-                            break;
-                        }
-                    }
+                    if(queData.correctAnswer.includes(answer)) caseCode = 1;
 
                     switch(caseCode){
                         case 0: // For wrong answer
