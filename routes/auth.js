@@ -96,10 +96,12 @@ router.post('/save', function (req, res, next) {
                     res.json({code: 1, message: err})
                 else if (err)
                     res.json({code: 1, message: err})
-                else
-                    sendVerificationEmail(req.body.email, req.headers.host, rand, function (result) {
-                        res.json(result);
-                    });
+                else{
+                    res.json({code: 0, message: "Login Now! Enigma has already started."})
+                }
+                    // sendVerificationEmail(req.body.email, req.headers.host, rand, function (result) {
+                    //     res.json(result);
+                    // });
             });
         });
     }

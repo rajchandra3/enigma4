@@ -273,7 +273,7 @@ router.post('/question',authenticateTime,function(req,res){
 
                             //checking whether the user is first to solve
                             if (!queData.solved) {
-                                var new_score = 110;
+                                var new_score = 110+ playerData.score;
 
                                 //update the question data if solved by anyone
                                 question.update(
@@ -284,7 +284,7 @@ router.post('/question',authenticateTime,function(req,res){
                                     });
                             }
                             else {
-                                var new_score = 100;
+                                var new_score = 100 + playerData.score;
                             }
 
                             var solvedBy = queData.solvedBy;
@@ -330,7 +330,6 @@ router.post('/question',authenticateTime,function(req,res){
                     //UPDATE THE LOGS
                     if(taunt.indexOf('[name]') !== -1)
                     {
-                        console.log("HERE");
                         taunt = taunt.replace("[name]", playerData.name);
                     }
                     var post = new Logs({
@@ -348,16 +347,16 @@ router.post('/question',authenticateTime,function(req,res){
                         else {
                             switch (code) {
                                 case 0:
-                                    res.json({code : 0, msg: "Correct",taunt:taunt});
+                                    res.json({code : 0, msg: "Correct",taunt:"Awesome !"});
                                     break;
                                 case 1:
-                                    res.json({code : 1, msg: "Short",taunt:taunt});
+                                    res.json({code : 1, msg: "very close",taunt:taunt});
                                     break;
                                 case 2:
-                                    res.json({code : 1, msg: "Medium",taunt:taunt});
+                                    res.json({code : 1, msg: "Close",taunt:taunt});
                                     break;
                                 case 3:
-                                    res.json({code : 1, msg: "Long",taunt:taunt});
+                                    res.json({code : 2, msg: "Wrong",taunt:taunt});
                                     break;
                             }
                         }
