@@ -75,17 +75,6 @@ var authenticateDeveloper = function(req, res, next){
     });
 }
 
-router.get('/leaderboard', function(req,res) {
-    player.find({}).select('name organization score currqno').sort({score:-1}).limit(100).exec(function (err, playerData) { //to mentain security
-        if (err) {
-            throw err;
-        }
-        else{
-            res.json(playerData);
-        }
-    });
-});
-
 /* GET stats page. */
 router.get('/stats', function (req, res, next) {
     var count = player.find({}, (err, data) => {
@@ -406,6 +395,10 @@ router.get('/mini', function(req, res) {
     player.find({authcomp: true}).select("name score currqno date").sort({score: -1,date : 1}).exec(function(err, docs){
         res.json(docs);
     });
+});
+
+router.get('/leaderboard', function (req, res, next) {
+    res.render('leaderboard');
 });
 
 //leaderboard put here for time being
