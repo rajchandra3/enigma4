@@ -12,7 +12,7 @@ var playerSchema = new Schema({
     reg_no:{type : String},
     organisation: {type : String,default: "VIT University"},
     email:{type : String,unique : true,lowercase : true,required: true},
-    phone:{type : String, required : true},
+    phone:{type : String, required : true, maxlength: 15},
     date:{type:Date, default: Date.now},//to track the time of registration
     authcomp:{type: Boolean, default: true},
     currqno : {type: Number, default : 1},
