@@ -37,130 +37,130 @@
           Your browser does not support the audio element.
         </audio>
         <!--Hint Display-->
-        <div class="prompt montserrat useHint" onclick="$('.hintWarning').show();"><span ng-if="!hintMsg">Use Hint</span><i ng-model="hintMsg"> {{hintMsg}}</i> | {{data.playerData.hint}}</div>
-        <div class="prompt montserrat hintWarning" >Are you sure?<br>
-          <button class="btn btn-secondary" ng-click="useHint()">YEP</button>
-          <button class="btn btn-secondary" onclick="$('.hintWarning').hide();">NOPE</button>
-        </div>
+        <div class="prompt montserrat useHint horizontal-center" onclick="$('.hintWarning').show();"><span ng-if="!hintMsg">Use Hint</span><i ng-model="hintMsg"> {{hintMsg}}</i> | {{data.playerData.hint}}</div>
+        <span class="prompt montserrat hintWarning" >Are you sure?<br>
+          <button class="btn btn-secondary btn-yep" ng-click="useHint()">YEP</button>
+          <button class="btn btn-secondary btn-nope" onclick="$('.hintWarning').hide();">NOPE</button>
+        </span>
         <!--<div class="prompt montserrat">HINT:</div>-->
         <form ng-submit="sendResponse()">
           <div class="form-group">
             <input type="text" id='answer' class="form-control answer-box horizontal-center" placeholder=" Answer" ng-model="response.answer">
           </div>
-          <div class="form-group">
-            <button tabindex="0" class="btn montserrat horizontal-center btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="{{taunt}}">SUBMIT</button>
-          </div>
+          <button tabindex="0" class="btn montserrat horizontal-center btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="{{taunt}}">SUBMIT</button>
         </form>
       </div>
     </div>
   </div>
 
   <!-- Modal -->
-<div class="context">
-  <nav class="navbar">
-    <img class="cross" src="/images/crossWhite.png" width="30" height="30" alt="">
-  </nav>
-  <div class="container montserrat">
-    <img class="logo horizontal-center" src="/images/logoplus.png" alt="">
+  <div class="context">
+    <nav class="navbar">
+      <img class="cross" src="/images/crossWhite.png" width="30" height="30" alt="">
+    </nav>
+    <div class="container montserrat">
+      <img class="logo horizontal-center" src="/images/logoplus.png" alt="">
 
-    <div id="accordion" role="tablist" aria-multiselectable="true">
-      <div class="card">
-        <div class="card-header" role="tab" id="headingOne">
-          <h5 class="mb-0">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <i class="fa fa-fort-awesome"></i>&nbsp; Mini Leaderboard
-            </a>
-          </h5>
-        </div>
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+          <div class="card-header" role="tab" id="headingOne">
+            <h5 class="mb-0">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fa fa-fort-awesome"></i>&nbsp; Mini Leaderboard
+              </a>
+            </h5>
+          </div>
 
-        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" ng-init="getMiniLeaderboard()">
-          <div class="card-block">
-            <div class="firstPos" ng-hide="userRank==1 || userRank==2">&nbsp;{{dataset.topper.rank}}. {{dataset.topper.name}} - {{dataset.topper.score}}</div>
-            <div class="miniLeadSpacing horizontal-center" ng-hide="userRank==1 || userRank==2 || userRank ==3">.&nbsp;.&nbsp;.</div>
-            <div class="pos"ng-hide="userRank==1">&nbsp;{{dataset.userTop.rank}}. {{dataset.userTop.name}} - {{dataset.userTop.score}}</div>
-            <div class="nthPos">&nbsp;{{dataset.user.rank}}. {{dataset.user.name}} - {{dataset.user.score}}</div>
-            <div class="pos" ng-if="dataset.userBottom.name">&nbsp;{{dataset.userBottom.rank}}. {{dataset.userBottom.name}} - {{dataset.userBottom.score}}</div>
+          <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" ng-init="getMiniLeaderboard()">
+            <div class="card-block">
+              <div class="firstPos" ng-hide="userRank==1 || userRank==2">&nbsp;{{dataset.topper.rank}}. {{dataset.topper.name}} - {{dataset.topper.score}}</div>
+              <div class="miniLeadSpacing horizontal-center" ng-hide="userRank==1 || userRank==2 || userRank ==3">.&nbsp;.&nbsp;.</div>
+              <div class="pos"ng-hide="userRank==1">&nbsp;{{dataset.userTop.rank}}. {{dataset.userTop.name}} - {{dataset.userTop.score}}</div>
+              <div class="nthPos">&nbsp;{{dataset.user.rank}}. {{dataset.user.name}} - {{dataset.user.score}}</div>
+              <div class="pos" ng-if="dataset.userBottom.name">&nbsp;{{dataset.userBottom.rank}}. {{dataset.userBottom.name}} - {{dataset.userBottom.score}}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card" ng-init="getAchievements()">
-        <div class="card-header" role="tab" id="headingTwo">
-          <h5 class="mb-0">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <i class="fa fa-trophy"></i>&nbsp; Achievements
-            </a>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-          <div class="card-block">
-            <div class="content-badge">
-              <div class="horizontal-center">
-                <div ng-if="achieved[0]">
-                  <img src="/images/badges/welcome.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve the first question">
-                  <p class="badgeCaption horizontal-center">Hello There</p>
-                </div>
-                <div ng-if="achieved[1]">
-                  <img src="/images/badges/earlyBird.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Be the first to solve 1 question">
-                  <p class="badgeCaption horizontal-center">Early Bird</p>
-                </div>
-                <div ng-if="achieved[2]">
-                  <img src="/images/badges/hintLess.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title=" Be the first to solve 3 questions
-">
-                  <p class="badgeCaption horizontal-center">No Hints</p>
-                </div>
-                <div ng-if="achieved[3]">
-                  <img src="/images/badges/onaRoll.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve first 10 questions within 10 hours">
-                  <p class="badgeCaption horizontal-center">On A Roll</p>
-                </div>
-                <div ng-if="achieved[4]">
-                  <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve five questions in a row without using">
-                  <p class="badgeCaption horizontal-center">Cruise Control</p>
+        <div class="card" ng-init="getAchievements()">
+          <div class="card-header" role="tab" id="headingTwo">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <i class="fa fa-trophy"></i>&nbsp; Achievements
+              </a>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="card-block">
+              <div class="content-badge">
+                <div class="horizontal-center">
+                  <div ng-if="achieved[0]">
+                    <img src="/images/badges/welcome.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve the first question">
+                    <p class="badgeCaption horizontal-center">Hello There</p>
+                  </div>
+                  <div ng-if="achieved[1]">
+                    <img src="/images/badges/earlyBird.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Be the first to solve 1 question">
+                    <p class="badgeCaption horizontal-center">Early Bird</p>
+                  </div>
+                  <div ng-if="achieved[2]">
+                    <img src="/images/badges/hintLess.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title=" Be the first to solve 3 questions
+                    ">
+                    <p class="badgeCaption horizontal-center">No Hints</p>
+                  </div>
+                  <div ng-if="achieved[3]">
+                    <img src="/images/badges/onaRoll.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve first 10 questions within 10 hours">
+                    <p class="badgeCaption horizontal-center">On A Roll</p>
+                  </div>
+                  <div ng-if="achieved[4]">
+                    <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve five questions in a row without using">
+                    <p class="badgeCaption horizontal-center">Cruise Control</p>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="headingThree">
-          <h5 class="mb-0">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              <i class="fa fa-leanpub"></i>&nbsp; Rules
-            </a>
-          </h5>
+        <div class="card">
+          <div class="card-header" role="tab" id="headingThree">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <i class="fa fa-leanpub"></i>&nbsp; Rules
+              </a>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="card-block">
+              <ol type="a">
+                <li>&nbsp; The event shall be held over 3 days, from 23<sup>rd</sup> to 26<sup>th</sup> of February, 2018.</li>
+                <li>&nbsp; Malpractice during the event will lead to disqualification.</li>
+                <li>&nbsp; Participation is open to everyone. Each participant represents himself/herself only.</li>
+                <li>&nbsp; The event entails an Online Cryptic Hunt in which participants must make their way through a series of levels filled with cryptic questions.</li>
+                <li>&nbsp; Answers will always be lowercase, alphanumeric and may contain spaces. Special characters are allowed.</li>
+                <li>&nbsp; Official clues may be released on the Facebook page if and when deemed necessary by the organizers.</li>
+                <li>&nbsp; Beware of the spelling you enter, we won't auto correct your spellings.</li>
+                <li>&nbsp; The Organisers reserve the right to change the Rules of Competition.</li>
+                <li>&nbsp; Read the terms and conditions of site use <a class="link-dark" href="#">over here</a></li>
+              </ol>
+            </div>
+          </div>
         </div>
-        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-          <div class="card-block">
-            <ol type="a">
-              <li>&nbsp; The event shall be held over 3 days, from 23<sup>rd</sup> to 26<sup>th</sup> of February, 2018.</li>
-              <li>&nbsp; Malpractice during the event will lead to disqualification.</li>
-              <li>&nbsp; Participation is open to everyone. Each participant represents himself/herself only.</li>
-              <li>&nbsp; The event entails an Online Cryptic Hunt in which participants must make their way through a series of levels filled with cryptic questions.</li>
-              <li>&nbsp; Answers will always be lowercase, alphanumeric and may contain spaces. Special characters are allowed.</li>
-              <li>&nbsp; Official clues may be released on the Facebook page if and when deemed necessary by the organizers.</li>
-              <li>&nbsp; Beware of the spelling you enter, we won't auto correct your spellings.</li>
-              <li>&nbsp; The Organisers reserve the right to change the Rules of Competition.</li>
-              <li>&nbsp; Read the terms and conditions of site use <a class="link-dark" href="#">over here</a></li>
-            </ol>
+        <div class="card">
+          <div class="card-header" role="tab" id="headingFour">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <i class="fa fa-street-view"></i>&nbsp; Contact
+              </a>
+            </h5>
+          </div>
+          <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+            <div class="card-block">
+              <i class="fa fa-facebook-square facebook"></i>&nbsp; Facebook
+            </div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header" role="tab" id="headingFour">
-          <h5 class="mb-0">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              <i class="fa fa-street-view"></i>&nbsp; Contact
-            </a>
-          </h5>
-        </div>
-        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-          <div class="card-block">
-            <i class="fa fa-facebook-square facebook"></i>&nbsp; Facebook
-        </div>
-      </div>
     </div>
-
+    <a class="btn btn-logout montserrat horizontal-center" href="/logout">LOGOUT</a>
   </div>
-</div>
 
 
 <!--Template CSS-->

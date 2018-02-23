@@ -35,9 +35,24 @@ $( document ).ready(function(){
     $('.context').css("left","-100%");
   });
 
-  $('.star').on('click touchstart', function(e) {
-    /*var url="insert relative url here"
-    window.open(url, '_blank');*/
+  /*$('.star').on('click touchstart', function(e) {
+    var url="insert relative url here"
+    window.open(url, '_blank');
+  });*/
+
+  $('.useHint').on('click touchstart', function() {
+    $('.useHint').css("display","none");
+    $('.hintWarning').css("display","block");
+  });
+
+  $('.btn-nope').on('click touchstart', function() {
+    $('.hintWarning').css("display","none");
+    $('.useHint').css("display","block");
+  });
+
+  $('.btn-yep').on('click touchstart', function() {
+    $('.hintWarning').css("display","none");
+    $('.useHint').css("display","block");
   });
 
   $('.facebook').on('click touchstart', function(e) {

@@ -75,6 +75,17 @@ var authenticateDeveloper = function(req, res, next){
     });
 }
 
+router.get('/leaderboard', function(req,res) {
+    player.find({}).select('name organization score currqno').sort({score:-1}).limit(100).exec(function (err, playerData) { //to mentain security
+        if (err) {
+            throw err;
+        }
+        else{
+            res.json(playerData);
+        }
+    });
+});
+
 /* GET stats page. */
 router.get('/stats', function (req, res, next) {
     var count = player.find({}, (err, data) => {
