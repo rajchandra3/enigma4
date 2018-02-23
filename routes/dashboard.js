@@ -410,14 +410,14 @@ router.get('/achievements', function(req, res) {
 });
 
 router.get('/mini', function(req, res) {
-    player.find({authcomp: true}).select("name score currqno date").sort({score: -1}).exec(function(err, docs){
+    player.find({authcomp: true}).select("name score currqno date").sort({score: -1,date : -1}).exec(function(err, docs){
         res.json(docs);
     });
 });
 
 //leaderboard put here for time being
 router.post('/leaderboard', (req, res) => {
-    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1}).limit(100).exec(function (err, docs) {
+    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1,date : -1}).limit(100).exec(function (err, docs) {
         res.json(docs);
     });
 });
