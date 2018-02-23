@@ -48,34 +48,34 @@ router.post('/save', function (req, res, next) {
         phone: req.body.phone,
         authcomp: true
     });
-    if (!req.body.name) {
+    else if (!req.body.name) {
         res.json({code: 1, message: 'Invalid Name'});
         success = false;
     }
-    if (!check.email.test(req.body.email) || !req.body.email) {
+    else if (!check.email.test(req.body.email) || !req.body.email) {
         res.json({code: 1, message: 'Invalid E-MAIL'});
         success = false;
     }
-    if (!check.reg_no.test(req.body.reg_no)) {
+    else if (!check.reg_no.test(req.body.reg_no)) {
         res.json({code: 1, message: 'Invalid Registration Number'});
         success = false;
     }
-    if (!check.reg_no.test(req.body.organisation)) {
+    else if (!check.reg_no.test(req.body.organisation)) {
         res.json({code: 1, message: 'Invalid University name'});
         success=false;
     }
-    if (!check.phone.test(req.body.phone) || !req.body.phone) {
+    else if (!check.phone.test(req.body.phone) || !req.body.phone) {
         res.json({code: 1, message: 'Invalid Contact detail'});
         success=false;
     }
-    if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
+    else if (!check.password.test(req.body.password) || !check.password.test(req.body.cpassword)) {
         res.json({code: 1, message: 'Invalid Password'});
         success = false;
     }
-    if (req.body.password !== req.body.cpassword) {
+    else if (req.body.password !== req.body.cpassword) {
         success = false;
     }
-    if(req.body.coupon !== undefined){
+    else if(req.body.coupon !== undefined){
         req.body.coupon = req.body.coupon.toLowerCase();
         var couponCodes = ['techloop','turing','alan turing','alan mathison turing','enigma'];
         for(var i=0;i<couponCodes.length;i++) {
@@ -85,7 +85,7 @@ router.post('/save', function (req, res, next) {
             }
         }
     }
-    if(success) {
+    else if(success) {
         genderize(req.body.name.split(' ')[0], function (err, obj) {
 
             if (obj.gender) data.gender = obj.gender;
