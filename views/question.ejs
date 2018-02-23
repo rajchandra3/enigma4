@@ -21,7 +21,7 @@
   <script language="javascript" type="text/javascript" src="/javascripts/controllers/question.js"></script>
 
 </head>
-<body ng-init="getQuestion()">
+<body ng-init="getQuestion()" ng-cloak>
   <nav class="navbar">
     <img class="burger" src="/images/burger.png" width="30" height="30" alt="">
     <img class="star" src="/images/crown.png" width="30" height="30" alt="">
@@ -30,7 +30,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-9 col-sm-10 mx-auto question-tab">
-        <h2 class="horizontal-center question-title montserrat"> Q{{data.queData.questionNumber}} . {{data.queData.questionDesc}}? </h2>
+        <h2 class="horizontal-center question-title montserrat"> Q{{data.queData.questionNumber}} . {{data.queData.questionDesc}} </h2>
         <img src="{{data.queData.imageUrl[0]}}" class="horizontal-center question-image" alt="{{data.queData.imageUrl[0]}}">
         <audio autoplay ng-if="data.queData.audioUrl">
           <source src="{{data.queData.audioUrl}}" type="audio/mpeg">
@@ -43,11 +43,27 @@
           <button class="btn btn-secondary btn-nope" onclick="$('.hintWarning').hide();">NOPE</button>
         </span>
         <!--<div class="prompt montserrat">HINT:</div>-->
+        <br><br>
+        <!--Message Container for user comfort-->
+        <div class="message-container" ng-if="msg" style="font-family: 'Times New Roman', Times, serif;" align="center">
+          <div class="alert alert-success" role="alert" ng-if="code==0">
+            <div class="font-weight-strong centered">
+              <p class="font-weight-bold" ng-model="msg">{{msg}}</p>
+              <p><span><b>Lexie : </b></span><b><span ng-model="taunt">{{taunt}}</span></b></p>
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" ng-if="code!=0">
+            <div class="font-weight-strong centered" ng-model="msg">
+              <p size="2" class="font-weight-bold">Wrong</p>
+              <p><span><b>Lexie : </b></span><b><span ng-model="taunt">{{taunt}}</span></b></p>
+            </div>
+          </div>
+        </div>
         <form ng-submit="sendResponse()">
           <div class="form-group">
             <input type="text" id='answer' class="form-control answer-box horizontal-center" placeholder=" Answer" ng-model="response.answer">
           </div>
-          <button tabindex="0" class="btn montserrat horizontal-center btn-submit" role="button" type="submit" data-toggle="popover" data-trigger="focus" title="Lexie" data-placement="top" data-content="{{taunt}}">SUBMIT</button>
+          <button type="submit" class="btn montserrat horizontal-center btn-submit" >SUBMIT</button>
         </form>
       </div>
     </div>
@@ -111,6 +127,11 @@
                     <p class="badgeCaption horizontal-center">On A Roll</p>
                   </div>
                   <div ng-if="achieved[4]">
+                    <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve five questions in a row without using">
+                    <p class="badgeCaption horizontal-center">Cruise Control</p>
+                  </div>
+
+                  <div ng-if="!achieved[0] && !achieved[1] && !achieved[2] && !achieved[3] && !achieved[4]">
                     <img src="/images/badges/cruiseControl.png" class="horizontal-center" width="45%" alt="welcome achievement" data-toggle="tooltip" data-placement="right" title="Solve five questions in a row without using">
                     <p class="badgeCaption horizontal-center">Cruise Control</p>
                   </div>

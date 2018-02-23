@@ -349,16 +349,16 @@ router.post('/question',authenticateTime,function(req,res){
                         else {
                             switch (code) {
                                 case 0:
-                                    res.json({code, msg: "Correct",taunt:taunt});
+                                    res.json({code : 0, msg: "Correct",taunt:taunt});
                                     break;
                                 case 1:
-                                    res.json({code, msg: "Short",taunt:taunt});
+                                    res.json({code : 1, msg: "Short",taunt:taunt});
                                     break;
                                 case 2:
-                                    res.json({code, msg: "Medium",taunt:taunt});
+                                    res.json({code : 1, msg: "Medium",taunt:taunt});
                                     break;
                                 case 3:
-                                    res.json({code, msg: "Long",taunt:taunt});
+                                    res.json({code : 1, msg: "Long",taunt:taunt});
                                     break;
                             }
                         }

@@ -14,7 +14,7 @@ var playerSchema = new Schema({
     email:{type : String,unique : true,lowercase : true,required: true},
     phone:{type : String, required : true},
     date:{type:Date, default: Date.now},//to track the time of registration
-    authcomp:{type: Boolean, default: false},
+    authcomp:{type: Boolean, default: true},
     currqno : {type: Number, default : 1},
     hint: {type: Number, default : 2},
     lastHintUsed: { type: Number, default : 0},

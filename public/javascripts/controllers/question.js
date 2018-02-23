@@ -43,26 +43,16 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
             var sendAnswer = {
                 answer : $scope.response.answer.toLowerCase()
             };
-            console.log(sendAnswer);
             $http.post('/dashboard/question', sendAnswer).then(successCallback, errorCallback);
 
             function successCallback(response) {
                 $scope.check = response.data;//code & message
-                console.log($scope.check);
                 switch ($scope.check.code) {
                     case 0:
                         $scope.msg = $scope.check.msg;
                         location.reload();
                         break;
                     case 1:
-                        $scope.msg = $scope.check.msg;
-                        $scope.taunt = $scope.check.taunt;
-                        break;
-                    case 2:
-                        $scope.msg = $scope.check.msg;
-                        $scope.taunt = $scope.check.taunt;
-                        break;
-                    case 3:
                         $scope.msg = $scope.check.msg;
                         $scope.taunt = $scope.check.taunt;
                         break;
