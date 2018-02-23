@@ -46,7 +46,7 @@ router.post('/save', function (req, res, next) {
         reg_no: req.body.reg_no,
         organisation: req.body.organisation,
         phone: req.body.phone,
-        authcomp: false
+        authcomp: true
     });
     if (!req.body.name) {
         res.json({code: 1, message: 'Invalid Name'});
