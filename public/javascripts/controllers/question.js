@@ -56,6 +56,10 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
                         $scope.msg = $scope.check.msg;
                         $scope.taunt = $scope.check.taunt;
                         break;
+                    case 2:
+                        $scope.msg = $scope.check.msg;
+                        $scope.taunt = $scope.check.taunt;
+                        break;
                 }
             }
 
