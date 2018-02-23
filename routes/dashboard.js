@@ -161,6 +161,9 @@ router.post('/question',authenticateTime,function(req,res){
                     var caseCode = 0;
                     if(queData.correctAnswer.includes(answer)) caseCode = 1;
 
+                    console.log(queData.correctAnswer);
+                    console.log(answer);
+                    console.log(caseCode);
                     switch(caseCode){
                             case 0: // For wrong answer
                             //checking for correct answer
@@ -213,7 +216,7 @@ router.post('/question',authenticateTime,function(req,res){
                                         case 2://Achievement 3: On a Roll
                                             var topCounter = 0;
                                             if(playerData.answerLog.length>=3){
-                                                for(var j=1;j<new_qno;j++){
+                                                for(var j=1;j<new_qno-1;j++){
                                                     topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
                                                 }
                                                 topCounter += (queData.solved)?0:1;
