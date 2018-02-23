@@ -337,7 +337,7 @@ router.post('/question',authenticateTime,function(req,res){
                     if(taunt.indexOf('[name]') !== -1)
                     {
                         console.log("HERE");
-                        taunt = taunt.replace("[name]", playerData.name);
+                        taunt = taunt.replace("[name]", playerData.name.split(' ')[0]);
                     }
                     var post = new Logs({
                         player: playerData.name,
