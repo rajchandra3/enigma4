@@ -147,7 +147,6 @@ router.post('/question',authenticateTime,function(req,res){
                     throw err;
                 }
                 else {
-
                     var playerUpdate = playerData;
                     var currAnswerLog = playerData.answerLog.filter(function (obj) {
                         return obj.questionNumber == playerData.currqno;
@@ -169,6 +168,8 @@ router.post('/question',authenticateTime,function(req,res){
                                         code = 2;
                                     }
                                     code = (code!==2)?3:2;
+
+                                    console.log(code);
                                 }
                                 //update the playerData
                                 player.update(
@@ -178,7 +179,6 @@ router.post('/question',authenticateTime,function(req,res){
                                         if (err) throw(err);
                                     });
                                 break;
-
                         case 1: // for correct answer
                             var new_hint = (playerData.currqno%5==0)? playerData.hint+2:playerData.hint;
                             var new_qno = playerData.currqno+1;
