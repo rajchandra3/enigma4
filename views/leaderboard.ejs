@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="enigma" ng-controller="questionController">
 <head>
   <title>Enigma 4.0</title>
   <meta charset="utf-8">
@@ -17,7 +17,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
   <script language="javascript" type="text/javascript" src="/javascripts/controllers/question.js"></script>
 </head>
-<body>
+<body ng-cloak ng-init="getData()">
   <nav class="navbar">
     <a class="return montserrat" href="../dashboard"><i class="fa fa-home"></i>&nbsp;HOME</a>
   </nav>
@@ -29,39 +29,28 @@
     <table class="table table-hover">
   <thead>
     <tr class="table-head">
+      </th>
       <th class="round-t-l">#</th>
       <th class="text-center">Name</th>
-      <th class="text-center">Organisation</th>
+      <th class="text-center">Organisation<span class="spinner" data-loader><i class="fa fa-circle-o-notch fa-spin fa-1x fa-fw" aria-hidden="true"></i></span>
+      </th>
       <th class="text-center">Score</th>
-      <th class="text-center round-t-r">Question</th>
+      <th class="text-center round-t-r">Solved</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>sahil3vedi</td>
+    <tr ng-repeat="player in dataset">
+      <th scope="row">{{$index+1}}</th>
+      <td>{{player.name | uppercase}}</td>
       <td>VIT Vellore</td>
-      <td>100</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>sahil3vedi</td>
-      <td>VIT Vellore</td>
-      <td>100</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>sahil3vedi</td>
-      <td>VIT Vellore</td>
-      <td>100</td>
-      <td>2</td>
+      <td>{{player.score}}</td>
+      <td>{{player.currqno - 1}}</td>
     </tr>
   </tbody>
 </table>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 
 </body>
 </html>

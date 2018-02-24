@@ -256,7 +256,6 @@ a:visited{
   position: absolute;
   z-index: 10;
   cursor: pointer;
-  display:none;
 }
 
 a{
