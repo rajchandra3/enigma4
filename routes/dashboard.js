@@ -169,7 +169,6 @@ router.post('/question',authenticateTime,function(req,res){
                                     }
                                     code = (code!==2)?3:2;
 
-                                    console.log(code);
                                 }
                                 //update the playerData
                                 player.update(
@@ -316,21 +315,27 @@ router.post('/question',authenticateTime,function(req,res){
                         qno: playerData.currqno,
                         correct: code
                     });
-
-                    switch (code) {
-                        case 0:
-                            res.json({code : 0, msg: "Correct",taunt:"Awesome !"});
-                            break;
-                        case 1:
-                            res.json({code : 1, msg: "very close",taunt:taunt});
-                            break;
-                        case 2:
-                            res.json({code : 1, msg: "Close",taunt:taunt});
-                            break;
-                        case 3:
-                            res.json({code : 2, msg: "Wrong",taunt:taunt});
-                            break;
-                    }
+                    post.save(function (err) {
+                        if (err) {
+                            return err;
+                        }
+                        else {
+                            switch (code) {
+                                case 0:
+                                    res.json({code : 0, msg: "Correct",taunt:"Awesome !"});
+                                    break;
+                                case 1:
+                                    res.json({code : 1, msg: "very close",taunt:taunt});
+                                    break;
+                                case 2:
+                                    res.json({code : 1, msg: "Close",taunt:taunt});
+                                    break;
+                                case 3:
+                                    res.json({code : 2, msg: "Wrong",taunt:taunt});
+                                    break;
+                            }
+                        }
+                    });
                 }
             });
         }
