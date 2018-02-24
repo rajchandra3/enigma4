@@ -76,7 +76,7 @@ var authenticateDeveloper = function(req, res, next){
 }
 
 /* GET stats page. */
-router.get('/stats', function (req, res, next) {
+router.get('/sabDeveloper', function (req, res, next) { /*TODO: CHange the route name*/
     var count = player.find({}, (err, data) => {
     if (err)
         console.log(err);
