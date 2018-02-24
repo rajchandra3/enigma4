@@ -35,10 +35,10 @@ $( document ).ready(function(){
     $('.context').css("left","-100%");
   });
 
-  /*$('.star').on('click touchstart', function(e) {
-    var url="insert relative url here"
+  $('.star').on('click touchstart', function(e) {
+    var url="/dashboard/leaderboard"
     window.open(url, '_blank');
-  });*/
+  });
 
   $('.useHint').on('click touchstart', function() {
     $('.useHint').css("display","none");
