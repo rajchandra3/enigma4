@@ -395,7 +395,7 @@ router.get('/achievements', function(req, res) {
 });
 
 router.get('/mini', function(req, res) {
-    player.find({authcomp: true}).select("name score currqno date").sort({score: -1,date : 1}).exec(function(err, docs){
+    player.find({authcomp: true}).select("name score currqno date").limit(100).sort({score: -1,date : 1}).exec(function(err, docs){
         res.json(docs);
     });
 });
