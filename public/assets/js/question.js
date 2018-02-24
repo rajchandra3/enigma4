@@ -37,7 +37,7 @@ $( document ).ready(function(){
 
   $('.star').on('click touchstart', function(e) {
     var url="/dashboard/leaderboard"
-    window.open(url, '_blank');
+    window.open(url,"_self");
   });
 
   $('.useHint').on('click touchstart', function() {
