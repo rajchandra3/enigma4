@@ -48,11 +48,11 @@ router.post('/save', function (req, res, next) {
         phone: req.body.phone,
         authcomp: true
     });
-    if (!req.body.name) {
+    if (!req.body.name || req.body.name.length>25) {
         res.json({code: 1, message: 'Invalid Name'});
         success = false;
     }
-    else if (!check.email.test(req.body.email) || !req.body.email) {
+    else if (!check.email.test(req.body.email) || !req.body.email || req.body.email.length>35 || req.body.email.includes('darkweb.com')) {
         res.json({code: 1, message: 'Invalid E-MAIL'});
         success = false;
     }
