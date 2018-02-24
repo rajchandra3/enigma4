@@ -160,10 +160,6 @@ router.post('/question',authenticateTime,function(req,res){
 
                     var caseCode = 0;
                     if(queData.correctAnswer.includes(answer)) caseCode = 1;
-
-                    console.log(queData.correctAnswer);
-                    console.log(answer);
-                    console.log(caseCode);
                     switch(caseCode){
                             case 0: // For wrong answer
                             //checking for correct answer
