@@ -95,6 +95,13 @@
 						<div class="form-group">
 							<input class="form-control" type="password" placeholder=" Confirm Password" ng-model="player.cpassword" required></input>
 						</div>
+						<div class="form-group" ng-init="getCaptcha()">
+							<!--<div ng-bind-html="captchaImage"></div>-->
+							<div align="center">
+								<img src="{{captcha.img}}" alt="{{captcha.imgAlt}}" id="captchaImg"><br>
+							</div>
+							<input class="form-control" type="text" name="captcha" placeholder="Enter the captcha here" ng-model="player.captcha"></input>
+						</div>
                         <div class="form-group" id="form-div-coupon-code">
                             <input class="form-control" type="text" name="coupon" id="coupon" placeholder=" Coupon Code(optional)" ng-model="player.coupon">
                             <div class="form-control-feedback" id="feedback-invalid-message">

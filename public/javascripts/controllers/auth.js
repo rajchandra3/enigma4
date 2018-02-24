@@ -27,6 +27,18 @@ app.config(function($routeProvider, $locationProvider){
 
 app.controller('authController',['$scope','$http','$location','$rootScope',function ($scope,$http,$location,$rootScope) {
 
+    $scope.getCaptcha = function () {
+
+        $http.get('/auth/serveImage').then(successCallback, errorCallback);
+
+        function successCallback(response) {
+            $scope.captcha = response.data;
+            console.log($scope.captcha);
+        }
+        function errorCallback(error) {
+            console.log("Message could not be Obtained !" + error);
+        }
+    };
     $scope.getRegistered = function () {
         //checking for the empty name
         if($scope.player.name == '' || $scope.player.name===undefined){
@@ -42,6 +54,8 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
             if($scope.player.coupon!==undefined){
                 $scope.player.coupon = $scope.player.coupon.toLowerCase();
             }
+            $scope.player.imageAlt = $('#captchaImg').attr("alt");
+            console.log($scope.player);
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response

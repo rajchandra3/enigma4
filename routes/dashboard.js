@@ -96,11 +96,6 @@ router.get('/',authenticateTime, function(req, res, next) {
         }
         else {
             res.render('question');
-            // res.render('question',{
-            //         timeRem : new Date(process.env.START_TIME - new Date()).toString(),
-            //         timeNow : new Date().toString(),
-            //         timeOfStart : new Date(1519383000000).toString()
-            // });
         }
     });
 });
