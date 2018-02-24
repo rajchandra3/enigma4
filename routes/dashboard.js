@@ -133,6 +133,9 @@ router.get('/question',authenticateTime, function(req, res) {
 
 router.post('/question',authenticateTime,function(req,res){
     var answer = req.body.answer;
+    if(answer.length>30){
+        res.json({code : 1, msg: "Wrong",taunt:"Nice, keep answering like this. I am enjoying your answers."});
+    }
     var curr = Date.now();
     var playerId = req.decoded._doc._id;
     var code = 0;
