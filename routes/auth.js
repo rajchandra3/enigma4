@@ -35,7 +35,7 @@ router.get('/enigmaVerification', function (req, res) {
 
 //Post Registration - EMAIL AUTHENTICATION (Sending EMAIL)
 router.post('/save', function (req, res, next) {
-    res.json({code: 1, message: 'Sorry. We think its too late to register for Enigma.'});
+    res.json({code: 1, message: 'Registrations have been closed for a while. It will be up soon'});
     // var success = true;
     // var rand = Math.random().toString(36).slice(2);
     // var hash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
