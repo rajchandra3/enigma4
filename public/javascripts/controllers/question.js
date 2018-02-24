@@ -167,10 +167,18 @@ function loader($http) {
             }, function(isLoading) {
                 if (isLoading) {
                     $(element).show();
-                    document.getElementById("answer").disabled = true;
+                    if(document.getElementById("btn-text"))
+                        document.getElementById("btn-text").style.display = "none";
+                    if(document.getElementById("submitBtn")){
+                        document.getElementById("submitBtn").disabled = true;
+                    }
                 } else {
                     $(element).hide();
-                    document.getElementById('answer').disabled = false;
+                    if(document.getElementById("btn-text"))
+                        document.getElementById("btn-text").style.display = "block";
+                    if(document.getElementById("submitBtn")){
+                        document.getElementById("submitBtn").disabled = false;
+                    }
                 }
             });
         }
