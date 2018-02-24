@@ -207,7 +207,7 @@ router.post('/question',authenticateTime,function(req,res){
                                         case 2://Achievement 3: On a Roll
                                             var topCounter = 0;
                                             if(playerData.answerLog.length>=3){
-                                                for(var j=1;j<new_qno-1;j++){
+                                                for(var j=0;j<new_qno-1;j++){
                                                     topCounter += (playerData.answerLog[j].solved.rank ==1)?1:0;
                                                 }
                                                 topCounter += (queData.solved)?0:1;
