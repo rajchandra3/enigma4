@@ -434,13 +434,22 @@ router.post('/playerLog', function (req, res) {
     });
 });
 
-// router.get('/achievements', function(req,res){
-//     var playerId = req.decoded._doc._id;
-//     player.findCurrentPlayerId(playerId,function (err, playerData) {
-//         if(err){
-//             throw(err);
-//         }
-//         res.json(playerData.achievements);
-// });
+router.get('/db', function(req,res) {
+    player.update({"authcomp": false}, {multi: true}, {$set: {"authcomp": true}}, function (err, data) {
+        if (err) {
+            throw err
+        }
+        else
+            console.log("Done");
+    });
+
+    player.update({"developer": true,}, {multi: true}, {$set: {"developer": false}}, function (err, data) {
+        if (err)
+            throw err
+        else
+            console.log("Done");
+    });
+
+});
 
 module.exports = router;

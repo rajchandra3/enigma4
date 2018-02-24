@@ -106,7 +106,14 @@ router.post('/save', function (req, res, next) {
         });
     }
 });
-
+// router.post('/authChaptcha',(req,res,next){
+//     var img = req.body.captcha;
+//     var answer = req.body.answer;
+//     var valid = ['','',''];
+//     if(valid[img]==answer){
+//
+//     }
+// })
 router.get('/verifyMail', function (req, res, next) {
     getEmailVerificationResult(req.query.email, req.query.code, function (result) {
         res.render('update', result);

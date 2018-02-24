@@ -139,7 +139,7 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
         }
     }
     $scope.getData = function () {
-        $http.get('/dashboard/leaderboard').then(successCallback, errorCallback);
+        $http.post('/dashboard/leaderboard').then(successCallback, errorCallback);
 
         function successCallback(response) {
             $scope.dataset = response.data;
