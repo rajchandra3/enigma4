@@ -52,7 +52,7 @@ router.post('/save', function (req, res, next) {
         res.json({code: 1, message: 'Invalid Name'});
         success = false;
     }
-    else if (!check.email.test(req.body.email) || !req.body.email || req.body.email.length>35 || req.body.email.includes('darkweb.com')) {
+    else if (!check.email.test(req.body.email) || !req.body.email || req.body.email.length>35 || req.body.email.includes('darkweb.com') || req.body.email.includes('nuxlndzauc.com')) {
         res.json({code: 1, message: 'Invalid E-MAIL'});
         success = false;
     }
