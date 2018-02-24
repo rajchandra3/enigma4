@@ -307,35 +307,36 @@ router.post('/question',authenticateTime,function(req,res){
                     {
                         taunt = taunt.replace("[name]", playerData.name);
                     }
-                    var post = new Logs({
-                        player: playerData.name,
-                        points: playerData.score,
-                        time: curr,
-                        answer: answer,
-                        qno: playerData.currqno,
-                        correct: code
-                    });
-                    post.save(function (err) {
-                        if (err) {
-                            return err;
-                        }
-                        else {
-                            switch (code) {
-                                case 0:
-                                    res.json({code : 0, msg: "Correct",taunt:"Awesome !"});
-                                    break;
-                                case 1:
-                                    res.json({code : 1, msg: "very close",taunt:taunt});
-                                    break;
-                                case 2:
-                                    res.json({code : 1, msg: "Close",taunt:taunt});
-                                    break;
-                                case 3:
-                                    res.json({code : 2, msg: "Wrong",taunt:taunt});
-                                    break;
+                    if(code == 0){
+                        var post = new Logs({
+                            player: playerData.name,
+                            points: playerData.score,
+                            time: curr,
+                            answer: answer,
+                            qno: playerData.currqno,
+                            correct: code
+                        });
+                        post.save(function (err) {
+                            if (err) {
+                                return err;
                             }
-                        }
-                    });
+                        });
+                    }
+
+                    switch (code) {
+                        case 0:
+                            res.json({code : 0, msg: "Correct",taunt:"Awesome !"});
+                            break;
+                        case 1:
+                            res.json({code : 1, msg: "very close",taunt:taunt});
+                            break;
+                        case 2:
+                            res.json({code : 1, msg: "Close",taunt:taunt});
+                            break;
+                        case 3:
+                            res.json({code : 2, msg: "Wrong",taunt:taunt});
+                            break;
+                    }
                 }
             });
         }
