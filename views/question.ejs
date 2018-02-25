@@ -46,6 +46,13 @@
         <br><br>
         <!--Message Container for user comfort-->
         <div class="message-container" ng-if="msg" style="font-family: 'Times New Roman', Times, serif;" align="center">
+          <!--Message By Admin-->
+          <div class="montserrat" role="alert" ng-if="data.queData.questionNumber==13">
+            <div class="font-weight-strong centered" ng-model="msg">
+              <p size="2" class="font-weight-bold">Admin - hint for you.</p>
+              <p><span class="lexie" ng-model="taunt">"Not all ghosts are scary"</span></b></p>
+            </div>
+          </div>
           <div class="alert alert-success" role="alert" ng-if="code==0">
             <div class="font-weight-strong centered">
               <p class="font-weight-bold" ng-model="msg">{{msg}}</p>
