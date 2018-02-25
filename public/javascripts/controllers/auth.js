@@ -33,7 +33,6 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
 
         function successCallback(response) {
             $scope.captcha = response.data;
-            console.log($scope.captcha);
         }
         function errorCallback(error) {
             console.log("Message could not be Obtained !" + error);
@@ -55,7 +54,7 @@ app.controller('authController',['$scope','$http','$location','$rootScope',funct
                 $scope.player.coupon = $scope.player.coupon.toLowerCase();
             }
             $scope.player.imageAlt = $('#captchaImg').attr("alt");
-            console.log($scope.player);
+            $scope.player.googleCaptcha = $('#g-recaptcha-response').val();
             $http.post('/auth/save', $scope.player).then(successCallback, errorCallback);
             function successCallback(response) {
                 $scope.resData = response.data; //getting response
