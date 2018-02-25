@@ -145,7 +145,7 @@ router.post('/question',authenticateTime,function(req,res){
             throw err;
         }
         else {
-            console.log(playerData.currqno,answer);
+            console.log(playerData.currqno,answer,playerData.name);
             question.findQuestion(playerData.currqno, function (err, queData) {
                 if (err) {
                     throw err;
