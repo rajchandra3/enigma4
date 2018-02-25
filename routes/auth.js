@@ -87,7 +87,7 @@ router.post('/save', function (req, res, next) {
         }
     }
     else if (success) {
-        var captchaAns = ['WCX52G', 'F48DY8', 'HB7HE9', '3JFZRC', '3THSD1', 'XJVT24', 'XX8LMH', 'WG3JZS', '3GNFV9', 'K5KF5W', 'JRB9HG'];
+        var captchaAns = ['WCX52G', 'F48DY8', 'HB7HE9', '3JFZRC', '3THSD1', 'XJVT24', 'XX8LMH', 'WG3JZS', '3GNFV9', 'K5KF5W', 'JRB9HG','6L7787','5PSKXR','UXZ4T1','XYW55W','DG6JHU','SE73D7','V7FVD6','ZRDCJA','QFC73B','29J5Y7'];
         if (captchaAns[req.body.imageAlt[req.body.imageAlt.length -1]] == req.body.captcha) {
             data.save(function (err, doc) {
                 if (err && err.code == 11000)
@@ -110,7 +110,7 @@ router.post('/save', function (req, res, next) {
     }
 });
 router.get('/serveImage',function (req,res,next){
-    var randomNumber = Math.floor(Math.random()*10);
+    var randomNumber = Math.floor(Math.random()*20);
     var imageUsed = path.join(__dirname, '../utilities/captchas/'+randomNumber+'.png');
     fs.readFile(imageUsed, (err, data)=>{
         //error handle
