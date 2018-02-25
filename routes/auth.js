@@ -43,6 +43,7 @@ router.post('/save', function (req, res, next) {
         req.body.googleCaptcha===null ||
         req.body.googleCaptcha===''
     ){
+        console.log("No re-CAPTCHA !!!!!!")
         return res.json({code: 1, message: 'Please select the reCaptcha'});
     }
     const verifyUrl = `https://google.com/recaptcha/api/siteverify?secret=${process.env.GOOGLE_SECRET_KEY}&response=${req.body.googleCaptcha}&remoteip=${req.connection.remoteAddress}`;
@@ -50,10 +51,10 @@ router.post('/save', function (req, res, next) {
         //make a req to veryfy the url
     request(verifyUrl,(error,response,body)=>{
         body = JSON.parse(body);
-        console.log(body);
 
         //if Not success
         if(body.success !== undefined && !body.success){
+            console.log('Failed re-captcha verification.');
             return res.json({code: 1, message: 'Failed re-captcha verification.'});
         }
         var success = true;
@@ -126,6 +127,7 @@ router.post('/save', function (req, res, next) {
                 });
             }
             else {
+                console.log("failed!!!!!!!!!!!!");
                 res.json({code: 1, message: "Invalid Captcha"});
             }
         }
