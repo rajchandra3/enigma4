@@ -67,3 +67,11 @@ $( document ).ready(function(){
 
 
 });
+
+var x=setInterval(function() {
+    var time=new Date().getTime();
+    if(time >=1519642200000){
+        location.reload(true);
+    }
+},1000);
+
