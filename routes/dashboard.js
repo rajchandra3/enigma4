@@ -133,7 +133,6 @@ router.get('/question',authenticateTime, function(req, res) {
 
 router.post('/question',authenticateTime,function(req,res){
     var answer = req.body.answer;
-    console.log(answer);
     if(answer.length>30){
         res.json({code : 1, msg: "Wrong",taunt:"Nice, keep answering like this. I am enjoying your answers."});
     }
@@ -146,6 +145,7 @@ router.post('/question',authenticateTime,function(req,res){
             throw err;
         }
         else {
+            console.log(playerData.currqno,answer);
             question.findQuestion(playerData.currqno, function (err, queData) {
                 if (err) {
                     throw err;
