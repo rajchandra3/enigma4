@@ -50,6 +50,7 @@ app.controller('questionController',['$scope','$http','$location','$routeParams'
                 switch ($scope.check.code) {
                     case 0:
                         $scope.msg = $scope.check.msg;
+                        $scope.taunt = $scope.check.taunt;
                         location.reload();
                         break;
                     case 1:

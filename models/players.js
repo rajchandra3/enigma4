@@ -18,6 +18,7 @@ var playerSchema = new Schema({
     currqno: {type: Number, default: 1},
     hint: {type: Number, default: 2},
     lastHintUsed: {type: Number, default: 0},
+    lastQuestionSolvedTime : {type : Date},
     currentQueAttempts: {type: Number, default: 0},
     score: {type: Number, default: 0},
     developer: {type: Boolean, default: false},

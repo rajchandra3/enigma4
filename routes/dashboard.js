@@ -289,7 +289,7 @@ router.post('/question',authenticateTime,function(req,res){
                             //update the playerData
                             player.update(
                                 {"_id": playerData._id},
-                                {$set: {currqno: new_qno,currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate},$push: { answerLog: answerLogsUpdate} },
+                                {$set: {currqno: new_qno,lastQuestionSolvedTime : Date.now(),currentQueAttempts : 0, score: new_score, hint : new_hint, achievements: badgeUpdate},$push: { answerLog: answerLogsUpdate} },
                                 function (err, data) {
                                     if (err) throw(err);
                                 });
