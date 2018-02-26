@@ -43,8 +43,6 @@ app.use('/cookiemonster',cookiemonster);
 //for user Logout
 app.get('/logout',function (req,res) {
     res.clearCookie(process.env.TOKEN_NAME);
-    res.clearCookie("enigma4-access-token");
-    res.clearCookie("player-access-token");
     res.redirect('/');
 });
 
