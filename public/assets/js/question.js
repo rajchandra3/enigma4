@@ -64,8 +64,6 @@ $( document ).ready(function(){
     var url="../../docs/EnigmaTandC.pdf";
     window.open(url, '_blank');
   });
-
-
 });
 
 var x=setInterval(function() {

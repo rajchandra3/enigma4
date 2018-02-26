@@ -390,7 +390,7 @@ router.get('/achievements', function(req, res) {
 });
 
 router.get('/mini', function(req, res) {
-    player.find({authcomp: true}).select("name score currqno date").sort({score: -1,date : 1}).exec(function(err, docs){
+    player.find({authcomp: true}).select("name score currqno date").sort({score: -1,lastQuestionSolvedTime : 1,date : 1}).exec(function(err, docs){
         res.json(docs);
     });
 });
@@ -401,53 +401,9 @@ router.get('/leaderboard', function (req, res, next) {
 
 //leaderboard put here for time being
 router.post('/leaderboard', (req, res) => {
-    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1,date : 1}).limit(100).exec(function (err, docs) {
+    player.find({authcomp: true}).select("name organisation score currqno date").sort({score: -1,lastQuestionSolvedTime : 1}).limit(100).exec(function (err, docs) {
         res.json(docs);
     });
-});
-
-// <---- This is for getting user responses by Admin ---->
-router.post('/playerLog', function (req, res) {
-    var playerName = req.body.name;
-    player.find({'name': playerName}, function (err, playerData) { //to mentain security
-        if (err) {
-            throw err;
-        }
-        else if (!playerData) {
-            res.send("No player with this name found !");
-        }
-        else {
-            Logs.find({'player': playerName}, (error, log) => {
-                if (error)
-                throw error;
-        else if (log)
-                res.json({
-                    name: playerName,
-                    attempts: log.length
-                });
-            else
-                res.send("player has no attempts");
-        });
-        }
-    });
-});
-
-router.get('/db', function(req,res) {
-    player.update({"authcomp": false}, {multi: true}, {$set: {"authcomp": true}}, function (err, data) {
-        if (err) {
-            throw err
-        }
-        else
-            console.log("Done");
-    });
-
-    player.update({"developer": true,}, {multi: true}, {$set: {"developer": false}}, function (err, data) {
-        if (err)
-            throw err
-        else
-            console.log("Done");
-    });
-
 });
 
 module.exports = router;
