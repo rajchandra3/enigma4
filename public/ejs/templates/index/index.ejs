@@ -70,8 +70,12 @@
 				<div class="prompt horizontal-center" style="display:flex;">
 					<hr align="left" color="#000" width="40%"> <span align="center" class="text-bold helvetica partition"> OR </span> <hr align="right" color="#000" width="40%">
 				</div>
-
-				<div id="signUpForm">
+				<!--Message Container "Enigma reg is closed"-->
+				<div class="emergencyMessageContainer" align="center">
+					<p class="text-danger">Registration is closed.</p>
+				</div>
+				<!--Sign up form comes here-->
+				<div id="signUpForm" style="display:none;">
 					<form ng-submit="getRegistered()">
 						<div class="form-group">
 							<input class="form-control" type="text" name="username" placeholder=" Name" ng-model="player.name" required></input>
@@ -113,32 +117,6 @@
 						<div class="recaptcha-container" align="center">
 							Are you human?<div class="g-recaptcha" data-sitekey="6LfgcUgUAAAAAFHQc_PnQgOWB9GqNtUY1jBX08z4"></div>
 						</div>
-                        <script>
-                            $('#feedback-invalid-message').hide();
-                            $('#feedback-valid-message').hide();
-                            function removemodal () {
-                                $('#modal').modal('hide');
-                            }
-                            function validiateCouponCode(){
-                                var coupon = $('#coupon').val().toLowerCase();
-                                var cc = ['techloop','turing','alan turing','alan mathison turing','enigma'];
-                                for(var i=0;i<cc.length;i++){
-                                    console.log(coupon ,cc[i],coupon == cc[i]);
-                                    if(coupon == cc[i]){
-                                        $('#form-div-coupon-code').removeClass("form-group has-danger");
-                                        $('#form-div-coupon-code').addClass("form-group has-success");
-                                        $('#feedback-invalid-message').hide();
-                                        $('#feedback-valid-message').show();
-                                    }
-                                    else{
-                                        $('#form-div-coupon-code').addClass("form-group has-danger");
-                                        $('#form-div-coupon-code').removeClass("form-group has-success");
-                                        $('#feedback-valid-message').hide();
-                                        $('#feedback-invalid-message').show();
-                                    }
-                                }
-                            }
-                        </script>
 						<div class="form-group text-center">
 							<p>
 								<a class="prompt" href="http://enigma.ieeevit.com/docs/EnigmaTandC.pdf">By registering you agree to the <strong>Terms and Conditions</strong></a>
@@ -176,3 +154,30 @@
 		</div>
 	</div>
 </div>
+<!--Script for verifying coupon (But it doesn't work)-->
+<script>
+    $('#feedback-invalid-message').hide();
+    $('#feedback-valid-message').hide();
+    function removemodal () {
+        $('#modal').modal('hide');
+    }
+    function validiateCouponCode(){
+        var coupon = $('#coupon').val().toLowerCase();
+        var cc = ['techloop','turing','alan turing','alan mathison turing','enigma'];
+        for(var i=0;i<cc.length;i++){
+            console.log(coupon ,cc[i],coupon == cc[i]);
+            if(coupon == cc[i]){
+                $('#form-div-coupon-code').removeClass("form-group has-danger");
+                $('#form-div-coupon-code').addClass("form-group has-success");
+                $('#feedback-invalid-message').hide();
+                $('#feedback-valid-message').show();
+            }
+            else{
+                $('#form-div-coupon-code').addClass("form-group has-danger");
+                $('#form-div-coupon-code').removeClass("form-group has-success");
+                $('#feedback-valid-message').hide();
+                $('#feedback-invalid-message').show();
+            }
+        }
+    }
+</script>
