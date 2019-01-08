@@ -42,6 +42,8 @@ var playerSchema = new Schema({
 });
 
 playerSchema.methods.verifyPassword = function (password, callback) {
+    console.log(password);
+    console.log(this.password);
     bcrypt.compare(password, this.password, function (err, res) {
         if (err) {
             callback(err, null);
