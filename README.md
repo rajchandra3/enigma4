@@ -10,4 +10,5 @@ cd speech_tools/
 make
 make test
 
+#####git clone https://github.com/festvox/festvox.git
 
